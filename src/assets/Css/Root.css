@@ -1,0 +1,32 @@
+@font-face {
+  font-family: 'Thulith';
+  src: url(../Fonts/decotype-thuluth-ii.ttf);
+}
+@font-face {
+  font-family: 'Cairo';
+  src: url(../Fonts/Cairo-VariableFont_slnt\,wght.ttf);
+}
+
+:root {
+  --primary-font:'Cairo', sans-serif;
+  --secondary-font:'Poppins', sans-serif;
+  --primary-color:#325b90;
+  --primary-color-hover:#1d3658;
+  --secondary-color:rgb(32, 29, 36);
+  --third-color:white;
+  --card-color:#00253b;
+  --font-color:white;
+  --secondary-font-color:rgb(0, 0, 0);
+  --item-bg-color:#08476419;
+  --bg-color:#f5f5f5;  
+  --prim-color:#252B48;
+  --prim-hov-color:rgba(7, 10, 30, 0.1);
+  --prim-hov-color-btn:rgba(17, 30, 114, 0.605);
+  --btn-prim-color:#FF8C32;
+  --btn-prim-hov-color:#aa5d22;
+  --bg-prim-color:#ffcea9;
+  --wtxt-color:white;
+  --btxt-color:black;
+  --artxt-font:'Cairo', 'Almarai';
+  --entxt-font:'Mukta', 'Ubuntu';
+}
