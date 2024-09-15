@@ -92,7 +92,7 @@ const router = createRouter({
 // Navigation Guard to check for authentication
 router.beforeEach((to, from, next) => {
   const token = localStorage.getItem('Token');
-  const publicRoutes = ['login', 'signup', 'resetPassword', 'OrderInvoice', 'PdfTemplate', 'ChoiceTemplate', 'ChoiceTemplates', 'ShowCertificate'];
+  const publicRoutes = ['login', 'signup', 'resetPassword', 'OrderInvoice', 'PdfTemplate', 'ChoiceTemplate', 'ChoiceTemplates', 'ShowCertificate', 'ViewCertificate', 'ViewBook'];
 
   if (!token && !publicRoutes.includes(to.name)) {
     next('/login');

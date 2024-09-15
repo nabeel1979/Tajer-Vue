@@ -131,7 +131,7 @@ export default {
             'Content-Type': 'multipart/form-data',
           },
         });
-        this.profileUrlImage = response.data;
+        this.profileUrlImage = response.data.path;
       } catch (error) {
         toast.error('خطأ في تحميل الصور');
       }
