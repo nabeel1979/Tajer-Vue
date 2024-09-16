@@ -1,17 +1,17 @@
 import axios from 'axios';
 
 
-function getApiBaseUrl() {
-  return window.config?.API_BASE_URL || 'https://gorfa_web.gcc.iq/api';
-}
-function getApiUploadUrl() {
-  return window.config?.API_UPLOAD_URL || 'https://archivingmainfolder.gcc.iq/api';
-}
+// function getApiBaseUrl() {
+//   return window.config?.API_BASE_URL;
+// }
+// function getApiUploadUrl() {
+//   return window.config?.API_UPLOAD_URL;
+// }
 
 
 
 const axiosInstance = axios.create({
-  baseURL: getApiBaseUrl(),
+  baseURL: `${process.env.VUE_APP_API_BASE_URL}/api`,
   headers: {
     'Content-Type': 'application/json; charset=utf-8',
     'Accept': '*/*',
@@ -20,7 +20,7 @@ const axiosInstance = axios.create({
 
 // Create an instance for file uploads (multipart/form-data)
 const axiosUpload = axios.create({
-  baseURL: getApiUploadUrl(),
+  baseURL: `${process.env.VUE_APP_API_UPLOAD_URL}/api`,
   headers: {
     'Content-Type': 'multipart/form-data',
     'Accept': '*/*',

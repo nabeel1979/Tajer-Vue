@@ -96,7 +96,7 @@ export default {
         } else {
           this.status = 'Found';
           this.bookId = response.data.bookId;
-          this.Pdf = `https://archivingmainfolder.gcc.iq/${response.data.pdf}`;
+          this.Pdf = `https://documents.bcc.iq/${response.data.pdf}`;
         }
       } catch (error) {
         console.error("Error fetching data:", error);
