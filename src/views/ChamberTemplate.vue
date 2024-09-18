@@ -51,12 +51,10 @@
         <p>Loading data, please wait...</p>
       </div>
       <div v-else class="btn_wrap">
-        <div v-if="status !== 'Found'">
-          <h1>الكتاب غير مؤرشف</h1>
-        </div>
-        <div v-else>
+        <div>
           <router-link :to="`/viewbook/${bookId}`" class="data">عرض البيانات</router-link>
-          <a :href=" Pdf " target="_blank" class="files">عرض الوثائق</a>
+          <a v-if="Status !== 'Found'" :href=" Pdf " target="_blank" class="files">عرض الوثائق</a>
+          <span v-else >هذا الكتاب غير مؤرشف</span>
         </div>
       </div>
     </div>
@@ -66,6 +64,8 @@
 
 <script>
 import { axiosInstance } from "../axios";
+import { toast } from 'vue3-toastify';
+import 'vue3-toastify/dist/index.css';
 
 export default {
   name: "ChambersTemplate",
@@ -73,7 +73,7 @@ export default {
     return {
       bookId: "",
       QrNum: "",
-      status: "",
+      Status: "",
       Pdf:"",
       loading: true,
     };
@@ -91,15 +91,16 @@ export default {
       this.QrNum = qrCode;
       try {
         const response = await axiosInstance.get(`/Archive/getData?qr=${qrCode}`);
-        if(response.data.status === 404){
-          this.status = 'Not Found'
-        } else {
-          this.status = 'Found';
           this.bookId = response.data.bookId;
-          this.Pdf = `https://documents.bcc.iq/${response.data.pdf}`;
-        }
+          this.Pdf = `https://archivingmainfolder.gcc.iq/${response.data.pdf}`;
       } catch (error) {
-        console.error("Error fetching data:", error);
+        if(error.response.status === 404){
+            toast.error('هذه الكتاب غير مؤرشف')
+            this.Status = 404
+          } else {
+            console.error(error)
+            this.Status = 'Found';
+          }
       } finally {
         this.loading = false;
       }
@@ -232,6 +233,14 @@ main{
   padding: 15px;
 }
 
+.btn_wrap span{
+  width: 90%;
+  color: rgb(255, 0, 0);
+  font-size: 24px;
+  text-align: center;
+  padding: 15px;
+}
+
 .btn_wrap .data{
   background-color: #00400a;
 }
@@ -291,7 +300,7 @@ main{
     margin: 0 10px;
   }
   /* Main Styles */
-.container-fluid .btn_wrap{
+.container-fluid .btn_wrap div{
   position: absolute;
   top: 50%;
   left: 50%;

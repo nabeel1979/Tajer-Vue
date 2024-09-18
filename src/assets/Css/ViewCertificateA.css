@@ -225,6 +225,10 @@ main{
   border-right: 2px solid black;
 }
 
+.info_data{
+  color: #3c4fdd;
+}
+
 @media (max-width: 600px) {
   /* Header Styles */
   .main_header {

@@ -98,7 +98,7 @@
           );
           this.Body = response.data.body;
           this.BookNo = response.data.bookNo;
-          this.CreationDate = response.data.creationDate;
+          this.CreationDate = response.data.IssueDate;
 
            // Use JavaScript to hide the images after content is rendered
       this.$nextTick(() => {
