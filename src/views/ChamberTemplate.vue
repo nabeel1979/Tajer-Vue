@@ -45,7 +45,7 @@
     </div>
   </header>
   <main>
-    <div class="container-fluid">
+    <div class="container_fluid">
       <div v-if="loading" class="loading-wrap">
         <div class="spinner"></div>
         <p>Loading data, please wait...</p>
@@ -53,7 +53,7 @@
       <div v-else class="btn_wrap">
         <div>
           <router-link :to="`/viewbook/${bookId}`" class="data">عرض البيانات</router-link>
-          <a v-if="Status !== 'Found'" :href=" Pdf " target="_blank" class="files">عرض الوثائق</a>
+          <a v-if="Status === 'Found'" :href=" Pdf " target="_blank" class="files">عرض الوثائق</a>
           <span v-else >هذا الكتاب غير مؤرشف</span>
         </div>
       </div>
@@ -95,7 +95,7 @@ export default {
           this.Pdf = `https://archivingmainfolder.gcc.iq/${response.data.pdf}`;
       } catch (error) {
         if(error.response.status === 404){
-            toast.error('هذه الكتاب غير مؤرشف')
+            toast.error('هذا الكتاب غير مؤرشف')
             this.Status = 404
           } else {
             console.error(error)
@@ -143,8 +143,8 @@ export default {
 }
 
 .main_header .img_title img {
-  width: 80px;
-  height: 80px;
+  width: 100px;
+  height: 100px;
 }
 
 .btn_header {
@@ -196,14 +196,14 @@ main{
   background-color: #060c3b;
 }
 
-.container-fluid{
+.container_fluid{
   width: 99.5%;
   height: 80vh;
   margin: 0 auto;
   position: relative;
 }
 
-.container-fluid .btn_wrap div{
+.container_fluid .btn_wrap div{
   position: absolute;
   top: 50%;
   left: 50%;
@@ -275,8 +275,8 @@ main{
   }
 
   .main_header .img_title img {
-    width: 40px;
-    height: 40px;
+    width: 60px;
+    height: 60px;
   }
 
   .btn_header {

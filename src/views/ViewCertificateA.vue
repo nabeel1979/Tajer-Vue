@@ -25,14 +25,14 @@
         </router-link>
       </div>
       <div class="btn_container">
-        <button class="btn_style">
+        <a href="https://bcc.iq" class="btn_style">
           <span
             ><font-awesome-icon
               :icon="['fas', 'file-arrow-down']"
               style="font-size: 24px"
           /></span>
-          {{ Language === "A" ? "حفظ" : "Save" }}
-        </button>
+          {{ Language === "A" ? "اتصل بنا" : "Call Us" }}
+        </a>
       </div>
       <div class="btn_container">
         <button class="btn_style">
@@ -57,7 +57,7 @@
     </div>
   </header>
   <main>
-    <div class="container-fluid">
+    <div class="container_fluid">
       <div class="certificate_wrapper">
         <div class="show_table">
           <div class="head_section">
@@ -148,7 +148,7 @@
               <div>
                 <p><span>10-</span> رقم وتاريخ الفاتورة (الفواتير) :</p>
                 <p class="info_data">{{ BookInfo.CertificateNo }}</p>
-                <p class="info_data">{{ BookInfo.DetailsDscrp }}</p>
+                <p class="info_data">{{ InvoiceDate }}</p>
               </div>
               <hr style="width: 90%; margin: 0 auto" />
               <div>
@@ -163,14 +163,21 @@
               <p>
                 <span>11-</span> اقرار و تعهد المصدر : أقر بان جميع البيانات
                 المذكورة اعلاه صحيحة و ان السلع (الوارد وصفها اعلاه) مستوفاة
-                للشروط و المعايير اللازمة لأكتساب صفة المكان بغداد التاريخ:
+                للشروط و المعايير اللازمة لأكتساب صفة المكان بغداد
               </p>
+              <p>التاريخ :</p>
             </div>
             <div class="middle_cell_4">
               <p><span>12-</span> توقيع وختم الجهة المصدرة للشهادة :</p>
+              <p style="margin-bottom: 35px;">التوقيع :</p>
+              <p style="margin-bottom: 35px;">الخاتم :</p>
+              <p style="margin-bottom: 35px;">التاريخ :</p>
             </div>
             <div class="left_cell_4">
               <p><span>13-</span> تصديق الجهة الحكومية المختصة :</p>
+              <p style="margin-bottom: 35px;">التوقيع :</p>
+              <p style="margin-bottom: 35px;">الخاتم :</p>
+              <p style="margin-bottom: 35px;">التاريخ :</p>
             </div>
           </div>
         </div>
@@ -222,6 +229,9 @@ export default {
     },
     CertificateDate() {
       return dayjs(this.BookInfo.ReferenceDate).format("YYYY-MM-DD")
+    },
+    InvoiceDate(){
+      return dayjs(this.BookInfo.CertificateDate).format("YYYY-MM-DD")
     },
     RegDate(){
       return dayjs(this.BookInfo.RegDate).format("YYYY-MM-DD")

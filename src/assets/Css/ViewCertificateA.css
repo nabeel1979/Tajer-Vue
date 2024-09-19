@@ -79,96 +79,102 @@
   margin: 0 10px;
 }
 
-main{
+main {
   background-color: #060c3b;
   height: 100%;
 }
 
-.container-fluid{
+.container_fluid {
   width: 99.5%;
   margin: 0 auto;
 }
 
-.container-fluid .certificate_wrapper{
+.container_fluid .certificate_wrapper {
   width: 75%;
   padding: 35px 10px;
   margin: 0 auto;
 }
 
-.certificate_wrapper .show_table{
+.certificate_wrapper .show_table {
   width: 100%;
   margin: 15px auto;
-  background: repeating-linear-gradient(to right, #c5e6d5 0px, #a6f8c8 5px, #def3dc 5px, #d8f8e0 10px);
+  background: repeating-linear-gradient(
+    to right,
+    #c5e6d5 0px,
+    #a6f8c8 5px,
+    #def3dc 5px,
+    #d8f8e0 10px
+  );
   border-radius: 25px;
 }
 
-.show_table .head_section{
+.show_table .head_section {
   width: 100%;
 }
 
-.head_section .row{
-    padding: 25px 0;
+.head_section .row {
+  padding: 25px 0;
 }
 
-.head_section .titles_part{
+.head_section .titles_part {
   display: flex;
   justify-content: space-around;
   align-items: center;
 }
 
-.titles_part .img_section{
-  width:30%;
+.titles_part .img_section {
+  width: 30%;
   text-align: center;
 }
 
-.titles_part .a_title{
+.titles_part .a_title {
   text-align: center;
   width: 30%;
 }
 
-.titles_part .e_title{
-  text-align: start ;
+.titles_part .e_title {
+  text-align: start;
   width: 30%;
 }
 
 .a_title p,
-.e_title p span{
+.e_title p span {
   font-size: 18px;
   font-weight: 700;
 }
 
-.img_section img{
+.img_section img {
   width: 75px;
   margin: 0 5px;
 }
 
-.head_section .subject_title{
+.head_section .subject_title {
   text-align: center;
   padding: 25px 0;
   line-height: 2.5;
 }
 
-.subject_title p{
+.subject_title p {
   font-weight: 700;
   text-decoration: underline;
 }
 
-.subject_title h3{
+.subject_title h3 {
   font-weight: 600;
 }
 
-.head_section td{
+.head_section td {
   border-bottom: 2px solid black;
 }
 
-.tr_info{
-    width: 100%;
-    text-align: start;
-    display: flex;
+.tr_info {
+  width: 100%;
+  text-align: start;
+  display: flex;
 }
 
 .tr_info .cell_right_6,
-.tr_info .cell_left_6{
+.tr_info .cell_left_6 {
   width: 50%;
   min-height: 130px;
   border-top: 2px solid black;
@@ -177,19 +183,19 @@ main{
   vertical-align: top;
 }
 
-.tr_info .cell_left_6{
-  border-right:2px solid black
+.tr_info .cell_left_6 {
+  border-right: 2px solid black;
 }
 
-.tr_info .full_height{
+.tr_info .full_height {
   height: 100%;
 }
 
-.cell_left_6 .inside_cell{
+.cell_left_6 .inside_cell {
   height: 130px;
 }
 
-.tr_info .right_cell_8{
+.tr_info .right_cell_8 {
   width: 60%;
   min-height: 130px;
   border-top: 2px solid black;
@@ -199,7 +205,7 @@ main{
 }
 
 .tr_info .middle_cell_2,
-.tr_info .left_cell_2{
+.tr_info .left_cell_2 {
   width: 20%;
   min-height: 130px;
   border-top: 2px solid black;
@@ -211,7 +217,7 @@ main{
 
 .tr_info .right_cell_4,
 .tr_info .middle_cell_4,
-.tr_info .left_cell_4{
+.tr_info .left_cell_4 {
   width: 33.3%;
   min-height: 130px;
   border-top: 2px solid black;
@@ -221,11 +227,11 @@ main{
 }
 
 .tr_info .middle_cell_4,
-.tr_info .left_cell_4{
+.tr_info .left_cell_4 {
   border-right: 2px solid black;
 }
 
-.info_data{
+.info_data {
   color: #3c4fdd;
 }
 
@@ -242,11 +248,12 @@ main{
     font-size: 9px;
     width: 150px;
     font-weight: 700;
+    margin-bottom: 0;
   }
 
   .main_header .img_title img {
-    width: 40px;
-    height: 40px;
+    width: 60px;
+    height: 60px;
   }
 
   .btn_header {
@@ -270,4 +277,49 @@ main{
     margin: 0 10px;
   }
   /* Main Styles */
+
+  .container_fluid {
+    width: 99.5%;
+    margin: 0 auto;
+    padding: 5px;
+  }
+  .container_fluid .certificate_wrapper {
+    width: 100%;
+    padding: 5px 0;
+    margin: 0 auto;
+  }
+  .a_title p,
+  .e_title p,
+  .e_title p span {
+    font-size: 9px;
+    font-weight: 700;
+    margin: 0;
+  }
+  .img_section img {
+    width: 40px;
+  }
+  .head_section .row{
+    padding: 25px 0 0 0;
+  }
+  .head_section .subject_title {
+    text-align: center;
+    padding: 15px 0;
+    line-height: 2.5;
+  }
+  .subject_title p {
+    font-weight: 700;
+    font-size: 10px;
+    margin: 0;
+  }
+  .subject_title h3 {
+    font-weight: 600;
+    font-size: 14px;
+  }
+  .tr_info .right_cell_8 h3{
+    font-size: 18px;
+  }
+  .tr_info .middle_cell_2 p,
+  .tr_info .left_cell_2 p{
+    font-size: 9px;
+  }
 }

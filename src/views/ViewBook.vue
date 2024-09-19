@@ -23,11 +23,11 @@
           </router-link>
         </div>
         <div class="btn_container">
-          <button class="btn_style">
+          <a href="https://bcc.iq" target="_blank" class="btn_style">
             <span
               ><font-awesome-icon :icon="['fas', 'file-arrow-down']" style="font-size: 24px;"/></span>
-            {{Language === 'A' ? 'حفظ' : 'Save'}}
-          </button>
+            {{Language === 'A' ? 'اتصل بنا' : 'Call Us'}}
+          </a>
         </div>
         <div class="btn_container">
           <button class="btn_style">
@@ -46,16 +46,14 @@
       </div>
     </header>
     <main>
-        <div class="container-fluid">
+        <div class="container_fluid">
           <div class="book_wrapper">
             <div class="book_header">
               <div class="counter_row">
                   <p><span>العدد </span> / <span> {{ BookNo }}</span></p>
-                  <p dir="ltr"><span>NO. </span> / <span>  {{ BookNo }}</span></p>
               </div>
               <div class="date_row">
                   <p><span>التاريخ </span> / <span> {{ formattedDate }}</span></p>
-                  <p dir="ltr"><span>Date </span> /  <span>{{ formattedDate }}</span></p>
               </div>
             </div>
             <div class="book_content">
@@ -148,8 +146,8 @@
   }
   
   .main_header .img_title img {
-    width: 80px;
-    height: 80px;
+    width: 100px;
+    height: 100px;
   }
   
   .btn_header {
@@ -202,7 +200,7 @@
     height: 100%;
   }
   
-  .container-fluid{
+  .container_fluid{
     width: 99.5%;
     margin: 0 auto;
     position: relative;
@@ -255,8 +253,8 @@
     }
   
     .main_header .img_title img {
-      width: 40px;
-      height: 40px;
+      width: 60px;
+      height: 60px;
     }
   
     .btn_header {
