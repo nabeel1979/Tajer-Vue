@@ -91,16 +91,18 @@ export default {
       this.QrNum = qrCode;
       try {
         const response = await axiosInstance.get(`/Archive/getData?qr=${qrCode}`);
+
+        if(response.data.pdf != null){
           this.bookId = response.data.bookId;
-          this.Pdf = `https://archivingmainfolder.gcc.iq/${response.data.pdf}`;
+          this.Pdf = `https://documents.gcc.iq/${response.data.pdf}`;
+          this.Status = 'Found'
+        } else {
+          toast.warning('هذا الكتاب غير مؤرشف')
+          this.bookId = response.data.bookId;
+          this.Status = 'Not Found'
+        }
       } catch (error) {
-        if(error.response.status === 404){
-            toast.error('هذا الكتاب غير مؤرشف')
-            this.Status = 404
-          } else {
-            console.error(error)
-            this.Status = 'Found';
-          }
+        console.error(error)
       } finally {
         this.loading = false;
       }

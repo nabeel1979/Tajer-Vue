@@ -207,10 +207,9 @@
     padding: 25px 10px;
   }
   
-  .container-fluid .book_wrapper{
+  .container_fluid .book_wrapper{
     background-color: white;
     border-radius: 15px;
-    padding: 15px 35px;
     margin: 15px 0;
   }
 
@@ -218,6 +217,14 @@
     width: 100%;
     display: flex;
     flex-direction: column;
+    background-color: #f1f1f1;
+    border-radius: 15px 15px 0 0;
+    padding: 15px 35px;
+    height: 100%;
+  }
+
+  .book_wrapper .book_content{
+    padding: 25px 35px;
   }
 
   .book_header .counter_row,

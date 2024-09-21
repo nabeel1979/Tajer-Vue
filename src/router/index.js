@@ -11,6 +11,7 @@ import ChamberTemplate from '@/views/ChamberTemplate.vue';
 import CertificateTemplate from '@/views/CertificateTemplate.vue';
 import ViewBook from '@/views/ViewBook.vue';
 import ViewCertificateA from '@/views/ViewCertificateA.vue';
+import ViewCertificateE from '../views/ViewCertificateE.vue';
 
 const routes = [
   {
@@ -89,6 +90,15 @@ const routes = [
       title: 'غرفة تجارة بغداد || شهادة المنشأ'
     },
   },
+  {
+    path: '/viewcertificateE/:certificateid',
+    name: 'ViewCertificateEnglish',
+    component: ViewCertificateE,
+    meta: {
+      hideNavBar: true,
+      title: 'غرفة تجارة بغداد || Certificate of Origin'
+    },
+  },
 ];
 
 const router = createRouter({
@@ -101,7 +111,7 @@ router.beforeEach((to, from, next) => {
   const publicRoutes = [
     'login', 'signup', 'resetPassword', 'OrderInvoice',
     'PdfTemplate', 'ChoiceTemplate', 'CertificateTemplates',
-    'ShowCertificate', 'ViewCertificate', 'ViewBook'
+    'ShowCertificate', 'ViewCertificate', 'ViewBook','ViewCertificateEnglish'
   ];
 
 
