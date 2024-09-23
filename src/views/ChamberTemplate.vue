@@ -20,25 +20,39 @@
     <div class="btn_header">
       <div class="btn_container">
         <router-link to="/login" class="btn_style">
-          <span><i class="fa-solid fa-user" style="font-size: 24px"></i></span>
-          تسجيل الدخول
+          <span
+            ><font-awesome-icon :icon="['fas', 'user']" style="font-size: 24px"
+          /></span>
+          {{ Language === "A" ? "تسجيل الدخول" : "Sign In" }}
         </router-link>
       </div>
       <div class="btn_container">
-        <button class="btn_style">
-          <span><i class="fa-solid fa-file-arrow-down" style="font-size: 24px"></i></span>
-          حفظ
-        </button>
+        <a href="https://bcc.iq" class="btn_style">
+          <span
+            ><font-awesome-icon
+              :icon="['fas', 'phone']"
+              style="font-size: 24px"
+          /></span>
+          {{ Language === "A" ? "اتصل بنا" : "Call Us" }}
+        </a>
       </div>
       <div class="btn_container">
         <button class="btn_style">
-          <span><i class="fa-brands fa-google-play" style="font-size: 24px"></i></span>
+          <span
+            ><font-awesome-icon
+              :icon="['fab', 'google-play']"
+              style="font-size: 24px"
+          /></span>
           GooglePlay
         </button>
       </div>
       <div class="btn_container">
         <button class="btn_style">
-          <span><i class="fa-brands fa-apple" style="font-size: 24px"></i></span>
+          <span
+            ><font-awesome-icon
+              :icon="['fab', 'apple']"
+              style="font-size: 24px"
+          /></span>
           AppStore
         </button>
       </div>
@@ -52,9 +66,13 @@
       </div>
       <div v-else class="btn_wrap">
         <div>
-          <router-link :to="`/viewbook/${bookId}`" class="data">عرض البيانات</router-link>
-          <a v-if="Status === 'Found'" :href=" Pdf " target="_blank" class="files">عرض الوثائق</a>
-          <span v-else >هذا الكتاب غير مؤرشف</span>
+          <router-link :to="`/viewbook/${bookId}`" class="data"
+            >عرض البيانات</router-link
+          >
+          <a v-if="Status === 'Found'" :href="Pdf" target="_blank" class="files"
+            >عرض الوثائق</a
+          >
+          <span v-else>هذا الكتاب غير مؤرشف</span>
         </div>
       </div>
     </div>
@@ -64,8 +82,8 @@
 
 <script>
 import { axiosInstance } from "../axios";
-import { toast } from 'vue3-toastify';
-import 'vue3-toastify/dist/index.css';
+import { toast } from "vue3-toastify";
+import "vue3-toastify/dist/index.css";
 
 export default {
   name: "ChambersTemplate",
@@ -74,7 +92,7 @@ export default {
       bookId: "",
       QrNum: "",
       Status: "",
-      Pdf:"",
+      Pdf: "",
       loading: true,
     };
   },
@@ -90,19 +108,21 @@ export default {
       const qrCode = this.$route.params.qrarchive;
       this.QrNum = qrCode;
       try {
-        const response = await axiosInstance.get(`/Archive/getData?qr=${qrCode}`);
+        const response = await axiosInstance.get(
+          `/Archive/getData?qr=${qrCode}`
+        );
 
-        if(response.data.pdf != null){
+        if (response.data.pdf != null) {
           this.bookId = response.data.bookId;
           this.Pdf = `https://documents.gcc.iq/${response.data.pdf}`;
-          this.Status = 'Found'
+          this.Status = "Found";
         } else {
-          toast.warning('هذا الكتاب غير مؤرشف')
+          toast.warning("هذا الكتاب غير مؤرشف");
           this.bookId = response.data.bookId;
-          this.Status = 'Not Found'
+          this.Status = "Not Found";
         }
       } catch (error) {
-        console.error(error)
+        console.error(error);
       } finally {
         this.loading = false;
       }
@@ -194,22 +214,22 @@ export default {
   margin: 0 10px;
 }
 
-main{
+main {
   background-color: #060c3b;
 }
 
-.container_fluid{
+.container_fluid {
   width: 99.5%;
   height: 80vh;
   margin: 0 auto;
   position: relative;
 }
 
-.container_fluid .btn_wrap div{
+.container_fluid .btn_wrap div {
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%,-50%);
+  transform: translate(-50%, -50%);
   width: 500px;
   height: 400px;
   background-color: #fff;
@@ -224,7 +244,7 @@ main{
 }
 
 .btn_wrap button,
-.btn_wrap a{
+.btn_wrap a {
   text-decoration: none;
   border: 1px solid #ccc;
   border-radius: 10px;
@@ -235,7 +255,7 @@ main{
   padding: 15px;
 }
 
-.btn_wrap span{
+.btn_wrap span {
   width: 90%;
   color: rgb(255, 0, 0);
   font-size: 24px;
@@ -243,20 +263,20 @@ main{
   padding: 15px;
 }
 
-.btn_wrap .data{
+.btn_wrap .data {
   background-color: #00400a;
 }
 
-.btn_wrap .files{
+.btn_wrap .files {
   background-color: #a41d1d;
 }
 
-.btn_wrap .data:hover{
+.btn_wrap .data:hover {
   background-color: #00600e;
   cursor: pointer;
 }
 
-.btn_wrap .files:hover{
+.btn_wrap .files:hover {
   background-color: #610303;
   cursor: pointer;
 }
@@ -302,27 +322,27 @@ main{
     margin: 0 10px;
   }
   /* Main Styles */
-.container-fluid .btn_wrap div{
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%,-65%);
-  width: 90%;
-  height: 400px;
-  background-color: #fff;
-  border-radius: 25px;
-  padding: 35px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  vertical-align: middle;
-  flex-direction: column;
-  gap: 65px;
-}
+  .container-fluid .btn_wrap div {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -65%);
+    width: 90%;
+    height: 400px;
+    background-color: #fff;
+    border-radius: 25px;
+    padding: 35px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    vertical-align: middle;
+    flex-direction: column;
+    gap: 65px;
+  }
 }
 
-  /* Loading Styles */
-  .loading-wrap {
+/* Loading Styles */
+.loading-wrap {
   display: flex;
   justify-content: center;
   align-items: center;
