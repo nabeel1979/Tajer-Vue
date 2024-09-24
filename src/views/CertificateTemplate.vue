@@ -18,31 +18,39 @@
     <div class="btn_header">
       <div class="btn_container">
         <router-link to="/login" class="btn_style">
-          <span><i class="fa-solid fa-user" style="font-size: 24px"></i></span>
+          <span
+            ><font-awesome-icon :icon="['fas', 'user']" style="font-size: 24px"
+          /></span>
           {{ Language === "A" ? "تسجيل الدخول" : "Sign In" }}
         </router-link>
       </div>
       <div class="btn_container">
-        <button class="btn_style">
+        <a href="https://bcc.iq" class="btn_style">
           <span
-            ><i class="fa-solid fa-file-arrow-down" style="font-size: 24px"></i
-          ></span>
-          {{ Language === "A" ? "حفظ" : "Save" }}
-        </button>
+            ><font-awesome-icon
+              :icon="['fas', 'phone']"
+              style="font-size: 24px"
+          /></span>
+          {{ Language === "A" ? "اتصل بنا" : "Call Us" }}
+        </a>
       </div>
       <div class="btn_container">
         <button class="btn_style">
           <span
-            ><i class="fa-brands fa-google-play" style="font-size: 24px"></i
-          ></span>
+            ><font-awesome-icon
+              :icon="['fab', 'google-play']"
+              style="font-size: 24px"
+          /></span>
           GooglePlay
         </button>
       </div>
       <div class="btn_container">
         <button class="btn_style">
           <span
-            ><i class="fa-brands fa-apple" style="font-size: 24px"></i
-          ></span>
+            ><font-awesome-icon
+              :icon="['fab', 'apple']"
+              style="font-size: 24px"
+          /></span>
           AppStore
         </button>
       </div>
@@ -55,21 +63,21 @@
           <h3>هذه الشهادة غير مؤرشفة</h3>
         </div>
         <div>
-          <a
+          <router-link
             v-if="Language === 'E'"
-            :href="`https://baghdadchamber.bcc.iq/CertificateOfOrigin/${CertificateId}`"
+            :to="`/viewcertificateE/${CertificateId}`"
             class="data"
-            >View Information</a
-          >
-          <a
+            >View Information
+          </router-link>
+          <router-link
             v-else
-            :href="`https://baghdadchamber.bcc.iq/CertificateOfOriginA/${CertificateId}`"
+            :to="`/viewcertificate/${CertificateId}`"
             class="data"
-            >عرض البيانات</a
+            >عرض البيانات</router-link
           >
-          <router-link v-if="Status === 404" :to="`/showcrtificate/${CertificateId}`" class="files">{{
+          <a v-if="Status === 404" :href="`${Pdf}`" class="files">{{
             Language === "E" ? "View documents" : "عرض الوثائق"
-          }}</router-link>
+          }}</a>
           <span v-else>الشهادة غير مؤرشفة</span>
         </div>
       </div>
@@ -107,14 +115,14 @@ export default {
         );
         this.Language = response.data.language;
         this.CertificateId = response.data.id;
-        if(response.data.pdf === null){
-          toast.warning('هذه الشهادة غير مؤرشفة')
-          this.Status = 402 ;
+        if (response.data.pdf === null) {
+          toast.warning("هذه الشهادة غير مؤرشفة");
+          this.Status = 402;
         } else {
           this.Pdf = response.data.pdf;
         }
       } catch (error) {
-          console.error(error);
+        console.error(error);
       } finally {
         this.loading = false;
       }
@@ -314,7 +322,7 @@ main {
     margin: 0 10px;
   }
   /* Main Styles */
-  .container-fluid .btn_wrap div{
+  .container-fluid .btn_wrap div {
     position: absolute;
     top: 50%;
     left: 50%;

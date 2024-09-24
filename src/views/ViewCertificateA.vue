@@ -28,7 +28,7 @@
         <a href="https://bcc.iq" class="btn_style">
           <span
             ><font-awesome-icon
-              :icon="['fas', 'file-arrow-down']"
+              :icon="['fas', 'phone']"
               style="font-size: 24px"
           /></span>
           {{ Language === "A" ? "اتصل بنا" : "Call Us" }}
@@ -59,7 +59,7 @@
   <main>
     <div class="container_fluid">
       <div class="certificate_wrapper">
-        <div class="show_table">
+        <div class="show_tableA">
           <div class="head_section">
             <div class="full_row row">
               <div class="titles_part">
@@ -82,7 +82,9 @@
                   <p>
                     <span>رقم الشهادة</span> : <span>{{ CertificateNo }}</span>
                   </p>
-                  <p><span>تاريخها</span> : <span>{{ CertificateDate }}</span></p>
+                  <p>
+                    <span>تاريخها</span> : <span>{{ CertificateDate }}</span>
+                  </p>
                 </div>
               </div>
               <div class="subject_title">
@@ -98,7 +100,12 @@
             <div class="cell_right_6">
               <p><span>1-</span> المصدر وعنوانه كاملا :</p>
               <p class="info_data">{{ BookInfo.SourceName }}</p>
-              <p class="info_data"><span style="display:inline-block; width: 200px;">{{ BookInfo.MangerName }}</span> <span>{{ BookInfo.SourceAddress }}</span></p>
+              <p class="info_data">
+                <span style="display: inline-block; width: 200px">{{
+                  BookInfo.MangerName
+                }}</span>
+                <span>{{ BookInfo.SourceAddress }}</span>
+              </p>
             </div>
             <div class="cell_left_6">
               <p><span>2-</span> المنتج وعنوانه كامل :</p>
@@ -108,7 +115,12 @@
           <div class="tr_info">
             <div class="cell_right_6 full_height">
               <p><span>3-</span> المستورد وعنوانه كاملا :</p>
-              <p class="info_data"><span style="display:inline-block; width: 400px;">{{ BookInfo.TargetName }}</span><span>{{ BookInfo.TargetAddress }}</span></p>
+              <p class="info_data">
+                <span style="display: inline-block; width: 400px">{{
+                  BookInfo.TargetName
+                }}</span
+                ><span>{{ BookInfo.TargetAddress }}</span>
+              </p>
             </div>
             <div class="cell_left_6">
               <div class="inside_cell">
@@ -135,7 +147,12 @@
                 <span>8-</span> وصف السلع العلامة التجارية (إن وجدت) عدد ونوع
                 وأرقام الطرود :
               </p>
-              <h3 class="info_data"><span style="width: 400px; display: inline-block;">{{ BookInfo.DetailsDscrp }}</span><span>{{ BookInfo.DetailsTypeDscrp }}</span></h3>
+              <h3 class="info_data">
+                <span style="width: 400px; display: inline-block">{{
+                  BookInfo.DetailsDscrp
+                }}</span
+                ><span>{{ BookInfo.DetailsTypeDscrp }}</span>
+              </h3>
             </div>
             <div class="middle_cell_2">
               <p>
@@ -169,15 +186,15 @@
             </div>
             <div class="middle_cell_4">
               <p><span>12-</span> توقيع وختم الجهة المصدرة للشهادة :</p>
-              <p style="margin-bottom: 35px;">التوقيع :</p>
-              <p style="margin-bottom: 35px;">الخاتم :</p>
-              <p style="margin-bottom: 35px;">التاريخ :</p>
+              <p style="margin-bottom: 35px">التوقيع :</p>
+              <p style="margin-bottom: 35px">الخاتم :</p>
+              <p style="margin-bottom: 35px">التاريخ :</p>
             </div>
             <div class="left_cell_4">
               <p><span>13-</span> تصديق الجهة الحكومية المختصة :</p>
-              <p style="margin-bottom: 35px;">التوقيع :</p>
-              <p style="margin-bottom: 35px;">الخاتم :</p>
-              <p style="margin-bottom: 35px;">التاريخ :</p>
+              <p style="margin-bottom: 35px">التوقيع :</p>
+              <p style="margin-bottom: 35px">الخاتم :</p>
+              <p style="margin-bottom: 35px">التاريخ :</p>
             </div>
           </div>
         </div>
@@ -209,7 +226,7 @@ export default {
         GenerationDscrp: "",
         Notes: "",
         DetailsDscrp: "",
-        DetailsTypeDscrp:"",
+        DetailsTypeDscrp: "",
         Wigth: "",
         CertificateNo: "",
         CertificateDate: "",
@@ -225,17 +242,19 @@ export default {
   },
   computed: {
     CertificateNo() {
-      return `${dayjs(Date.now()).format("YYYY")}/${this.BookInfo.ReferenceNo}`;
+      return `${dayjs(this.BookInfo.ReferenceDate).format("YYYY")}/${
+        this.BookInfo.ReferenceNo
+      }`;
     },
     CertificateDate() {
-      return dayjs(this.BookInfo.ReferenceDate).format("YYYY-MM-DD")
+      return dayjs(this.BookInfo.ReferenceDate).format("YYYY-MM-DD");
     },
-    InvoiceDate(){
-      return dayjs(this.BookInfo.CertificateDate).format("YYYY-MM-DD")
+    InvoiceDate() {
+      return dayjs(this.BookInfo.CertificateDate).format("YYYY-MM-DD");
     },
-    RegDate(){
-      return dayjs(this.BookInfo.RegDate).format("YYYY-MM-DD")
-    }
+    RegDate() {
+      return dayjs(this.BookInfo.RegDate).format("YYYY-MM-DD");
+    },
   },
   methods: {
     async GetData() {
@@ -264,7 +283,7 @@ export default {
           this.BookInfo.ReferenceNo = response.data.ReferenceNo;
           this.BookInfo.ReferenceDate = response.data.ReferenceDate;
 
-          console.log(this.BookInfo)
+          console.log(this.BookInfo);
         } else {
           console.log("no data");
           toast.error("لقد حدث خطأ في جلب البيانات");
