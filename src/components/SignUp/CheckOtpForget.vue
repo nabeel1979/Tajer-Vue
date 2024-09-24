@@ -6,7 +6,7 @@
         <img src="../../assets/Image/logo.png" alt="" />
       </div>
       <h2>أدخل رمز التحقق</h2>
-      <p>تم إرسال رمز التحقق إلى {{ email }}</p>
+      <p>تم إرسال رمز التحقق إلى {{ Whatsapp === null ? email : Whatsapp }}</p>
       <form @submit.prevent="submitOtp" class="form_information">
         <div class="otp_section">
           <label for="otp">رمز التحقق</label>
@@ -62,6 +62,10 @@ export default {
       type: Number,
       default: 6,
     },
+    Whatsapp:{
+      type:Boolean,
+      default: null
+    }
   },
   data() {
     return {

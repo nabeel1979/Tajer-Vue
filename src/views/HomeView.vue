@@ -1,34 +1,27 @@
 <template>
   <div class="container_fluid">
-    <div class="img_section">
-      <img src="../assets/Image/logo.png" alt="logo">
-    </div>
+    <QuickAccess />
   </div>
 </template>
 
 <script>
+import QuickAccess from '../components/HomeComponents/QuickAccess.vue';
+
 export default {
-  // Component logic here if needed
+  components:{
+    QuickAccess
+  }
 }
 </script>
 
 <style scoped>
   .container_fluid{
     position: relative;
-    width: 98%;
-    height: 100vh;
+    width: 95%;
+    min-height: 90vh;
     margin: 0 auto;
+    padding: 35px;
   }
 
-  .container_fluid .img_section{
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-  }
 
-  .img_section img{
-    width: 500px;
-    height: 500px;
-  }
 </style>

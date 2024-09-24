@@ -12,6 +12,7 @@
     @token-received="handleTokenSubmission"
     :email="email"
     :AzbaraNum="AzparaNum"
+    :Whatsapp="whatsapp"
   />
   <ResetPasswordForm :token="token" />
 </template>
@@ -27,6 +28,7 @@ export default {
       isModalVisible: true,
       isOtpVisible: false,
       email: "",
+      whatsapp:"",
       AzparaNum:"",
       token: ""
     }
@@ -41,9 +43,10 @@ export default {
       this.isModalVisible = false;
       this.isOtpVisible = false;
     },
-    handleEmailSubmission(AzparaNum,Email) {
+    handleEmailSubmission(AzparaNum,Email,Whatsapp) {
       this.AzparaNum = AzparaNum
       this.email = Email;
+      this.whatsapp = Whatsapp
       this.isModalVisible = false;
       this.isOtpVisible = true;
     },

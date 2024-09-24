@@ -9,27 +9,20 @@
       <label>أختر طريقة الاسترجاع</label>
       <div class="radio-section">
         <label>
-          <input type="radio" v-model="contactMethod" disabled value="WhatsApp" />
+          <input type="radio" v-model="contactMethod" :value= true />
           واتساب
           <font-awesome-icon :icon="['fab', 'whatsapp']" style="color: green" />
         </label>
         <label>
-          <input type="radio" v-model="contactMethod" value="AzparaNum" />
-            رقم الاضبارة
+          <input type="radio" v-model="contactMethod" checked :value= false />
+            البريد الالكتروني
           <font-awesome-icon :icon="['fas', 'envelope']" style="color: #2c5ef1" />
         </label>
       </div>
       <form @submit.prevent="submitEmail">
-        <div v-if="contactMethod === 'AzparaNum'" class="email_section">
+        <div class="email_section">
           <label for="text">رقم الاضبارة</label>
           <input type="text" v-model="AzparaNum" required />
-        </div>
-        <div v-if="contactMethod === 'WhatsApp'" class="whatsapp_section">
-          <label for="whatsapp">رقم الواتساب</label>
-          <div class="number_input">
-            <span>+964</span>
-            <input type="number" v-model="whatsapp" required @input="checkLength" />
-          </div>
         </div>
         <button type="submit">تحقق</button>
       </form>
@@ -48,8 +41,8 @@ export default {
     return {
       AzparaNum: "",
       whatsapp: "",
-      contactMethod: "AzparaNum",
-      email:''
+      contactMethod: false,
+      email:""
     };
   },
   methods: {
@@ -59,19 +52,15 @@ export default {
     async submitEmail() {
       try {
         let response;
-        if (this.contactMethod === "AzparaNum") {
           response = await axiosInstance.post('/auth/forget-password', {
             AzbaraNumber: this.AzparaNum,
+            IsWhatsApp: this.contactMethod
           });
           this.email=response.data.email
-        } else if (this.contactMethod === "WhatsApp") {
-          response = await axiosInstance.post('/auth/forget-password', {
-            whatsapp: this.whatsapp,
-          });
-        }
+          this.whatsapp = response.data.phone
 
         if (response.data) {
-          this.$emit("email-submitted", this.AzparaNum , this.email);
+          this.$emit("email-submitted", this.AzparaNum , this.email , this.whatsapp);
         } else {
           console.log('Error:', response.data.message);
         }
