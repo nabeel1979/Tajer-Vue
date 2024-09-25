@@ -78,6 +78,7 @@
             @next-step="goToStep(5)"
             @prev-step="goToStep(3)"
             @subject-details="setSubjectDetails"
+            @item-class-name="setItemClass"
             :Language="formData.Lang"
           />
         </div>
@@ -90,6 +91,7 @@
             @prev-step="goToStep(4)"
             @next-step="goToStep(6)"
             @importer-info="setImporterDetails"
+            @country-name="setCountry"
             :Language="formData.Lang"
           />
         </div>
@@ -104,6 +106,8 @@
             :FormData="formData"
             :Language="formData.Lang"
             :loading="loading"
+            :itemClassName="ItemsClassName"
+            :CountryName="CountryName"
           />
         </div>
 
@@ -151,6 +155,8 @@ export default {
       OrderNO: "",
       Amount: "",
       loading: false,
+      ItemsClassName:"",
+      CountryName:""
     };
   },
   async created() {
@@ -168,6 +174,12 @@ export default {
     }
   },
   methods: {
+    setItemClass(itemClass){
+      this.ItemsClassName = itemClass
+    },
+    setCountry(country){
+      this.CountryName = country
+    },
     setHeight(height) {
       this.PageHeight = height;
     },
@@ -187,10 +199,12 @@ export default {
       this.formData.WigthNum = subjectDetails.WigthNum;
       this.formData.Notes = subjectDetails.Notes;
       this.formData.ServiceId = subjectDetails.ServiceId;
+      this.formData.ItemsClassID = subjectDetails.ItemsClassID
     },
     setImporterDetails(importerDetails) {
       this.formData.TargetName = importerDetails.TargetName;
       this.formData.TargetAddress = importerDetails.TargetAddress;
+      this.formData.CountryID = importerDetails.CountryID;
     },
     async submitData() {
       this.loading = true;

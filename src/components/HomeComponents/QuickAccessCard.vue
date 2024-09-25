@@ -28,6 +28,9 @@ export default {
 <style scoped>
 a{
     text-decoration: none;
+    display: block;
+    width: 25%;
+    height: 155px;
 }
 .quick_card {
   display: flex;
@@ -35,7 +38,7 @@ a{
   box-shadow: 0 0 10px 1px rgb(195, 195, 195);
   border-radius: 10px;
   padding: 25px 30px 15px 30px;
-  width: 25%;
+  width: 100%;
   gap: 25px;
   text-decoration: none;
 }
@@ -66,5 +69,11 @@ a{
   font-size: 16px;
   font-weight: 500;
   color: rgb(163, 163, 163);
+}
+
+@media (max-width: 600px){
+  a{
+    width: 100%;
+}
 }
 </style>

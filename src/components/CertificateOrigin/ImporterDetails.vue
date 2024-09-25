@@ -1,6 +1,6 @@
 <template>
   <div class="section_form" :dir="language === 'A' ? 'rtl' : 'ltr'">
-    <h2>{{ language === "ar" ? "تفاصيل المستورد" : "Importer Details" }}</h2>
+    <h2>{{ language === "A" ? "تفاصيل المستورد" : "Importer Details" }}</h2>
     <div class="form_container">
       <div class="input_wrap">
         <label for="origin_activity">{{
@@ -13,6 +13,23 @@
           required
           v-model="importerName"
         />
+      </div>
+      <div class="input_wrap">
+        <label for="origin_activity">
+          {{
+            language === "A" ? "البلد المستورد" : "Importing country"
+          }}</label
+        >
+        <select name="Material Class" class="input" v-model="CountryID">
+          <option value="">{{ language === "A" ? "اختر" : "Choice" }}</option>
+          <option
+            v-for="country in CountriesList"
+            :key="country.id"
+            :value="country.id"
+          >
+            {{ language === "A" ? country.DscrpA : country.DscrpE }}
+          </option>
+        </select>
       </div>
       <div class="input_wrap">
         <label for="origin_activity">{{
@@ -30,7 +47,7 @@
   </div>
   <div class="btn_wrapper">
     <button class="next_btn" @click="validateAndNext">
-      {{ language === 'A' ? 'التالي' : 'Next' }}
+      {{ language === "A" ? "التالي" : "Next" }}
     </button>
     <button class="back_btn" @click="$emit('prev-step')">
       {{ language === "A" ? "السابق" : "Previous" }}
@@ -39,6 +56,7 @@
 </template>
 
 <script>
+import { axiosInstance } from "../../axios";
 import { toast } from "vue3-toastify";
 import "vue3-toastify/dist/index.css";
 
@@ -60,10 +78,18 @@ export default {
       importerName: this.formData.TargetName || "",
       importerAddress: this.formData.TargetAddress || "",
       isLoading: false,
+      CountriesList:"",
+      CountryID:this.formData.CountryID || ""
     };
   },
   created() {
+    this.GetParams();
     this.$emit("height", this.height);
+  },
+  computed: {
+    CountryName() {
+      return this.CountriesList.find(item => item.id === this.CountryID);
+    },
   },
   methods: {
     validateAndNext() {
@@ -78,12 +104,30 @@ export default {
 
       this.isLoading = true;
 
-        this.$emit("importer-info", {
-          TargetName: this.importerName,
-          TargetAddress: this.importerAddress,
-        });
-        this.isLoading = false;
-        this.$emit("next-step");
+      this.$emit("importer-info", {
+        TargetName: this.importerName,
+        TargetAddress: this.importerAddress,
+        CountryID: this.CountryID,
+      });
+      this.$emit("country-name",this.CountryName)
+      this.isLoading = false;
+      this.$emit("next-step");
+    },
+    async GetParams() {
+      try {
+        const response = await axiosInstance.get(
+          "/Certifecate/get-Certifecate-Params",
+          {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("Token")}`,
+              "Accept-Language": `${this.language}`,
+            },
+          }
+        );
+        this.CountriesList = response.data.Countries;
+      } catch (error) {
+        console.log(error);
+      }
     },
   },
 };
@@ -126,10 +170,13 @@ input[type="number"] {
 }
 
 @keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
-
 
 @media (max-width: 500px) {
   .en_inputs {

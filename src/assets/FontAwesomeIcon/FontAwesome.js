@@ -24,6 +24,7 @@ import { faFileArrowDown } from '@fortawesome/free-solid-svg-icons'
 import { faApple } from '@fortawesome/free-brands-svg-icons'
 import { faGooglePlay } from '@fortawesome/free-brands-svg-icons'
 import { faInbox } from '@fortawesome/free-solid-svg-icons'
+import { faBook } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
 library.add(faUserSecret)
@@ -52,4 +53,5 @@ library.add(faFileArrowDown)
 library.add(faApple)
 library.add(faGooglePlay)
 library.add(faInbox)
+library.add(faBook)
 export { FontAwesomeIcon }

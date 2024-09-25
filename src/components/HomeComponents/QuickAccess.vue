@@ -1,7 +1,7 @@
 <template>
   <div>
     <h3>{{ title }}</h3>
-    <div>
+    <div class="card_wrapper">
         <QuickAccessCard v-for="content in CardContent" :key="content.id" :Content="content" />
     </div>
   </div>
@@ -23,6 +23,13 @@ data(){
                 "Title":'طلب شهادة منشأ',
                 "Description":'قم بطلب شهادة منشأ',
                 "IconName":'inbox'
+            },
+            {
+                "id": 2,
+                "Path":'/origincertificate',
+                "Title":'طلب انشاء كتاب',
+                "Description":'قم بطلب انشاء كتاب',
+                "IconName":'book'
             }
         ]
     }
@@ -30,6 +37,12 @@ data(){
 }
 </script>
 
-<style>
-
+<style scoped>
+    .card_wrapper{
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 15px;
+        padding: 15px;
+    }
 </style>

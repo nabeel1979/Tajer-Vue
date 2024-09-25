@@ -1,6 +1,6 @@
 <template>
   <div class="section_form" :dir="language === 'A' ? 'rtl' : 'ltr'">
-    <h2>{{ language === "ar" ? "تفاصيل المادة" : "Subject Details" }}</h2>
+    <h2>{{ language === "A" ? "تفاصيل المادة" : "Subject Details" }}</h2>
     <div class="form_container">
       <div class="input_wrap">
         <label for="origin_activity"
@@ -27,7 +27,13 @@
         >
         <select name="" id="" class="input" v-model="ProductAddress">
           <option value="">{{ language === "A" ? "اختر" : "Choice" }}</option>
-          <option v-for="product in ProductAddressList" :key="product.Id" :value="product.Dscrp">{{ product.Dscrp }}</option>
+          <option
+            v-for="product in ProductAddressList"
+            :key="product.Id"
+            :value="product.Dscrp"
+          >
+            {{ product.Dscrp }}
+          </option>
         </select>
       </div>
       <div class="en_inputs">
@@ -58,17 +64,36 @@
           />
         </div>
       </div>
-      <div class="input_wrap">
-        <label for="origin_activity">
-          {{ language === "A" ? "وصف السلع" : "Product Description" }}</label
-        >
-        <input
-          type="text"
-          name="Product Description"
-          class="input"
-          required
-          v-model="ProductDescription"
-        />
+      <div class="en_inputs">
+        <div class="input_wrap">
+          <label for="origin_activity">
+            {{
+              language === "A" ? "صنف المادة" : "Material Classification"
+            }}</label
+          >
+          <select name="Material Class" class="input" v-model="MaterialClass">
+            <option value="">{{ language === "A" ? "اختر" : "Choice" }}</option>
+            <option
+              v-for="ItemClass in ItemsClassList"
+              :key="ItemClass.id"
+              :value="ItemClass.id"
+            >
+              {{ language === "A" ? ItemClass.DscrpA : ItemClass.DscrpE }}
+            </option>
+          </select>
+        </div>
+        <div class="input_wrap">
+          <label for="origin_activity">
+            {{ language === "A" ? "وصف السلع" : "Product Description" }}</label
+          >
+          <input
+            type="text"
+            name="Product Description"
+            class="input"
+            required
+            v-model="ProductDescription"
+          />
+        </div>
       </div>
       <div class="input_wrap">
         <label for="origin_activity">{{
@@ -96,7 +121,13 @@
             <option value="">
               {{ language === "A" ? "اختر" : "Choice" }}
             </option>
-            <option v-for="Quantity in QuantityTypeList" :key="Quantity.Id" :value="Quantity.Dscrp">{{ Quantity.Dscrp }}</option>
+            <option
+              v-for="Quantity in QuantityTypeList"
+              :key="Quantity.Id"
+              :value="Quantity.Dscrp"
+            >
+              {{ Quantity.Dscrp }}
+            </option>
           </select>
         </div>
         <div style="width: 70%">
@@ -128,13 +159,17 @@
     </div>
   </div>
   <div class="btn_wrapper">
-    <button class="next_btn" @click="validateAndNext">{{ language === 'A' ? 'التالي' : 'Next' }}</button>
-    <button class="back_btn" @click="$emit('prev-step')">{{ language === "A" ? "السابق" : "Previous" }}</button>
+    <button class="next_btn" @click="validateAndNext">
+      {{ language === "A" ? "التالي" : "Next" }}
+    </button>
+    <button class="back_btn" @click="$emit('prev-step')">
+      {{ language === "A" ? "السابق" : "Previous" }}
+    </button>
   </div>
 </template>
 
 <script>
-import {axiosInstance} from "../../axios";
+import { axiosInstance } from "../../axios";
 import { toast } from "vue3-toastify";
 import "vue3-toastify/dist/index.css";
 
@@ -145,9 +180,9 @@ export default {
       type: String,
       required: true,
     },
-    formData:{
-      type:Object
-    }
+    formData: {
+      type: Object,
+    },
   },
   data() {
     return {
@@ -165,7 +200,9 @@ export default {
       QuantityTypeList: "",
       Weight: this.formData.WigthNum || "",
       Notes: this.formData.Notes || "",
-      ServiceId: 1
+      MaterialClass: this.formData.ItemsClassID || "",
+      ItemsClassList: "",
+      ServiceId: 1,
     };
   },
   created() {
@@ -173,28 +210,37 @@ export default {
     this.GetParams();
     this.$emit("height", this.height);
   },
+  computed: {
+    ItemClass() {
+      return this.ItemsClassList.find(item => item.id === this.MaterialClass);
+    },
+  },
   methods: {
     validateAndNext() {
       if (!this.ShippingDetails) {
         toast.error("يرجى اختيار تفاصيل الشحن");
         return;
       }
-        if (!this.ProductAddress) {
-          toast.error("يرجى اختيار المنتج وعنوانه كاملاً");
-          return;
-        }
-        if (!this.ProductDescription) {
-          toast.error("يرجى ملئ وصف السلع");
-          return;
-        }
-        if (!this.PackingType) {
-          toast.error("يرجى ملئ نوع التعبئة");
-          return;
-        }
-        if (!this.Weight && !this.QuantityType) {
-          toast.error("يرجى ملئ الوزن ونوع كميته");
-          return;
-        }
+      if (!this.ProductAddress) {
+        toast.error("يرجى اختيار المنتج وعنوانه كاملاً");
+        return;
+      }
+      if (!this.MaterialClass) {
+        toast.error("يرجى ملئ صنف المادة");
+        return;
+      }
+      if (!this.ProductDescription) {
+        toast.error("يرجى ملئ وصف السلع");
+        return;
+      }
+      if (!this.PackingType) {
+        toast.error("يرجى ملئ نوع التعبئة");
+        return;
+      }
+      if (!this.Weight && !this.QuantityType) {
+        toast.error("يرجى ملئ الوزن ونوع كميته");
+        return;
+      }
       this.$emit("subject-details", {
         GenerationDscrp: this.ShippingDetails,
         ProductDscrp: this.ProductAddress,
@@ -203,8 +249,10 @@ export default {
         Wigth: this.QuantityType,
         WigthNum: this.Weight.toString(),
         Notes: this.Notes,
-        ServiceId: this.ServiceId
+        ItemsClassID: this.MaterialClass,
+        ServiceId: this.ServiceId,
       });
+      this.$emit("item-class-name", this.ItemClass);
       this.$emit("next-step");
     },
     CountryData() {
@@ -223,13 +271,14 @@ export default {
           {
             headers: {
               Authorization: `Bearer ${localStorage.getItem("Token")}`,
-              'Accept-Language': `${this.language}`
+              "Accept-Language": `${this.language}`,
             },
           }
         );
         this.ShippingDetailsList = response.data.GenerationTypes;
         this.ProductAddressList = response.data.ProductTypes;
         this.QuantityTypeList = response.data.StockUnits;
+        this.ItemsClassList = response.data.ItemClasses;
       } catch (error) {
         console.log(error);
       }

@@ -30,16 +30,20 @@
       >
     </td>
     <td>
-      <a
+      <router-link
         v-if="Transactions.OperationId === 3"
-        @click.prevent="getCertificateId()"
-        :href="certificateLink"
-        target="_blank"
-        >عرض</a
+        :to="`/viewcertificate/${CertificateId}`"
+        >عرض</router-link
       >
       <span v-else class="disabled">عرض</span>
     </td>
-    <td></td>
+    <td>
+      <router-link
+      v-if="Transactions.OperationId === 3"
+      :to="`/choicetypes/${CertificateId}`"
+      >عرض</router-link>
+      <span v-else class="disabled">عرض</span>
+    </td>
   </tr>
 </template>
 
@@ -59,8 +63,10 @@ export default {
   data() {
     return {
       CertificateId: null,
-      certificateLink: null,
     };
+  },
+  created(){
+    this.getCertificateId();
   },
   methods: {
     async getCertificateId() {
@@ -69,8 +75,6 @@ export default {
           `/Certifecate/get-certificate-id?orderNumber=${this.Transactions.OrderNo}`
         );
         this.CertificateId = response.data;
-        this.certificateLink = `https://baghdadchamber.bcc.iq/CertificateOfOriginA/${this.CertificateId}`;
-        window.open(this.certificateLink, "_blank");
       } catch (error) {
         console.log(error);
       }

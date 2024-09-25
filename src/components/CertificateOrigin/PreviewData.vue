@@ -137,19 +137,29 @@
             </p>
           </div>
           <div class="data_col">
+            <p>
+              {{ language === "A" ? "صنف المادة" : "Material Classification" }}
+            </p>
+            <p>
+              <span>{{ language === "A" ? ClassNameData.DscrpA : ClassNameData.DscrpE }}</span>
+            </p>
+          </div>
+        </div>
+        <div class="data_row">
+          <div class="data_col">
             <p>{{ language === "A" ? "نوع التعبئة" : "Packing type" }}</p>
             <p>
               <span>{{ formData.DetailsTypeDscrp }}</span>
             </p>
           </div>
-        </div>
-        <div class="data_row">
           <div class="data_col">
             <p>{{ language === "A" ? "الوزن القائم" : "Weight" }}</p>
             <p>
               <span>{{ formData.Wigth + formData.WigthNum }}</span>
             </p>
           </div>
+        </div>
+        <div class="data_row">
           <div class="data_col">
             <p>{{ language === "A" ? "الملاحظات" : "Notes" }}</p>
             <p>
@@ -172,6 +182,16 @@
             </p>
           </div>
           <div class="data_col">
+            <p>
+              {{ language === "A" ? "البلد المستورد" : "Importing country" }}
+            </p>
+            <p>
+              <span>{{ language === "A" ? CountryNameData.DscrpA : CountryNameData.DscrpE }}</span>
+            </p>
+          </div>
+        </div>
+        <div class="data_row">
+          <div class="data_col">
             <p>{{ language === "A" ? "عنوان المستورد" : "Importer Name" }}</p>
             <p>
               <span>{{ formData.TargetAddress }}</span>
@@ -181,10 +201,12 @@
       </div>
     </fieldset>
     <fieldset>
-      <legend>{{ language === 'A' ? 'الفاتورة' : 'The Invoice' }}</legend>
+      <legend>{{ language === "A" ? "الفاتورة" : "The Invoice" }}</legend>
       <div class="data_container">
         <div class="data_row">
-          <p class="data_col">{{ language === 'A' ? 'نوع الفاتورة' : 'Invoice type' }}</p>
+          <p class="data_col">
+            {{ language === "A" ? "نوع الفاتورة" : "Invoice type" }}
+          </p>
           <p class="data_col">
             <span>{{ PriceData.Dscrp }}</span>
           </p>
@@ -197,7 +219,9 @@
         </div>
         <hr />
         <div class="data_row">
-          <p class="data_col">{{ language === 'A' ? 'المجموع ::' : 'Total ::' }}</p>
+          <p class="data_col">
+            {{ language === "A" ? "المجموع ::" : "Total ::" }}
+          </p>
           <p class="data_col">
             <span>{{ PriceData.TotalAmount }}</span>
           </p>
@@ -211,7 +235,9 @@
         <h3>{{ language === "A" ? "هل أنت متأكد؟" : "Are you sure?" }}</h3>
         <p>
           {{
-            language === "A" ? "عند ضغطك على كلمة (تأكيد) سوف يتم ارسال بياناتك لغرفة تجارة بغداد, سيتم المباشرة في معاملتك بعد تسديد الأجور" : "When you click on the word (Confirm), you will be transferred to the payment interface and you cannot return to cancel the process."
+            language === "A"
+              ? "عند ضغطك على كلمة (تأكيد) سوف يتم ارسال بياناتك لغرفة تجارة بغداد, سيتم المباشرة في معاملتك بعد تسديد الأجور"
+              : "When you click on the word (Confirm), you will be transferred to the payment interface and you cannot return to cancel the process."
           }}
         </p>
         <div class="modal-buttons">
@@ -237,7 +263,7 @@
 </template>
 
 <script>
-import {axiosInstance} from "../../axios";
+import { axiosInstance } from "../../axios";
 import { toast } from "vue3-toastify";
 import "vue3-toastify/dist/index.css";
 
@@ -255,16 +281,26 @@ export default {
     loading: {
       type: Boolean,
     },
+    itemClassName:{
+      type: String,
+      required: true
+    },
+    CountryName:{
+      type: String,
+      required: true,
+    }
   },
   data() {
     return {
       showModal: false,
-      height: 1510,
+      height: 1720,
       language: this.Language,
       formData: this.FormData,
       userData: {},
       PriceData: {},
       prices: [],
+      CountryNameData:this.CountryName,
+      ClassNameData:this.itemClassName
     };
   },
   created() {
@@ -278,20 +314,25 @@ export default {
     },
     confirmYes() {
       this.showModal = false;
-      this.$emit('complete');
+      this.$emit("complete");
     },
     confirmNo() {
       this.showModal = false;
-      toast.info(this.language === 'A' ? 'تم إلغاء الإجراء' : 'Action cancelled');
+      toast.info(
+        this.language === "A" ? "تم إلغاء الإجراء" : "Action cancelled"
+      );
     },
     async TradeInfo() {
       try {
-        const response = await axiosInstance.get("/Certifecate/get-Tajer-Data", {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("Token")}`,
-            "Accept-Language": `${this.language}`,
-          },
-        });
+        const response = await axiosInstance.get(
+          "/Certifecate/get-Tajer-Data",
+          {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("Token")}`,
+              "Accept-Language": `${this.language}`,
+            },
+          }
+        );
         this.userData = response.data;
       } catch (error) {
         console.log("Error fetching user data:", error);
@@ -411,21 +452,21 @@ fieldset .data_container {
   background-color: #2980b9;
 }
 
-.modal-buttons .cancel_btn{
+.modal-buttons .cancel_btn {
   background-color: #ccc;
 }
 
-.modal-buttons .cancel_btn:hover{
+.modal-buttons .cancel_btn:hover {
   background-color: #717171;
 }
 
-@media(max-width:769px){
+@media (max-width: 769px) {
   .modal-content {
-  width: 90%;
-  background: white;
-  padding: 20px;
-  border-radius: 5px;
-  text-align: center;
-}
+    width: 90%;
+    background: white;
+    padding: 20px;
+    border-radius: 5px;
+    text-align: center;
+  }
 }
 </style>
