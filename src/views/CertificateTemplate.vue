@@ -75,7 +75,7 @@
             class="data"
             >عرض البيانات</router-link
           >
-          <a v-if="Status === 404" :href="`${Pdf}`" class="files">{{
+          <a v-if="Status === 200" :href="`https://documents.gcc.iq/${Pdf}`" target="_blank" class="files">{{
             Language === "E" ? "View documents" : "عرض الوثائق"
           }}</a>
           <span v-else>الشهادة غير مؤرشفة</span>
@@ -117,9 +117,10 @@ export default {
         this.CertificateId = response.data.id;
         if (response.data.pdf === null) {
           toast.warning("هذه الشهادة غير مؤرشفة");
-          this.Status = 402;
+          this.Status = 404;
         } else {
           this.Pdf = response.data.pdf;
+          this.Status = 200;
         }
       } catch (error) {
         console.error(error);

@@ -1,103 +1,113 @@
-import { createRouter, createWebHistory } from 'vue-router';
-import LoginView from '@/views/LoginView.vue';
-import SignUp from '@/views/SignUpView.vue';
-import ResetPassword from '@/views/ResetPassword.vue';
-import HomeView from '@/views/HomeView.vue';
-import CertificateOfOrigin from '@/views/CertificateOfOrigin.vue';
-import TransactionsView from '@/views/TransactionsView.vue';
-import OrderInvoice from '@/components/CertificateOrigin/OrderInvoice.vue';
-import ShowOrder from '@/components/CertificateOrigin/ShowOrder.vue';
-import ChamberTemplate from '@/views/ChamberTemplate.vue';
-import CertificateTemplate from '@/views/CertificateTemplate.vue';
-import ViewBook from '@/views/ViewBook.vue';
-import ViewCertificateA from '@/views/ViewCertificateA.vue';
-import ViewCertificateE from '../views/ViewCertificateE.vue';
+import { createRouter, createWebHistory } from "vue-router";
+import LoginView from "@/views/LoginView.vue";
+import SignUp from "@/views/SignUpView.vue";
+import ResetPassword from "@/views/ResetPassword.vue";
+import HomeView from "@/views/HomeView.vue";
+import CertificateOfOrigin from "@/views/CertificateOfOrigin.vue";
+import TransactionsView from "@/views/TransactionsView.vue";
+import OrderInvoice from "@/components/CertificateOrigin/OrderInvoice.vue";
+import ShowOrder from "@/components/CertificateOrigin/ShowOrder.vue";
+import ChamberTemplate from "@/views/ChamberTemplate.vue";
+import CertificateTemplate from "@/views/CertificateTemplate.vue";
+import ViewBook from "@/views/ViewBook.vue";
+import ViewCertificateA from "@/views/ViewCertificateA.vue";
+import ViewCertificateE from "../views/ViewCertificateE.vue";
+import NotFound from "../views/404Page.vue";
 
 const routes = [
   {
-    path: '/login',
-    name: 'login',
+    path: "/login",
+    name: "login",
     component: LoginView,
-    meta: { hideNavBar: true, title: 'غرفة تجارة بغداد || تسجيل الدخول' },
+    meta: { hideNavBar: true, title: "غرفة تجارة بغداد || تسجيل الدخول" },
   },
   {
-    path: '/signup',
-    name: 'signup',
+    path: "/signup",
+    name: "signup",
     component: SignUp,
-    meta: { hideNavBar: true, title: 'غرفة تجارة بغداد || انشاء حساب' },
+    meta: { hideNavBar: true, title: "غرفة تجارة بغداد || انشاء حساب" },
   },
   {
-    path: '/resetpassword',
-    name: 'resetPassword',
+    path: "/resetpassword",
+    name: "resetPassword",
     component: ResetPassword,
-    meta: { hideNavBar: true, title: 'غرفة تجارة بغداد || اعادة تعيين كلمة المرور' },
+    meta: {
+      hideNavBar: true,
+      title: "غرفة تجارة بغداد || اعادة تعيين كلمة المرور",
+    },
   },
   {
-    path: '/',
-    name: 'home',
+    path: "/",
+    name: "home",
     component: HomeView,
-    meta: { title: 'غرفة تجارة بغداد || الصفحة الرئيسية' },
+    meta: { title: "غرفة تجارة بغداد || الصفحة الرئيسية" },
   },
   {
-    path: '/origincertificate',
-    name: 'originCertificate',
+    path: "/origincertificate",
+    name: "originCertificate",
     component: CertificateOfOrigin,
-    meta: { title: 'غرفة تجارة بغداد || طلب شهادة منشأ' },
+    meta: { title: "غرفة تجارة بغداد || طلب شهادة منشأ" },
   },
   {
-    path: '/transactions',
-    name: 'transactions',
+    path: "/transactions",
+    name: "transactions",
     component: TransactionsView,
-    meta: { title: 'غرفة تجارة بغداد || المعاملات' },
+    meta: { title: "غرفة تجارة بغداد || المعاملات" },
   },
   {
-    path: '/orderinvoice/:orderNumber',
-    name: 'OrderInvoice',
+    path: "/orderinvoice/:orderNumber",
+    name: "OrderInvoice",
     component: OrderInvoice,
     props: true,
-    meta: { hideNavBar: true, title: 'غرفة تجارة بغداد' },
+    meta: { hideNavBar: true, title: "غرفة تجارة بغداد" },
   },
   {
-    path: '/showorder/:id',
-    name: 'ShowOrder',
+    path: "/showorder/:id",
+    name: "ShowOrder",
     component: ShowOrder,
-    meta: { title: 'غرفة تجارة بغداد' },
+    meta: { title: "غرفة تجارة بغداد" },
   },
   {
-    path: '/choicetype/:qrarchive',
-    name: 'ChoiceTemplate',
+    path: "/choicetype/:qrarchive",
+    name: "ChoiceTemplate",
     component: ChamberTemplate,
-    meta: { hideNavBar: true, title: 'غرفة تجارة بغداد' },
+    meta: { hideNavBar: true, title: "غرفة تجارة بغداد" },
   },
   {
-    path: '/choicetypes/:idNumber',
-    name: 'CertificateTemplates',
+    path: "/choicetypes/:idNumber",
+    name: "CertificateTemplates",
     component: CertificateTemplate,
-    meta: { hideNavBar: true, title: 'غرفة تجارة بغداد' },
+    meta: { hideNavBar: true, title: "غرفة تجارة بغداد" },
   },
   {
-    path: '/viewbook/:bookid',
-    name: 'ViewBook',
+    path: "/viewbook/:bookid",
+    name: "ViewBook",
     component: ViewBook,
-    meta: { hideNavBar: true, title: 'غرفة تجارة بغداد || الكتب' },
+    meta: { hideNavBar: true, title: "غرفة تجارة بغداد || الكتب" },
   },
   {
-    path: '/viewcertificate/:certificateid',
-    name: 'ViewCertificate',
+    path: "/viewcertificate/:certificateid",
+    name: "ViewCertificate",
     component: ViewCertificateA,
     meta: {
       hideNavBar: true,
-      title: 'غرفة تجارة بغداد || شهادة المنشأ'
+      title: "غرفة تجارة بغداد || شهادة المنشأ",
     },
   },
   {
-    path: '/viewcertificateE/:certificateid',
-    name: 'ViewCertificateEnglish',
+    path: "/viewcertificateE/:certificateid",
+    name: "ViewCertificateEnglish",
     component: ViewCertificateE,
     meta: {
       hideNavBar: true,
-      title: 'غرفة تجارة بغداد || Certificate of Origin'
+      title: "غرفة تجارة بغداد || Certificate of Origin",
     },
+  },
+  {
+    path: "/:catchAll(.*)",
+    name: "NotFound",
+    component: NotFound,
+    meta: { hideNavBar: true, title: "404 NotFound" },
   },
 ];
 
@@ -107,19 +117,26 @@ const router = createRouter({
 });
 
 router.beforeEach((to, from, next) => {
-  const token = localStorage.getItem('Token');
+  const token = localStorage.getItem("Token");
   const publicRoutes = [
-    'login', 'signup', 'resetPassword', 'OrderInvoice',
-    'PdfTemplate', 'ChoiceTemplate', 'CertificateTemplates',
-    'ShowCertificate', 'ViewCertificate', 'ViewBook','ViewCertificateEnglish'
+    "login",
+    "signup",
+    "resetPassword",
+    "OrderInvoice",
+    "PdfTemplate",
+    "ChoiceTemplate",
+    "CertificateTemplates",
+    "ShowCertificate",
+    "ViewCertificate",
+    "ViewBook",
+    "ViewCertificateEnglish",
   ];
 
-
-  const defaultTitle = 'غرفة تجارة بغداد';
+  const defaultTitle = "غرفة تجارة بغداد";
   document.title = to.meta.title || defaultTitle;
 
   if (!token && !publicRoutes.includes(to.name)) {
-    next('/login');
+    next("/login");
   } else {
     next();
   }

@@ -58,7 +58,7 @@
   </header>
   <main>
     <div class="container_fluid">
-      <div class="certificate_wrapper">
+      <div class="certificate_wrapperA">
         <div class="show_tableA">
           <div class="head_section">
             <div class="full_row row">

@@ -1,15 +1,18 @@
 <template>
   <div class="container_fluid">
     <QuickAccess />
+    <LastTransactions />
   </div>
 </template>
 
 <script>
 import QuickAccess from '../components/HomeComponents/QuickAccess.vue';
+import LastTransactions from '../components/HomeComponents/LastTransactions.vue';
 
 export default {
   components:{
-    QuickAccess
+    QuickAccess,
+    LastTransactions
   }
 }
 </script>
@@ -21,6 +24,9 @@ export default {
     min-height: 90vh;
     margin: 0 auto;
     padding: 35px;
+    display: flex;
+    flex-direction: column;
+    gap: 75px;
   }
 
 

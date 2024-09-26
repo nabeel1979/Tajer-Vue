@@ -89,6 +89,7 @@ export default {
   name: "ChambersTemplate",
   data() {
     return {
+      Language:"A",
       bookId: "",
       QrNum: "",
       Status: "",
@@ -116,6 +117,7 @@ export default {
           this.bookId = response.data.bookId;
           this.Pdf = `https://documents.gcc.iq/${response.data.pdf}`;
           this.Status = "Found";
+          console.log(response.data)
         } else {
           toast.warning("هذا الكتاب غير مؤرشف");
           this.bookId = response.data.bookId;
