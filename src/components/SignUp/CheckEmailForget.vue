@@ -21,7 +21,7 @@
       </div>
       <form @submit.prevent="submitEmail">
         <div class="email_section">
-          <label for="text">رقم الاضبارة</label>
+          <label for="text">رقم الصنف</label>
           <input type="text" v-model="AzparaNum" required />
         </div>
         <button type="submit">تحقق</button>
@@ -66,7 +66,7 @@ export default {
         }
       } catch (error) {
         if (error.response.data.Message === 'User not found') {
-          toast.error('رقم الاضبارة الذي ادخلته غير مرتبط بحساب');
+          toast.error('رقم الصنف الذي ادخلته غير مرتبط بحساب');
         }
       }
     },

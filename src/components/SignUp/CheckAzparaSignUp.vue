@@ -8,7 +8,7 @@
         </div>
       </section>
       <div>
-        <h4>قم بأدخال رقم الإضبارة</h4>
+        <h4>قم بأدخال رقم الصنف</h4>
       </div>
       <!-- <div>
         <select
@@ -29,7 +29,7 @@
       </div> -->
       <div class="azpara_section" v-if="selectedGovernorate === 3">
         <div class="h4">
-          <p>ادخل رقم الاضبارة الموجود في هوية غرفة تجارة بغداد</p>
+          <p>ادخل رقم الصنف الموجود في هوية غرفة تجارة بغداد</p>
         </div>
         <div class="input_wrap">
           <div class="input-group mb-3" dir="ltr">

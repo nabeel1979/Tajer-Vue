@@ -40,7 +40,6 @@ a{
   padding: 25px 30px 15px 30px;
   width: 100%;
   gap: 25px;
-  text-decoration: none;
 }
 
 .quick_card .icon_wrapper {
@@ -48,6 +47,8 @@ a{
 }
 
 .icon_wrapper .icon_circle {
+  display: block;
+  width: 50px;
   padding: 8px 15px;
   background-color: #0073ff47;
   color: #0071ff;

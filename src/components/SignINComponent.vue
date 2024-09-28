@@ -7,7 +7,7 @@
     <form @submit.prevent="login">
       <div class="m-auto">
         <div class="form-group text-end">
-          <label>رقم الاضبارة</label>
+          <label>رقم الصنف</label>
           <input
             type="text"
             class="form-control"
@@ -16,7 +16,7 @@
             :class="emailClass"
           />
           <p class="wrong_msg" v-if="ErrorMessage === 'User not found'">
-            رقم الاضبارة غير موجود
+            رقم الصنف غير موجود
           </p>
         </div>
       </div>

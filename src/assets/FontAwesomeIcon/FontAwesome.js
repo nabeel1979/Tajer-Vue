@@ -25,6 +25,8 @@ import { faApple } from '@fortawesome/free-brands-svg-icons'
 import { faGooglePlay } from '@fortawesome/free-brands-svg-icons'
 import { faInbox } from '@fortawesome/free-solid-svg-icons'
 import { faBook } from '@fortawesome/free-solid-svg-icons'
+import { faTicketSimple } from '@fortawesome/free-solid-svg-icons'
+import { faScroll } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
 library.add(faUserSecret)
@@ -54,4 +56,6 @@ library.add(faApple)
 library.add(faGooglePlay)
 library.add(faInbox)
 library.add(faBook)
+library.add(faTicketSimple)
+library.add(faScroll)
 export { FontAwesomeIcon }
