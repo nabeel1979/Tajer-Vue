@@ -141,7 +141,9 @@
               {{ language === "A" ? "صنف المادة" : "Material Classification" }}
             </p>
             <p>
-              <span>{{ language === "A" ? ClassNameData.DscrpA : ClassNameData.DscrpE }}</span>
+              <span>{{
+                language === "A" ? ClassNameData.DscrpA : ClassNameData.DscrpE
+              }}</span>
             </p>
           </div>
         </div>
@@ -186,7 +188,11 @@
               {{ language === "A" ? "البلد المستورد" : "Importing country" }}
             </p>
             <p>
-              <span>{{ language === "A" ? CountryNameData.DscrpA : CountryNameData.DscrpE }}</span>
+              <span>{{
+                language === "A"
+                  ? CountryNameData.DscrpA
+                  : CountryNameData.DscrpE
+              }}</span>
             </p>
           </div>
         </div>
@@ -281,26 +287,26 @@ export default {
     loading: {
       type: Boolean,
     },
-    itemClassName:{
-      type: String,
-      required: true
-    },
-    CountryName:{
+    itemClassName: {
       type: String,
       required: true,
-    }
+    },
+    CountryName: {
+      type: String,
+      required: true,
+    },
   },
   data() {
     return {
       showModal: false,
-      height: 1720,
+      height: 1910,
       language: this.Language,
       formData: this.FormData,
       userData: {},
       PriceData: {},
       prices: [],
-      CountryNameData:this.CountryName,
-      ClassNameData:this.itemClassName
+      CountryNameData: this.CountryName,
+      ClassNameData: this.itemClassName,
     };
   },
   created() {

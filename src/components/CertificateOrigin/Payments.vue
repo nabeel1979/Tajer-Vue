@@ -54,7 +54,7 @@ export default {
   },
   data() {
     return {
-      height: 600,
+      height: 700,
       loading: false,
     };
   },
@@ -145,9 +145,18 @@ fieldset .data_container {
   animation: spin 1s linear infinite;
 }
 
+.form_container h3{
+  font-size: 24px;
+  text-align: center;
+}
+
 @keyframes spin {
   to {
     transform: rotate(360deg);
   }
+}
+
+.form_container .btn_wrapper{
+  text-align: center;
 }
 </style>

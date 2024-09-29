@@ -38,10 +38,10 @@
       <span v-else class="disabled">عرض</span>
     </td>
     <td>
-      <router-link
-      v-if="Transactions.OperationId === 3"
-      :to="`/choicetypes/${CertificateId}`"
-      >عرض</router-link>
+      <a
+      v-if="Transactions.OperationId === 3 && Transactions.Document !== null"
+      :href="`https://documents.gcc.iq/${Transactions.Document}`"
+      >عرض</a>
       <span v-else class="disabled">عرض</span>
     </td>
   </tr>
