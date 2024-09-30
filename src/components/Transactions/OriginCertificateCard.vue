@@ -32,7 +32,7 @@
     <td>
       <router-link
         v-if="Transactions.OperationId === 3"
-        :to="`/viewcertificate/${CertificateId}`"
+        :to="Transactions.Lang === 'E' ? `/viewcertificateE/${Transactions.CertificateId}` : `/viewcertificate/${Transactions.CertificateId}`"
         >عرض</router-link
       >
       <span v-else class="disabled">عرض</span>
@@ -48,7 +48,6 @@
 </template>
 
 <script>
-import { axiosInstance } from "../../axios";
 export default {
   name: "OriginCertificateCard",
   props: {
@@ -64,21 +63,6 @@ export default {
     return {
       CertificateId: null,
     };
-  },
-  created(){
-    this.getCertificateId();
-  },
-  methods: {
-    async getCertificateId() {
-      try {
-        const response = await axiosInstance.get(
-          `/Certifecate/get-certificate-id?orderNumber=${this.Transactions.OrderNo}`
-        );
-        this.CertificateId = response.data;
-      } catch (error) {
-        console.log(error);
-      }
-    },
   },
 };
 </script>
