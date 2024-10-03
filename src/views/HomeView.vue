@@ -2,17 +2,20 @@
   <div class="container_fluid">
     <QuickAccess />
     <LastTransactions />
+    <ChartsSection />
   </div>
 </template>
 
 <script>
 import QuickAccess from '../components/HomeComponents/QuickAccess.vue';
 import LastTransactions from '../components/HomeComponents/LastTransactions.vue';
+import ChartsSection from '../components/HomeComponents/ChartsSection.vue';
 
 export default {
   components:{
     QuickAccess,
-    LastTransactions
+    LastTransactions,
+    ChartsSection
   }
 }
 </script>
