@@ -1,32 +1,49 @@
 <template>
   <div>
+    <h3>حالات الشهادات</h3>
     <div class="container_section">
       <div class="gauge-container">
-        <GaugeChart :value="10" :status="'accepted'" :total="17" />
+        <GaugeChart
+          :value="AcceptedCounter"
+          :status="'accepted'"
+          :total="CertificatesCounter"
+        />
         <p>مقبولة</p>
       </div>
       <div class="gauge-container">
-        <GaugeChart :value="0" :status="'rejected'" :total="17" />
+        <GaugeChart
+          :value="RejectedCounter"
+          :status="'rejected'"
+          :total="CertificatesCounter"
+        />
         <p>مرفوضة</p>
       </div>
       <div class="gauge-container">
-        <GaugeChart :value="4" :status="'pending'" :total="17" />
+        <GaugeChart
+          :value="PendingCounter"
+          :status="'pending'"
+          :total="CertificatesCounter"
+        />
         <p>قيد الانتظار</p>
       </div>
       <div class="gauge-container">
-        <GaugeChart :value="3" :status="'suspended'" :total="17" />
+        <GaugeChart
+          :value="SuspendedCounter"
+          :status="'suspended'"
+          :total="CertificatesCounter"
+        />
         <p>معلقة</p>
       </div>
     </div>
     <div class="books_sending">
       <p>عدد الكتب المصدرة</p>
-      <h2>0</h2>
+      <h2>{{ BooksCounter }}</h2>
     </div>
   </div>
 </template>
   
   <script>
-// import { axiosInstance } from "../../axios";
+import { axiosInstance } from "../../axios";
 import GaugeChart from "./GaugeChart.vue";
 
 export default {
@@ -34,11 +51,39 @@ export default {
   components: {
     GaugeChart,
   },
-  // methods:{
-  //   async GetData(){
-  //     const response = axiosInstance.get("/home/home-data")
-  //   }
-  // }
+  data() {
+    return {
+      AcceptedCounter: "",
+      RejectedCounter: "",
+      PendingCounter: "",
+      SuspendedCounter: "",
+      CertificatesCounter: "",
+      BooksCounter: "",
+    };
+  },
+  created() {
+    this.GetData();
+  },
+  methods: {
+    async GetData() {
+      try {
+        const response = await axiosInstance.get("/home/home-data", {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("Token")}`,
+          },
+        });
+        const path = response.data.CertificateData;
+        this.AcceptedCounter = path.AcceptedCount;
+        this.RejectedCounter = path.RejectedCount;
+        this.PendingCounter = path.PendingCount;
+        this.SuspendedCounter = path.SuspendedCount;
+        this.CertificatesCounter = path.CertificatesCount;
+        this.BooksCounter = response.data.BooksCount;
+      } catch (error) {
+        console.log(error);
+      }
+    },
+  },
 };
 </script>
 
@@ -62,5 +107,16 @@ export default {
   border-radius: 15px;
   box-shadow: 0 0 10px 1px rgb(195, 195, 195);
   padding: 25px 0 10px 0;
+}
+
+@media (max-width: 768px) {
+  .container_section {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .gauge-container {
+    width: 45%;
+  }
 }
 </style>

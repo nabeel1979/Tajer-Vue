@@ -48,4 +48,13 @@ export default {
     gap: 15px;
     padding: 15px;
   }
+
+  @media (max-width: 768px) {
+        .card_wrapper{
+        gap: 25px;
+        padding: 1px;
+        flex-direction: column;
+        justify-content: center;
+    }
+  }
 </style>

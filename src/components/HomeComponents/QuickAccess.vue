@@ -45,4 +45,10 @@ data(){
         gap: 15px;
         padding: 15px;
     }
+
+    @media (max-width: 768px) {
+        .card_wrapper{
+        gap: 25px;
+    }
+    }
 </style>

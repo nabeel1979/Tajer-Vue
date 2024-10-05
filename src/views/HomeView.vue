@@ -3,6 +3,7 @@
     <QuickAccess />
     <LastTransactions />
     <ChartsSection />
+    <ExpireUser />
   </div>
 </template>
 
@@ -10,12 +11,14 @@
 import QuickAccess from '../components/HomeComponents/QuickAccess.vue';
 import LastTransactions from '../components/HomeComponents/LastTransactions.vue';
 import ChartsSection from '../components/HomeComponents/ChartsSection.vue';
+import ExpireUser from '../components/HomeComponents/ExpireUser.vue';
 
 export default {
   components:{
     QuickAccess,
     LastTransactions,
-    ChartsSection
+    ChartsSection,
+    ExpireUser
   }
 }
 </script>
@@ -32,5 +35,11 @@ export default {
     gap: 75px;
   }
 
-
+@media (max-width: 768px){
+  .container_fluid{
+    width: 98%;
+    padding: 25px;
+    gap: 25px;
+  }
+}
 </style>

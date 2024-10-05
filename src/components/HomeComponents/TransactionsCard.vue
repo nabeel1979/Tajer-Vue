@@ -118,4 +118,45 @@ export default {
   font-weight: 700;
   color: #0073ff;
 }
+
+@media (max-width: 768px){
+  .transaction_card {
+  padding: 15px;
+  width: 100%;
+}
+
+.status_section .status_value {
+  width: 100px;
+}
+
+.content_section .card_part_content{
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  gap: 5px;
+  width:100%;
+  padding: 15px 0 0 0;
+}
+
+.card_part_content svg{
+  font-size: 18px;
+  color: #00459a;
+}
+
+.titles_part div p,
+.titles_part div h4{
+  line-height:0.4;
+}
+
+.titles_part div p{
+  font-size: 14px;
+  color: #a6a6a6;
+}
+
+.titles_part div h4{
+  font-size: 16px;
+  font-weight: 700;
+  color: #0073ff;
+}
+}
 </style>

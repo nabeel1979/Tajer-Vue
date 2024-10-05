@@ -19,7 +19,7 @@
       <div class="btn_container">
         <router-link to="/login" class="btn_style">
           <span
-            ><font-awesome-icon :icon="['fas', 'user']" style="font-size: 24px"
+            ><font-awesome-icon :icon="['fas', 'user']"
           /></span>
           {{ Language === "A" ? "تسجيل الدخول" : "Sign In" }}
         </router-link>
@@ -29,7 +29,6 @@
           <span
             ><font-awesome-icon
               :icon="['fas', 'phone']"
-              style="font-size: 24px"
           /></span>
           {{ Language === "A" ? "اتصل بنا" : "Call Us" }}
         </a>
@@ -39,7 +38,6 @@
           <span
             ><font-awesome-icon
               :icon="['fab', 'google-play']"
-              style="font-size: 24px"
           /></span>
           GooglePlay
         </button>
@@ -49,7 +47,6 @@
           <span
             ><font-awesome-icon
               :icon="['fab', 'apple']"
-              style="font-size: 24px"
           /></span>
           AppStore
         </button>
@@ -277,7 +274,7 @@ export default {
   },
 };
 </script>
-    
+
 <style scoped>
 @import url("https://fonts.googleapis.com/css2?family=Changa:wght@200..800&family=Readex+Pro:wght@160..700&display=swap");
 * {
@@ -424,7 +421,7 @@ main {
 
 .row_section .cell_left_6_2 .upper_info {
   border-bottom: 2px solid;
-  height: 50%;
+  height: max-content;
 }
 
 .cell_left_6_2 .upper_info,
@@ -448,7 +445,7 @@ main {
 .line_description .extension {
   display: flex;
   flex-direction: column;
-  line-height: 0;
+  line-height: 1;
 }
 
 .book_data .bottom_row_info {
@@ -482,6 +479,26 @@ main {
   border-right: 2px solid black;
 }
 
+.info_data {
+  color: #3c4fdd;
+}
+
+.btn_style svg{
+  font-size: 24px;
+}
+
+@media (max-width: 1369px) {
+  .row_section .cell_1,
+.row_section .cell_1_last,
+.row_section .cell_6 {
+  min-height: 350px;
+  padding: 10px 5px;
+  border-bottom: 2px solid black;
+  text-align: start;
+  vertical-align: top;
+}
+}
+
 @media (max-width: 600px) {
   /* Header Styles */
   .main_header {
@@ -510,13 +527,13 @@ main {
     padding: 5px;
   }
 
+  .btn_container .btn_style {
+  padding: 5px;
+  font-size: 12px;
+}
+
   .btn_header .btn_container {
     width: 50%;
-  }
-
-  .btn_container .btn_style {
-    font-size: 20px;
-    line-height: 14px;
   }
 
   .btn_style span {
@@ -524,5 +541,43 @@ main {
     margin: 0 10px;
   }
   /* Main Styles */
+
+  .container_fluid .certificate_wrapper {
+  width: 95%;
+  padding: 15px 5px;
+  margin: 0 auto;
+}
+
+.row_section .cell_right_6,
+.row_section .cell_left_6 {
+  min-height: 30px;
+  padding: 10px 5px;
+}
+
+
+.bottom_row_info img {
+  width: 50px;
+}
+
+.row_section .cell_1,
+.row_section .cell_1_last,
+.row_section .cell_6 {
+  min-height: 150px;
+  padding: 10px 5px;
+}
+
+p,
+span{
+  font-size: 8px;
+}
+
+.row_section .cell_left_6_2 .upper_info {
+  border-bottom: 2px solid;
+  height: max-content
+}
+
+.btn_style svg{
+  font-size: 12px;
+}
 }
 </style>

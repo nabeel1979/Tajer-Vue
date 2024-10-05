@@ -19,7 +19,7 @@
       <div class="btn_container">
         <router-link to="/login" class="btn_style">
           <span
-            ><font-awesome-icon :icon="['fas', 'user']" style="font-size: 24px"
+            ><font-awesome-icon :icon="['fas', 'user']"
           /></span>
           {{ Language === "A" ? "تسجيل الدخول" : "Sign In" }}
         </router-link>
@@ -29,7 +29,6 @@
           <span
             ><font-awesome-icon
               :icon="['fas', 'phone']"
-              style="font-size: 24px"
           /></span>
           {{ Language === "A" ? "اتصل بنا" : "Call Us" }}
         </a>
@@ -39,7 +38,6 @@
           <span
             ><font-awesome-icon
               :icon="['fab', 'google-play']"
-              style="font-size: 24px"
           /></span>
           GooglePlay
         </button>
@@ -49,7 +47,6 @@
           <span
             ><font-awesome-icon
               :icon="['fab', 'apple']"
-              style="font-size: 24px"
           /></span>
           AppStore
         </button>
@@ -542,6 +539,10 @@ p span {
   color: #3c4fdd;
 }
 
+.btn_style svg{
+  font-size: 24px;
+}
+
 @media (max-width: 600px) {
   /* Header Styles */
   .main_header {
@@ -584,6 +585,11 @@ p span {
     margin: 0 10px;
   }
   /* Main Styles */
+
+  .btn_container .btn_style {
+  padding: 5px;
+  font-size: 12px;
+}
 
   .container_fluid {
     width: 99.5%;
@@ -629,6 +635,54 @@ p span {
   .tr_info .left_cell_2 p{
     font-size: 9px;
   }
+
+  p,
+  span,
+  p span{
+    font-size: 8px;
+  }
+
+  .a_title p,
+  .e_title p,
+  .subject_title p{
+    font-size: 8px;
+  }
+
+  .img_section img{
+    width: 20px;
+  }
+
+  .subject_title h3{
+    font-size: 9px;
+  }
+
+  .cell_left_6 .inside_cell {
+  height: 30px;
+}
+
+.tr_info .cell_right_6,
+.tr_info .cell_left_6 {
+  min-height: 30px;
+}
+
+.tr_info .right_cell_8 {
+  min-height: 30px;
+}
+
+.tr_info .middle_cell_2,
+.tr_info .left_cell_2 {
+  min-height: 30px;
+}
+
+.tr_info .right_cell_4,
+.tr_info .middle_cell_4,
+.tr_info .left_cell_4 {
+  min-height: 30px;
+}
+
+.btn_style svg{
+  font-size: 12px;
+}
 }
 
 </style>
