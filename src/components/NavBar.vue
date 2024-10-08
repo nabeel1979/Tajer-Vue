@@ -79,7 +79,7 @@
                 <li>
                   <a href="">الملف الشخصي</a>
                 </li>
-                <li><a href="#">تغيير كلمة المرور</a></li>
+                <li><router-link to="/edit-password">تغيير كلمة المرور</router-link></li>
               </ul>
             </li>
           </ul>

@@ -28,7 +28,7 @@
               <p v-if="!passwordsMatch" class="wrong_msg">
                 كلمات المرور غير متطابقة
               </p>
-              <p v-if="!passwordsMatch" class="wrong_msg">
+              <p v-if="!passwordsLength" class="wrong_msg">
                 كلمات المرور يجب ان تكون اكثر من 5 حقول
               </p>
             </div>

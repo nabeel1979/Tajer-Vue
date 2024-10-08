@@ -13,6 +13,7 @@ import ViewBook from "@/views/ViewBook.vue";
 import ViewCertificateA from "@/views/ViewCertificateA.vue";
 import ViewCertificateE from "../views/ViewCertificateE.vue";
 import NotFound from "../views/404Page.vue";
+import EditPassword from "../views/EditPassword.vue";
 
 const routes = [
   {
@@ -101,6 +102,14 @@ const routes = [
     meta: {
       hideNavBar: true,
       title: "غرفة تجارة بغداد || Certificate of Origin",
+    },
+  },
+  {
+    path: "/edit-password",
+    name: "EditPassword",
+    component: EditPassword,
+    meta: {
+      title: "غرفة تجارة بغداد || تعديل كلمة المرور",
     },
   },
   {

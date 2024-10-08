@@ -60,9 +60,6 @@
     <div class="container-fluid">
       <div class="btn_wrap">
         <div>
-          <h3>هذه الشهادة غير مؤرشفة</h3>
-        </div>
-        <div>
           <router-link
             v-if="Language === 'E'"
             :to="`/viewcertificateE/${CertificateId}`"
@@ -78,7 +75,7 @@
           <a v-if="Status === 200" :href="`https://documents.gcc.iq/${Pdf}`" target="_blank" class="files">{{
             Language === "E" ? "View documents" : "عرض الوثائق"
           }}</a>
-          <span v-else>الشهادة غير مؤرشفة</span>
+          <span v-else>  </span>
         </div>
       </div>
     </div>
@@ -88,8 +85,6 @@
   
   <script>
 import { axiosInstance } from "../axios";
-import { toast } from "vue3-toastify";
-import "vue3-toastify/dist/index.css";
 
 export default {
   name: "ChambersTemplate",
@@ -116,7 +111,6 @@ export default {
         this.Language = response.data.language;
         this.CertificateId = response.data.id;
         if (response.data.pdf === null) {
-          toast.warning("هذه الشهادة غير مؤرشفة");
           this.Status = 404;
         } else {
           this.Pdf = response.data.pdf;
