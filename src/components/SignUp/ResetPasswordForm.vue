@@ -28,6 +28,9 @@
               <p v-if="!passwordsMatch" class="wrong_msg">
                 كلمات المرور غير متطابقة
               </p>
+              <p v-if="!passwordsLength" class="wrong_msg">
+                كلمات المرور يجب ان تكون اكثر من 5 حقول
+              </p>
             </div>
           </div>
           <div class="m-auto">
@@ -83,6 +86,9 @@ export default {
     passwordsMatch() {
       return this.newPassword === this.confirmPassword;
     },
+    passwordsLength() {
+      return this.newPassword.length>=5 && this.confirmPassword.length >=5;
+    },
   },
   setup() {
     const router = useRouter();
@@ -91,6 +97,7 @@ export default {
   methods: {
     async changePassword() {
       this.loading = true;
+      if(this.passwordsLength){
       if (this.passwordsMatch) {
         try {
           const response = await axiosInstance.post(
@@ -119,6 +126,9 @@ export default {
       } else {
         toast.info("كلمات المرور غير متطابقة")
       }
+    } else {
+      toast.info("كلمة المرور يجب أن تكون على الأقل 5 أحرف")
+    }
     },
   },
 };

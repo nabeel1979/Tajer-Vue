@@ -60,9 +60,6 @@
     <div class="container-fluid">
       <div class="btn_wrap">
         <div>
-          <h3>هذه الشهادة غير مؤرشفة</h3>
-        </div>
-        <div>
           <router-link
             v-if="Language === 'E'"
             :to="`/viewcertificateE/${CertificateId}`"
@@ -78,7 +75,7 @@
           <a v-if="Status === 200" :href="`https://documents.gcc.iq/${Pdf}`" target="_blank" class="files">{{
             Language === "E" ? "View documents" : "عرض الوثائق"
           }}</a>
-          <span v-else></span>
+          <span v-else>  </span>
         </div>
       </div>
     </div>

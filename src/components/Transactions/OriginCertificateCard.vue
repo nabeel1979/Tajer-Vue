@@ -20,12 +20,15 @@
         v-if="Transactions.OperationId === 3 || Transactions.OperationId === 1"
         :to="`/orderinvoice/${Transactions.OrderNo}`"
         :class="{ disabled: false }"
+        target="_blank"
         >عرض</router-link
       >
       <span v-else class="disabled">عرض</span>
     </td>
     <td>
-      <router-link :to="`/showorder/${Transactions.Id}`"
+      <router-link
+      :to="`/showorder/${Transactions.Id}`"
+      target="_blank"
         >عرض</router-link
       >
     </td>
@@ -33,6 +36,7 @@
       <router-link
         v-if="Transactions.OperationId === 3"
         :to="Transactions.Lang === 'E' ? `/viewcertificateE/${Transactions.CertificateId}` : `/viewcertificate/${Transactions.CertificateId}`"
+        target="_blank"
         >عرض</router-link
       >
       <span v-else class="disabled">عرض</span>
@@ -41,6 +45,7 @@
       <a
       v-if="Transactions.OperationId === 3 && Transactions.Document !== null"
       :href="`https://documents.gcc.iq/${Transactions.Document}`"
+      target="_blank"
       >عرض</a>
       <span v-else class="disabled">عرض</span>
     </td>
