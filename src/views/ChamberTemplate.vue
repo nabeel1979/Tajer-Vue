@@ -72,7 +72,7 @@
           <a v-if="Status === 'Found'" :href="Pdf" target="_blank" class="files"
             >عرض الوثائق</a
           >
-          <span v-else>هذا الكتاب غير مؤرشف</span>
+          <span v-else></span>
         </div>
       </div>
     </div>
@@ -82,8 +82,6 @@
 
 <script>
 import { axiosInstance } from "../axios";
-import { toast } from "vue3-toastify";
-import "vue3-toastify/dist/index.css";
 
 export default {
   name: "ChambersTemplate",
@@ -119,7 +117,6 @@ export default {
           this.Status = "Found";
           console.log(response.data)
         } else {
-          toast.warning("هذا الكتاب غير مؤرشف");
           this.bookId = response.data.bookId;
           this.Status = "Not Found";
         }
