@@ -18,36 +18,25 @@
     <div class="btn_header">
       <div class="btn_container">
         <router-link to="/login" class="btn_style">
-          <span
-            ><font-awesome-icon :icon="['fas', 'user']"
-          /></span>
+          <span><font-awesome-icon :icon="['fas', 'user']" /></span>
           {{ Language === "A" ? "تسجيل الدخول" : "Sign In" }}
         </router-link>
       </div>
       <div class="btn_container">
         <a href="https://bcc.iq" class="btn_style">
-          <span
-            ><font-awesome-icon
-              :icon="['fas', 'phone']"
-          /></span>
+          <span><font-awesome-icon :icon="['fas', 'phone']" /></span>
           {{ Language === "A" ? "اتصل بنا" : "Call Us" }}
         </a>
       </div>
       <div class="btn_container">
         <button class="btn_style">
-          <span
-            ><font-awesome-icon
-              :icon="['fab', 'google-play']"
-          /></span>
+          <span><font-awesome-icon :icon="['fab', 'google-play']" /></span>
           GooglePlay
         </button>
       </div>
       <div class="btn_container">
         <button class="btn_style">
-          <span
-            ><font-awesome-icon
-              :icon="['fab', 'apple']"
-          /></span>
+          <span><font-awesome-icon :icon="['fab', 'apple']" /></span>
           AppStore
         </button>
       </div>
@@ -119,12 +108,22 @@
                 ><span>{{ BookInfo.TargetAddress }}</span>
               </p>
             </div>
-            <div class="cell_left_6">
-              <div class="inside_cell">
+            <div class="cell_left_6" style="padding: 0">
+              <div
+                class="inside_cell"
+                style="
+                  border-bottom: 2px solid black;
+                  padding: 5px 15px;
+                  height: max-content;
+                "
+              >
                 <p><span>4-</span> بلد المنشأ :</p>
                 <p class="info_data">{{ BookInfo.SourceCountry }}</p>
               </div>
-              <div class="inside_cell">
+              <div
+                class="inside_cell"
+                style="padding: 10px 15px; height: max-content"
+              >
                 <p><span>5-</span> كم تطبيق التراكم مع دول اخرى؟</p>
               </div>
             </div>
@@ -136,6 +135,7 @@
             </div>
             <div class="cell_left_6">
               <p><span>7-</span> ملاحظات :</p>
+              <p class="info_data">{{ BookInfo.Notes }}</p>
             </div>
           </div>
           <div class="tr_info">
@@ -145,9 +145,8 @@
                 وأرقام الطرود :
               </p>
               <h3 class="info_data">
-                <span style="width: 400px; display: inline-block">{{
-                  BookInfo.DetailsDscrp
-                }}</span
+                <span class="descrp_details_span">
+                  {{ BookInfo.DetailsDscrp }}</span
                 ><span>{{ BookInfo.DetailsTypeDscrp }}</span>
               </h3>
             </div>
@@ -272,7 +271,8 @@ export default {
           this.BookInfo.Notes = response.data.Notes;
           this.BookInfo.DetailsDscrp = response.data.DetailsDscrp;
           this.BookInfo.DetailsTypeDscrp = response.data.DetailsTypeDscrp;
-          this.BookInfo.Wigth = response.data.Wigth;
+          this.BookInfo.Wigth =
+            response.data.WigthNum + "" + response.data.Wigth;
           this.BookInfo.CertificateNo = response.data.CertificateNo;
           this.BookInfo.CertificateDate = response.data.CertificateDate;
           this.BookInfo.RegNo = response.data.RegNo;
@@ -345,8 +345,6 @@ export default {
   width: 100%;
   padding: 5px 0;
   background-color: #ffffff;
-  border-top: 1px solid gray;
-  border-bottom: 1px solid gray;
 }
 
 .btn_header .btn_container {
@@ -418,6 +416,7 @@ main {
 
 .head_section .row {
   padding: 25px 0;
+  margin-left: 0;
 }
 
 .head_section .titles_part {
@@ -539,7 +538,12 @@ p span {
   color: #3c4fdd;
 }
 
-.btn_style svg{
+.info_data .descrp_details_span{
+  display: inline-block;
+  width: 400px;
+}
+
+.btn_style svg {
   font-size: 24px;
 }
 
@@ -587,9 +591,9 @@ p span {
   /* Main Styles */
 
   .btn_container .btn_style {
-  padding: 5px;
-  font-size: 12px;
-}
+    padding: 5px;
+    font-size: 12px;
+  }
 
   .container_fluid {
     width: 99.5%;
@@ -611,7 +615,7 @@ p span {
   .img_section img {
     width: 40px;
   }
-  .head_section .row{
+  .head_section .row {
     padding: 25px 0 0 0;
   }
   .head_section .subject_title {
@@ -628,61 +632,69 @@ p span {
     font-weight: 600;
     font-size: 14px;
   }
-  .tr_info .right_cell_8 h3{
+  .tr_info .right_cell_8 h3 {
     font-size: 18px;
   }
   .tr_info .middle_cell_2 p,
-  .tr_info .left_cell_2 p{
+  .tr_info .left_cell_2 p {
     font-size: 9px;
   }
 
   p,
   span,
-  p span{
+  p span {
     font-size: 8px;
   }
 
   .a_title p,
   .e_title p,
-  .subject_title p{
+  .subject_title p {
     font-size: 8px;
   }
 
-  .img_section img{
+  .img_section img {
     width: 20px;
   }
 
-  .subject_title h3{
+  .subject_title h3 {
     font-size: 9px;
   }
 
   .cell_left_6 .inside_cell {
-  height: 30px;
+    height: 30px;
+  }
+
+  .tr_info .cell_right_6,
+  .tr_info .cell_left_6 {
+    min-height: 30px;
+  }
+
+  .tr_info .right_cell_8 {
+    min-height: 30px;
+  }
+
+  .tr_info .middle_cell_2,
+  .tr_info .left_cell_2 {
+    min-height: 30px;
+  }
+
+  .tr_info .right_cell_4,
+  .tr_info .middle_cell_4,
+  .tr_info .left_cell_4 {
+    min-height: 30px;
+  }
+
+  .btn_style svg {
+    font-size: 12px;
+  }
+
+  .info_data .descrp_details_span{
+  display: inline-block;
+  width: 150px;
 }
 
-.tr_info .cell_right_6,
-.tr_info .cell_left_6 {
-  min-height: 30px;
-}
-
-.tr_info .right_cell_8 {
-  min-height: 30px;
-}
-
-.tr_info .middle_cell_2,
-.tr_info .left_cell_2 {
-  min-height: 30px;
-}
-
-.tr_info .right_cell_4,
-.tr_info .middle_cell_4,
-.tr_info .left_cell_4 {
-  min-height: 30px;
-}
-
-.btn_style svg{
-  font-size: 12px;
+.info_data span{
+  font-weight: 700;
 }
 }
-
 </style>

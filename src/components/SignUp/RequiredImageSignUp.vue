@@ -125,6 +125,7 @@ export default {
       }
       const formData = new FormData();
       formData.append('RemoteFile', this.profileImage);
+      formData.append('Directory','TajerPhotos');
       try {
         const response = await axiosUpload.post('/File/upload', formData, {
           headers: {
@@ -157,6 +158,7 @@ export default {
           formData.append('files', this.images[key]);
         }
       });
+      formData.append('Directory','PdfFiles');
 
       try {
         const response = await axiosUpload.post('/File/pdf', formData, {

@@ -265,5 +265,9 @@ export default {
   .login-img {
     display: none;
   }
+
+  .edit_password_container{
+    width: 100%;
+  }
 }
 </style>
