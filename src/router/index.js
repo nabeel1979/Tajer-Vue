@@ -14,6 +14,7 @@ import ViewCertificateA from "@/views/ViewCertificateA.vue";
 import ViewCertificateE from "../views/ViewCertificateE.vue";
 import NotFound from "../views/404Page.vue";
 import EditPassword from "../views/EditPassword.vue";
+import ReDirectPage from "../views/ReDirectPage.vue";
 
 const routes = [
   {
@@ -110,6 +111,15 @@ const routes = [
     component: EditPassword,
     meta: {
       title: "غرفة تجارة بغداد || تعديل كلمة المرور",
+    },
+  },
+  {
+    path: "/redirect",
+    name: "Redirect",
+    component: ReDirectPage,
+    meta: {
+      hideNavBar: true,
+      title: "غرفة تجارة بغداد || أعادة توجيه",
     },
   },
   {
