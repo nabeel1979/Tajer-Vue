@@ -116,11 +116,22 @@ const routes = [
   {
     path: "/redirect",
     name: "Redirect",
-    component: ReDirectPage,
     meta: {
       hideNavBar: true,
       title: "غرفة تجارة بغداد || أعادة توجيه",
     },
+    children: [
+      {
+        path: "books/:qrCode",
+        name: "Books",
+        component: ReDirectPage,
+      },
+      {
+        path: "certificates/:id",
+        name: "Certificates",
+        component: ReDirectPage,
+      },
+    ],
   },
   {
     path: "/:catchAll(.*)",
@@ -149,6 +160,9 @@ router.beforeEach((to, from, next) => {
     "ViewCertificate",
     "ViewBook",
     "ViewCertificateEnglish",
+    "Redirect",
+    "Books",
+    "Certificates"
   ];
 
   const defaultTitle = "غرفة تجارة بغداد";
