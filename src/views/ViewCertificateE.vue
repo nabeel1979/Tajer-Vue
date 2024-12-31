@@ -134,6 +134,7 @@
           <div class="row_section">
             <div class="cell_1">
               <p>5. Item number</p>
+              <p class="info_data">{{ WigthNumber }}</p>
               <p class="info_data">{{ Wigth }}</p>
             </div>
             <div class="cell_1">
@@ -145,7 +146,7 @@
             </div>
             <div class="cell_1">
               <p>8. Origin criterion (see Notes overleat)</p>
-              <p class="info_data">{{ SourceCountry }}</p>
+              <p class="info_data">Iraq</p>
             </div>
             <div class="cell_1">
               <p>9. Gross weight or other quantity</p>
@@ -155,6 +156,10 @@
               <p>10. Number and date of invoices</p>
               <p class="info_data">{{ CertificateNo }}</p>
               <p class="info_data">{{ CertificatesDate }}</p>
+              <hr style="border: 1px dashed; margin: 20px 0;">
+              <p>Leave number and date</p>
+              <p class="info_data">{{ regNo }}</p>
+              <p class="info_data">{{ regDate }}</p>
             </div>
           </div>
           <div class="row_section">
@@ -216,6 +221,9 @@ export default {
       ReferenceDate: "",
       GenerationDscrp: "",
       Wigth: "",
+      WigthNumber:"",
+      regNo: "",
+      regData: "",
       DetailsDscrp: "",
       SourceCountry: "",
       DetailsTypeDscrp: "",
@@ -238,6 +246,9 @@ export default {
     CertificatesDate() {
       return dayjs(this.CertificateDate).format("YYYY-MM-DD");
     },
+    regDate(){
+      return dayjs(this.RegData).format("YYYY-MM-DD");
+    }
   },
   methods: {
     async GetData() {
@@ -258,6 +269,9 @@ export default {
             this.ReferenceDate = response.data.ReferenceDate;
             this.GenerationDscrp = response.data.GenerationDscrp;
             this.Wigth = response.data.Wigth;
+            this.WigthNumber = response.data.WigthNum;
+            this.regNo = response.data.RegNo;
+            this.regData = response.data.RegDate;
             this.DetailsDscrp = response.data.DetailsDscrp;
             this.SourceCountry = response.data.SourceCountry;
             this.DetailsTypeDscrp = response.data.DetailsTypeDscrp;
@@ -470,7 +484,7 @@ main {
 }
 
 .row_section .cell_1 {
-  width: 10%;
+  width: 15%;
   border-right: 2px solid black;
 }
 
