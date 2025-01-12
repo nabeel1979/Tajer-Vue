@@ -330,7 +330,7 @@ export default {
 .main_header .eng_title p {
   font-family: "Changa", sans-serif;
   line-height: 26px;
-  size: 16px;
+  size: 18px;
 }
 
 .main_header .img_title img {
@@ -442,7 +442,7 @@ main {
 
 p,
 p span {
-  font-size: 18px;
+  font-size: 16px;
   font-weight: 700;
 }
 
@@ -547,13 +547,17 @@ p span {
   font-size: 24px;
 }
 
+h3{
+  font-size: 26px;
+}
+
 @media (max-width: 600px) {
-  /* Header Styles */
   .main_header {
     padding: 15px 5px;
     display: flex;
     justify-content: space-between;
   }
+
   .main_header .ar_title p,
   .main_header .eng_title p {
     line-height: 15px;

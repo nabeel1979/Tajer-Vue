@@ -3,9 +3,9 @@ import axios from 'axios';
 
 
 const axiosInstance = axios.create({
-  baseURL: 'https://api.gcc.iq/api',
+  // baseURL: 'https://api.gcc.iq/api',
   // baseURL: 'http://192.168.0.50:4200/api',
-  // baseURL: 'https://tager.bcc.iq//api',
+  baseURL: 'https://tager.bcc.iq/api',
   // baseURL: 'http://192.168.0.247:5277/api',
   headers: {
     'Content-Type': 'application/json; charset=utf-8',
