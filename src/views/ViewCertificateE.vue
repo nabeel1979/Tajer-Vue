@@ -18,36 +18,25 @@
     <div class="btn_header">
       <div class="btn_container">
         <router-link to="/login" class="btn_style">
-          <span
-            ><font-awesome-icon :icon="['fas', 'user']"
-          /></span>
+          <span><font-awesome-icon :icon="['fas', 'user']" /></span>
           {{ Language === "A" ? "تسجيل الدخول" : "Sign In" }}
         </router-link>
       </div>
       <div class="btn_container">
         <a href="https://bcc.iq" class="btn_style">
-          <span
-            ><font-awesome-icon
-              :icon="['fas', 'phone']"
-          /></span>
+          <span><font-awesome-icon :icon="['fas', 'phone']" /></span>
           {{ Language === "A" ? "اتصل بنا" : "Call Us" }}
         </a>
       </div>
       <div class="btn_container">
         <button class="btn_style">
-          <span
-            ><font-awesome-icon
-              :icon="['fab', 'google-play']"
-          /></span>
+          <span><font-awesome-icon :icon="['fab', 'google-play']" /></span>
           GooglePlay
         </button>
       </div>
       <div class="btn_container">
         <button class="btn_style">
-          <span
-            ><font-awesome-icon
-              :icon="['fab', 'apple']"
-          /></span>
+          <span><font-awesome-icon :icon="['fab', 'apple']" /></span>
           AppStore
         </button>
       </div>
@@ -141,8 +130,14 @@
               <p>6. Marks and numbers of packages</p>
             </div>
             <div class="cell_6">
-              <p>7. Number and kind of packages : description of goods.</p>
-              <p class="info_data">{{ DetailsDscrp }}</p>
+              <div style="height: 50%;">
+                <p>7. Number and kind of packages : description of goods.</p>
+                <p class="info_data">{{ DetailsDscrp }}</p>
+              </div>
+              <div style="border-top: 1px solid #000;">
+                <p> Notes :</p>
+                <p class="info_data">{{ Notes }}</p>
+              </div>
             </div>
             <div class="cell_1">
               <p>8. Origin criterion (see Notes overleat)</p>
@@ -156,7 +151,7 @@
               <p>10. Number and date of invoices</p>
               <p class="info_data">{{ CertificateNo }}</p>
               <p class="info_data">{{ CertificatesDate }}</p>
-              <hr style="border: 1px dashed; margin: 20px 0;">
+              <hr style="border: 1px dashed; margin: 20px 0" />
               <p>Leave number and date</p>
               <p class="info_data">{{ regNo }}</p>
               <p class="info_data">{{ regDate }}</p>
@@ -221,7 +216,7 @@ export default {
       ReferenceDate: "",
       GenerationDscrp: "",
       Wigth: "",
-      WigthNumber:"",
+      WigthNumber: "",
       regNo: "",
       regData: "",
       DetailsDscrp: "",
@@ -229,6 +224,7 @@ export default {
       DetailsTypeDscrp: "",
       CertificateNo: "",
       CertificateDate: "",
+      Notes:""
     };
   },
   created() {
@@ -246,9 +242,9 @@ export default {
     CertificatesDate() {
       return dayjs(this.CertificateDate).format("YYYY-MM-DD");
     },
-    regDate(){
+    regDate() {
       return dayjs(this.RegData).format("YYYY-MM-DD");
-    }
+    },
   },
   methods: {
     async GetData() {
@@ -277,6 +273,7 @@ export default {
             this.DetailsTypeDscrp = response.data.DetailsTypeDscrp;
             this.CertificateNo = response.data.CertificateNo;
             this.CertificateDate = response.data.CertificateDate;
+            this.Notes = response.data.Notes;
           }
         } else {
           this.ResponseStatus = "not_found";
@@ -318,7 +315,7 @@ export default {
 .main_header .eng_title p {
   font-family: "Changa", sans-serif;
   line-height: 26px;
-  size: 16px;
+  font-size: 16px !important;
 }
 
 .main_header .img_title img {
@@ -497,20 +494,20 @@ main {
   color: #3c4fdd;
 }
 
-.btn_style svg{
+.btn_style svg {
   font-size: 24px;
 }
 
 @media (max-width: 1369px) {
   .row_section .cell_1,
-.row_section .cell_1_last,
-.row_section .cell_6 {
-  min-height: 350px;
-  padding: 10px 5px;
-  border-bottom: 2px solid black;
-  text-align: start;
-  vertical-align: top;
-}
+  .row_section .cell_1_last,
+  .row_section .cell_6 {
+    min-height: 350px;
+    padding: 10px 5px;
+    border-bottom: 2px solid black;
+    text-align: start;
+    vertical-align: top;
+  }
 }
 
 @media (max-width: 600px) {
@@ -542,9 +539,9 @@ main {
   }
 
   .btn_container .btn_style {
-  padding: 5px;
-  font-size: 12px;
-}
+    padding: 5px;
+    font-size: 12px;
+  }
 
   .btn_header .btn_container {
     width: 50%;
@@ -557,41 +554,40 @@ main {
   /* Main Styles */
 
   .container_fluid .certificate_wrapper {
-  width: 95%;
-  padding: 15px 5px;
-  margin: 0 auto;
-}
+    width: 95%;
+    padding: 15px 5px;
+    margin: 0 auto;
+  }
 
-.row_section .cell_right_6,
-.row_section .cell_left_6 {
-  min-height: 30px;
-  padding: 10px 5px;
-}
+  .row_section .cell_right_6,
+  .row_section .cell_left_6 {
+    min-height: 30px;
+    padding: 10px 5px;
+  }
 
+  .bottom_row_info img {
+    width: 50px;
+  }
 
-.bottom_row_info img {
-  width: 50px;
-}
+  .row_section .cell_1,
+  .row_section .cell_1_last,
+  .row_section .cell_6 {
+    min-height: 150px;
+    padding: 10px 5px;
+  }
 
-.row_section .cell_1,
-.row_section .cell_1_last,
-.row_section .cell_6 {
-  min-height: 150px;
-  padding: 10px 5px;
-}
+  p,
+  span {
+    font-size: 8px;
+  }
 
-p,
-span{
-  font-size: 8px;
-}
+  .row_section .cell_left_6_2 .upper_info {
+    border-bottom: 2px solid;
+    height: max-content;
+  }
 
-.row_section .cell_left_6_2 .upper_info {
-  border-bottom: 2px solid;
-  height: max-content
-}
-
-.btn_style svg{
-  font-size: 12px;
-}
+  .btn_style svg {
+    font-size: 12px;
+  }
 }
 </style>

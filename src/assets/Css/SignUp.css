@@ -19,7 +19,7 @@
 
 body{
 	color: var(--text-clr);
-	font-size: 16px;
+	font-size: 16px !important;
 }
 
 .wrapper1{
