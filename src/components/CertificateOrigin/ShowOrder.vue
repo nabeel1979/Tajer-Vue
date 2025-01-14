@@ -64,13 +64,13 @@
               <p class="dscrp">{{ OrderData.RegNo }}</p>
             </div>
             <div class="info">
-              <p class="title">تاريخ انشاء الشهادة</p>
+              <p class="title">تاريخ انشاء الاجازة</p>
               <p class="dscrp">{{ formatDate(OrderData.RegDate) }}</p>
             </div>
           </div>
           <div class="info_row">
             <div class="info">
-              <p class="title">تاريخ انتهاء الشهادة</p>
+              <p class="title">تاريخ انتهاء الاجازة</p>
               <p class="dscrp">{{ formatDate(OrderData.ExpDate) }}</p>
             </div>
           </div>
@@ -185,7 +185,7 @@ import { format } from 'date-fns';
         });
 
         this.OrderData = response.data.Data[0]
-        this.QRValue = `https://tager.gcc.iq/showorder/${OrderId}`
+        this.QRValue = `https://tajr.gcc.iq/showorder/${OrderId}`
         } catch(error){
           console.log(error)
         }

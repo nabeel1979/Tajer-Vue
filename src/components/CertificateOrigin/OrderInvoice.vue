@@ -194,7 +194,7 @@ export default {
     async getData(){
       const OrderNO = this.$route.params.orderNumber
       this.OrderNo = OrderNO
-      this.QRValue = `https://tager.gcc.iq/orderinvoice/${OrderNO}`
+      this.QRValue = `https://tajr.gcc.iq/orderinvoice/${OrderNO}`
       try{
         const response = await axiosInstance.get(`/Certifecate/get-Certifecate-Details?orderNumber=${OrderNO}`);
 
