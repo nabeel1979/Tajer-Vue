@@ -1,11 +1,19 @@
 <template>
   <div class="transactions_container">
     <h3>اخر المعاملات</h3>
-    <div class="card_wrapper">
-        <TransactionsCard v-for="Transaction in TransactionsList" :key="Transaction.id" :transaction="Transaction" />
+    <div v-if="TransactionsList.length > 0" class="card_wrapper">
+      <TransactionsCard 
+        v-for="Transaction in TransactionsList" 
+        :key="Transaction.id" 
+        :transaction="Transaction" 
+      />
+    </div>
+    <div v-else class="none_item">
+      <h6> لا توجد معاملات حالياً</h6>
     </div>
   </div>
 </template>
+
 
 <script>
 import { axiosInstance } from '@/axios';
@@ -47,6 +55,11 @@ export default {
     justify-content: flex-start;
     gap: 15px;
     padding: 15px;
+  }
+
+  .none_item{
+    width: 100%;
+    text-align: center;
   }
 
   @media (max-width: 768px) {

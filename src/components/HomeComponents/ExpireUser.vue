@@ -25,6 +25,9 @@ import { axiosInstance } from "../../axios";
         isActive: null
       };
     },
+    created() {
+      this.GetUserExpire();
+    },
     computed:{
         ExpireDate() {
       return dayjs(this.expireDate).format("YYYY-MM-DD");
@@ -55,7 +58,7 @@ import { axiosInstance } from "../../axios";
         },
       updateCountdown(targetDate) {
         const now = new Date();
-        const timeDiff = targetDate - now; // Time difference in milliseconds
+        const timeDiff = targetDate - now;
   
         if (timeDiff <= 0) {
           this.isExpired = true;

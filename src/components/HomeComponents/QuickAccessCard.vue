@@ -48,7 +48,7 @@ a{
 
 .icon_wrapper .icon_circle {
   display: block;
-  width: 50px;
+  width: 46px;
   padding: 8px 15px;
   background-color: #0073ff47;
   color: #0071ff;

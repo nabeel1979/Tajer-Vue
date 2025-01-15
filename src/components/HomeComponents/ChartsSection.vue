@@ -57,8 +57,8 @@ export default {
       RejectedCounter: "",
       PendingCounter: "",
       SuspendedCounter: "",
-      CertificatesCounter: "",
-      BooksCounter: "",
+      CertificatesCounter: 0,
+      BooksCounter: 0,
     };
   },
   created() {
@@ -78,7 +78,7 @@ export default {
         this.PendingCounter = path.PendingCount;
         this.SuspendedCounter = path.SuspendedCount;
         this.CertificatesCounter = path.CertificatesCount;
-        this.BooksCounter = response.data.BooksCount;
+        this.BooksCounter = response.data.BooksCount === 0 ? 0 : response.data.BooksCount;
       } catch (error) {
         console.log(error);
       }

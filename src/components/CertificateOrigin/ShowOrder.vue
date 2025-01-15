@@ -185,7 +185,7 @@ import { format } from 'date-fns';
         });
 
         this.OrderData = response.data.Data[0]
-        this.QRValue = `https://tajr.gcc.iq/showorder/${OrderId}`
+        this.QRValue = `https://tajr.bcc.iq/showorder/${OrderId}`
         } catch(error){
           console.log(error)
         }

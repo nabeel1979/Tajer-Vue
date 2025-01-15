@@ -24,13 +24,6 @@ data(){
                 "Description":'قم بطلب شهادة منشأ',
                 "IconName":'inbox'
             },
-            {
-                "id": 2,
-                "Path":'/origincertificate',
-                "Title":'طلب انشاء كتاب',
-                "Description":'قم بطلب انشاء كتاب',
-                "IconName":'book'
-            }
         ]
     }
 }
