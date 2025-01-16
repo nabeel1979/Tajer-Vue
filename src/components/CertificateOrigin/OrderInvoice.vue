@@ -150,6 +150,7 @@
 </template>
 
 <script>
+  import appSetting from '../../appSetting';
   import QrecodeVue from 'qrcode.vue';
 import {axiosInstance} from "../../axios";
 import html2pdf from "html2pdf.js";
@@ -194,7 +195,7 @@ export default {
     async getData(){
       const OrderNO = this.$route.params.orderNumber
       this.OrderNo = OrderNO
-      this.QRValue = `https://tajr.bcc.iq/orderinvoice/${OrderNO}`
+      this.QRValue = `${appSetting.QrUrl}/orderinvoice/${OrderNO}`;
       try{
         const response = await axiosInstance.get(`/Certifecate/get-Certifecate-Details?orderNumber=${OrderNO}`);
 

@@ -46,7 +46,7 @@
 
         <!-- Form 4 -->
         <div v-if="currentStep === 4" class="form_4 data_info">
-          <OTPEmail :OtpLength="6" :registerData="registerData" @update-data="updateData" @prev-step="goToStep(3)" @complete="submitOTP" />
+          <OTPEmail :OtpLength="6" :registerData="registerData" @update-data="updateData" @complete="submitOTP" />
         </div>
       </div>
     </div>

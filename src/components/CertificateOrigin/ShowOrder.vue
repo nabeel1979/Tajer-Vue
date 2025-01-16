@@ -137,6 +137,7 @@
 </template>
 
 <script>
+import appSetting from '../../appSetting';
   import QrecodeVue from 'qrcode.vue';
 import {axiosInstance} from '../../axios';
 import { format } from 'date-fns';
@@ -185,7 +186,7 @@ import { format } from 'date-fns';
         });
 
         this.OrderData = response.data.Data[0]
-        this.QRValue = `https://tajr.bcc.iq/showorder/${OrderId}`
+        this.QRValue = `${appSetting.QrUrl}/showorder/${OrderId}`
         } catch(error){
           console.log(error)
         }

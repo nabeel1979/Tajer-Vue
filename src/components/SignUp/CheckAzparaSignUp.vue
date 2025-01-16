@@ -88,7 +88,7 @@ export default {
       azbaraSereal: "",
       governorates: [],
       letters: [
-        "أ",
+        "ا",
         "ب",
         "ت",
         "ث",

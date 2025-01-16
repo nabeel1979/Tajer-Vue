@@ -32,7 +32,6 @@
     </div>
     <div class="btn_wrapper">
       <button type="submit" class="next_btn">تأكيد</button>
-      <button type="button" class="back_btn" @click="$emit('prev-step')">السابق</button>
     </div>
     <transition name="fade">
       <div v-if="loading" class="loading-overlay">

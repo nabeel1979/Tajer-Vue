@@ -44,7 +44,7 @@
     <td>
       <a
       v-if="Transactions.OperationId === 3 && Transactions.Document !== null"
-      :href="`https://documents.gcc.iq/${Transactions.Document}`"
+      :href="`${appSetting.imagesUrl}${Transactions.Document}`"
       target="_blank"
       >عرض</a>
       <span v-else class="disabled">عرض</span>
@@ -53,6 +53,7 @@
 </template>
 
 <script>
+import appSetting from '../../appSetting';
 export default {
   name: "OriginCertificateCard",
   props: {
@@ -69,6 +70,11 @@ export default {
       CertificateId: null,
     };
   },
+  computed:{
+    appSetting() {
+      return appSetting
+    }
+  }
 };
 </script>
 

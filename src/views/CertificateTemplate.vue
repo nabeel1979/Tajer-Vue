@@ -72,7 +72,7 @@
             class="data"
             >عرض البيانات</router-link
           >
-          <a v-if="Status === 200" :href="`https://documents.gcc.iq/${Pdf}`" target="_blank" class="files">{{
+          <a v-if="Status === 200" :href="`${appSetting.imagesUrl}${Pdf}`" target="_blank" class="files">{{
             Language === "E" ? "View documents" : "عرض الوثائق"
           }}</a>
           <span v-else>  </span>
@@ -84,6 +84,7 @@
 </template>
   
   <script>
+  import appSetting from "../appSetting";
 import { axiosInstance } from "../axios";
 
 export default {
@@ -99,6 +100,11 @@ export default {
   },
   created() {
     this.GetData();
+  },
+  computed:{
+    appSetting() {
+      return appSetting
+    }
   },
   methods: {
     async GetData() {
