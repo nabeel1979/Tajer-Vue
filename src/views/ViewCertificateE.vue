@@ -243,7 +243,7 @@ export default {
       return dayjs(this.CertificateDate).format("YYYY-MM-DD");
     },
     regDate() {
-      return dayjs(this.RegData).format("YYYY-MM-DD");
+      return dayjs(this.regData).format("YYYY-MM-DD");
     },
   },
   methods: {
