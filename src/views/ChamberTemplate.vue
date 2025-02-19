@@ -82,7 +82,7 @@
 
 <script>
 import { axiosInstance } from "../axios";
-
+import appsetting from "../appSetting"; 
 export default {
   name: "ChambersTemplate",
   data() {
@@ -113,7 +113,7 @@ export default {
 
         if (response.data.pdf != null) {
           this.bookId = response.data.bookId;
-          this.Pdf = `https://documents.gcc.iq/${response.data.pdf}`;
+          this.Pdf = `${appsetting.documentUrl}/${response.data.pdf}`;
           this.Status = "Found";
           console.log(response.data)
         } else {
