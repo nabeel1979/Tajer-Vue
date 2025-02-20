@@ -12,7 +12,7 @@ const axiosInstance = axios.create({
 });
 
 const axiosUpload = axios.create({
-  baseURL: appSetting.documentUrl,
+  baseURL: appSetting.documentUrl2,
   headers: {
     'Content-Type': 'multipart/form-data',
     'Accept': '*/*',
