@@ -143,13 +143,19 @@ export default {
       try {
         const response = await axiosInstance.post("/auth/check-azbara", {
           AzbararNum: this.azbaraSereal,
+<<<<<<< HEAD
          
+=======
+>>>>>>> 8643cab6c9ae81e16d1a8603ded1d7acbee21e18
         });
         if(response.data){
           this.emitData();
           this.$emit("next-step");
         }
+<<<<<<< HEAD
         
+=======
+>>>>>>> 8643cab6c9ae81e16d1a8603ded1d7acbee21e18
       } catch (error) {
         console.error(error);
         if (
