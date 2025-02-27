@@ -1,0 +1,7 @@
+{
+  "apiUrl": "https://api.gcc.iq/api",
+  "documentUrl": "https://documents.gcc.iq/",
+  "documentUrl2": "https://documents.gcc.iq/api",
+  "imagesUrl": "https://documents.gcc.iq",
+  "QrUrl": "https://tajr.gcc.iq/"
+}

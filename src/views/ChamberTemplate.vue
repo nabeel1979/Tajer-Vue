@@ -82,12 +82,12 @@
 
 <script>
 import { axiosInstance } from "../axios";
-import appsetting from "../appSetting"; 
+import appsetting from "../appSetting";
 export default {
   name: "ChambersTemplate",
   data() {
     return {
-      Language:"A",
+      Language: "A",
       bookId: "",
       QrNum: "",
       Status: "",
@@ -113,13 +113,10 @@ export default {
 
         if (response.data.pdf != null) {
           this.bookId = response.data.bookId;
-<<<<<<< HEAD
           this.Pdf = `${appsetting.documentUrl}/${response.data.pdf}`;
-=======
-          this.Pdf = `${appsetting.documentUrl}/${response.data.pdf}/`;
->>>>>>> 8643cab6c9ae81e16d1a8603ded1d7acbee21e18
+
           this.Status = "Found";
-          console.log(response.data)
+          console.log(response.data);
         } else {
           this.bookId = response.data.bookId;
           this.Status = "Not Found";

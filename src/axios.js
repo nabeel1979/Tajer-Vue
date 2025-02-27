@@ -1,21 +1,19 @@
-import axios from 'axios';
-import appSetting from './appSetting';
-
-
+import axios from "axios";
+import httpsRequestApi from "./appSetting";
 
 const axiosInstance = axios.create({
-  baseURL: appSetting.apiUrl,
+  baseURL: httpsRequestApi.apiUrl,
   headers: {
-    'Content-Type': 'application/json; charset=utf-8',
-    'Accept': '*/*',
+    "Content-Type": "application/json; charset=utf-8",
+    Accept: "*/*",
   },
 });
 
 const axiosUpload = axios.create({
-  baseURL: appSetting.documentUrl2,
+  baseURL: httpsRequestApi.documentUrl2,
   headers: {
-    'Content-Type': 'multipart/form-data',
-    'Accept': '*/*',
+    "Content-Type": "multipart/form-data",
+    Accept: "*/*",
   },
 });
 

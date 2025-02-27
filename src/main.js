@@ -4,19 +4,16 @@ import router from "./router";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap";
 import { FontAwesomeIcon } from "./assets/FontAwesomeIcon/FontAwesome";
-import axios from "axios";
-import Toast from 'vue3-toastify';
-import 'vue3-toastify/dist/index.css';
-
+import Toast from "vue3-toastify";
+import "vue3-toastify/dist/index.css";
 
 const options = {
   autoClose: 5000,
-  position: 'top-right',
+  position: "top-right",
 };
 
 createApp(App)
   .component("font-awesome-icon", FontAwesomeIcon)
   .use(router)
-  .use(axios)
   .use(Toast, options)
   .mount("#app");

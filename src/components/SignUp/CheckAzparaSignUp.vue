@@ -73,12 +73,12 @@
 </template>
 
 <script>
-import {axiosInstance} from "../../axios";
+import { axiosInstance } from "../../axios";
 import { toast } from "vue3-toastify";
 import "vue3-toastify/dist/index.css";
 
 export default {
-  props:['formData'],
+  props: ["formData"],
   name: "VerifyComponent",
   data() {
     return {
@@ -143,29 +143,19 @@ export default {
       try {
         const response = await axiosInstance.post("/auth/check-azbara", {
           AzbararNum: this.azbaraSereal,
-<<<<<<< HEAD
-         
-=======
->>>>>>> 8643cab6c9ae81e16d1a8603ded1d7acbee21e18
         });
-        if(response.data){
+        if (response.data) {
           this.emitData();
           this.$emit("next-step");
         }
-<<<<<<< HEAD
-        
-=======
->>>>>>> 8643cab6c9ae81e16d1a8603ded1d7acbee21e18
       } catch (error) {
         console.error(error);
-        if (
-          error.response.data.Message === "Not Found"
-        ) {
+        if (error.response.data.Message === "Not Found") {
           toast.error("رقم الاضبارة غير موجود");
-        } else if(error.response.data.Message === "This Number Is Used") {
+        } else if (error.response.data.Message === "This Number Is Used") {
           toast.error("رقم الاضبارة هذا مستخدم سابقاً");
         } else {
-          toast.error("حدث خطأ في الاتصال")
+          toast.error("حدث خطأ في الاتصال");
         }
       }
     },
@@ -181,7 +171,7 @@ export default {
       this.azbaraSereal = this.selectedLatter + this.azbaraNumber;
     },
     emitData() {
-      this.$emit('update-data', {
+      this.$emit("update-data", {
         GoveId: this.selectedGovernorate,
         AzbaraNum: this.azbaraSereal,
       });
