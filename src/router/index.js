@@ -162,7 +162,7 @@ router.beforeEach((to, from, next) => {
     "ViewCertificateEnglish",
     "Redirect",
     "Books",
-    "Certificates"
+    "Certificates",
   ];
 
   const defaultTitle = "غرفة تجارة بغداد";

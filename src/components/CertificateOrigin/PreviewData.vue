@@ -339,30 +339,32 @@ export default {
             },
           }
         );
+
         this.userData = response.data;
       } catch (error) {
         console.log("Error fetching user data:", error);
       }
     },
     async InvoicePrices() {
-  try {
-    const token = localStorage.getItem("Token"); 
+      try {
+        const token = localStorage.getItem("Token");
 
-    const response = await axiosInstance.get("/Certifecate/get-Certifecate-prices", {
-      headers: {
-        Authorization: `Bearer ${token}`, // ✅ إرسال التوكين
-      },
-    });
+        const response = await axiosInstance.get(
+          "/Certifecate/get-Certifecate-prices",
+          {
+            headers: {
+              Authorization: `Bearer ${token}`, // ✅ إرسال التوكين
+            },
+          }
+        );
 
-    console.log("Response Data:", response);
-    this.PriceData = response.data;
-    this.prices = this.PriceData.Prices;
-  } catch (error) {
-    console.log("Error fetching user data:", error);
-  }
-}
-
-
+        console.log("Response Data:", response);
+        this.PriceData = response.data;
+        this.prices = this.PriceData.Prices;
+      } catch (error) {
+        console.log("Error fetching user data:", error);
+      }
+    },
   },
 };
 </script>

@@ -26,16 +26,18 @@
       <span v-else class="disabled">عرض</span>
     </td>
     <td>
-      <router-link
-      :to="`/showorder/${Transactions.Id}`"
-      target="_blank"
+      <router-link :to="`/showorder/${Transactions.Id}`" target="_blank"
         >عرض</router-link
       >
     </td>
     <td>
       <router-link
         v-if="Transactions.OperationId === 3"
-        :to="Transactions.Lang === 'E' ? `/viewcertificateE/${Transactions.CertificateId}` : `/viewcertificate/${Transactions.CertificateId}`"
+        :to="
+          Transactions.Lang === 'E'
+            ? `/viewcertificateE/${Transactions.CertificateId}`
+            : `/viewcertificate/${Transactions.CertificateId}`
+        "
         target="_blank"
         >عرض</router-link
       >
@@ -43,17 +45,18 @@
     </td>
     <td>
       <a
-      v-if="Transactions.OperationId === 3 && Transactions.Document !== null"
-      :href="`${appSetting.imagesUrl}/${Transactions.Document}`"
-      target="_blank"
-      >عرض</a>
+        v-if="Transactions.OperationId === 3 && Transactions.Document !== null"
+        :href="`${appSetting.imagesUrl}/${Transactions.Document}`"
+        target="_blank"
+        >عرض</a
+      >
       <span v-else class="disabled">عرض</span>
     </td>
   </tr>
 </template>
 
 <script>
-import appSetting from '../../appSetting';
+import appSetting from "../../appSetting";
 export default {
   name: "OriginCertificateCard",
   props: {
@@ -70,11 +73,11 @@ export default {
       CertificateId: null,
     };
   },
-  computed:{
+  computed: {
     appSetting() {
-      return appSetting
-    }
-  }
+      return appSetting;
+    },
+  },
 };
 </script>
 

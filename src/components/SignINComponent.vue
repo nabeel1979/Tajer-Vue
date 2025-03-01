@@ -62,20 +62,20 @@
 </template>
 
 <script>
-import {axiosInstance} from '../axios';
-import { useRouter } from 'vue-router';
-import { toast } from 'vue3-toastify';
-import 'vue3-toastify/dist/index.css';
+import { axiosInstance } from "../axios";
+import { useRouter } from "vue-router";
+import { toast } from "vue3-toastify";
+import "vue3-toastify/dist/index.css";
 
 export default {
-  name: 'SignINComponent',
+  name: "SignINComponent",
   data() {
     return {
-      azparaNum: '',
-      password: '',
+      azparaNum: "",
+      password: "",
       showPassword: false,
-      ErrorMessage: '',
-      Token: '',
+      ErrorMessage: "",
+      Token: "",
     };
   },
   setup() {
@@ -84,16 +84,16 @@ export default {
   },
   computed: {
     passwordFieldType() {
-      return this.showPassword ? 'text' : 'password';
+      return this.showPassword ? "text" : "password";
     },
     passwordFieldIcon() {
-      return this.showPassword ? 'eye' : 'eye-slash';
+      return this.showPassword ? "eye" : "eye-slash";
     },
     emailClass() {
-      return this.ErrorMessage === 'User not found' ? 'wrong' : '';
+      return this.ErrorMessage === "User not found" ? "wrong" : "";
     },
     PassClass() {
-      return this.ErrorMessage === 'Wrong password' ? 'wrong' : '';
+      return this.ErrorMessage === "Wrong password" ? "wrong" : "";
     },
   },
   methods: {
@@ -102,26 +102,27 @@ export default {
     },
     async login() {
       try {
-        const response = await axiosInstance.post('/auth/login', {
+        const response = await axiosInstance.post("/auth/login", {
           AzbaraNum: this.azparaNum,
           Password: this.password,
         });
+        console.log(response.data);
         const token = response.data.Token;
         this.Token = token;
-        localStorage.setItem('Token', token);
-        this.router.push('/');
+        localStorage.setItem("Token", token);
+        this.router.push("/");
       } catch (error) {
         console.error(error);
         if (error.response && error.response.data) {
           this.ErrorMessage = error.response.data.Message;
-          if (this.ErrorMessage === 'User is not active') {
+          if (this.ErrorMessage === "User is not active") {
             toast.error(
-              'لقد تم ارسال طلبك للجهة المعنية بأنتظار الموافقة على تسجيل حسابك'
+              "لقد تم ارسال طلبك للجهة المعنية بأنتظار الموافقة على تسجيل حسابك"
             );
           }
         } else {
-          this.ErrorMessage = 'An error occurred';
-          toast.error("حدث خطأ قم بمراجعة المصدر او السيرفر")
+          this.ErrorMessage = "An error occurred";
+          toast.error("حدث خطأ قم بمراجعة المصدر او السيرفر");
         }
       }
     },
@@ -130,7 +131,7 @@ export default {
 </script>
 
 <style scoped>
-.logo_section{
+.logo_section {
   text-align: center;
 }
 

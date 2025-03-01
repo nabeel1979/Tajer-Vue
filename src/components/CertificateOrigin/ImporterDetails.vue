@@ -16,9 +16,7 @@
       </div>
       <div class="input_wrap">
         <label for="origin_activity">
-          {{
-            language === "A" ? "البلد المستورد" : "Importing country"
-          }}</label
+          {{ language === "A" ? "البلد المستورد" : "Importing country" }}</label
         >
         <select name="Material Class" class="input" v-model="CountryID">
           <option value="">{{ language === "A" ? "اختر" : "Choice" }}</option>
@@ -78,8 +76,8 @@ export default {
       importerName: this.formData.TargetName || "",
       importerAddress: this.formData.TargetAddress || "",
       isLoading: false,
-      CountriesList:"",
-      CountryID:this.formData.CountryID || ""
+      CountriesList: "",
+      CountryID: this.formData.CountryID || "",
     };
   },
   created() {
@@ -88,7 +86,7 @@ export default {
   },
   computed: {
     CountryName() {
-      return this.CountriesList.find(item => item.id === this.CountryID);
+      return this.CountriesList.find((item) => item.id === this.CountryID);
     },
   },
   methods: {
@@ -109,7 +107,7 @@ export default {
         TargetAddress: this.importerAddress,
         CountryID: this.CountryID,
       });
-      this.$emit("country-name",this.CountryName)
+      this.$emit("country-name", this.CountryName);
       this.isLoading = false;
       this.$emit("next-step");
     },

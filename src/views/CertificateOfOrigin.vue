@@ -136,7 +136,7 @@ import SubjectDetails from "@/components/CertificateOrigin/SubjectDetails.vue";
 import ImporterDetails from "@/components/CertificateOrigin/ImporterDetails.vue";
 import PreviewData from "../components/CertificateOrigin/PreviewData.vue";
 import Payments from "../components/CertificateOrigin/Payments.vue";
-import {axiosInstance} from "../axios";
+import { axiosInstance } from "../axios";
 import { toast } from "vue3-toastify";
 import "vue3-toastify/dist/index.css";
 export default {
@@ -155,8 +155,8 @@ export default {
       OrderNO: "",
       Amount: "",
       loading: false,
-      ItemsClassName:"",
-      CountryName:""
+      ItemsClassName: "",
+      CountryName: "",
     };
   },
   async created() {
@@ -174,11 +174,11 @@ export default {
     }
   },
   methods: {
-    setItemClass(itemClass){
-      this.ItemsClassName = itemClass
+    setItemClass(itemClass) {
+      this.ItemsClassName = itemClass;
     },
-    setCountry(country){
-      this.CountryName = country
+    setCountry(country) {
+      this.CountryName = country;
     },
     setHeight(height) {
       this.PageHeight = height;
@@ -199,9 +199,10 @@ export default {
       this.formData.WigthNum = subjectDetails.WigthNum;
       this.formData.Notes = subjectDetails.Notes;
       this.formData.ServiceId = subjectDetails.ServiceId;
-      this.formData.ItemsClassID = subjectDetails.ItemsClassID
+      this.formData.ItemsClassID = subjectDetails.ItemsClassID;
     },
     setImporterDetails(importerDetails) {
+      console.log(this.formData);
       this.formData.TargetName = importerDetails.TargetName;
       this.formData.TargetAddress = importerDetails.TargetAddress;
       this.formData.CountryID = importerDetails.CountryID;
@@ -222,7 +223,7 @@ export default {
           }
         );
         if (response.data) {
-          console.log(response.data)
+          console.log(response.data);
           this.OrderNO = response.data.OrderNo;
           this.Amount = response.data.Amount;
           this.loading = false;
