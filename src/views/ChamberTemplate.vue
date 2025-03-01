@@ -114,7 +114,6 @@ export default {
         if (response.data.pdf != null) {
           this.bookId = response.data.bookId;
           this.Pdf = `${appsetting.documentUrl}/${response.data.pdf}`;
-
           this.Status = "Found";
           console.log(response.data);
         } else {

@@ -143,11 +143,13 @@ export default {
       try {
         const response = await axiosInstance.post("/auth/check-azbara", {
           AzbararNum: this.azbaraSereal,
+         
         });
         if (response.data) {
           this.emitData();
           this.$emit("next-step");
         }
+        
       } catch (error) {
         console.error(error);
         if (error.response.data.Message === "Not Found") {

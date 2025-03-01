@@ -3,7 +3,7 @@
     <QuickAccess />
     <LastTransactions />
     <ChartsSection />
-    <ExpireUser />
+
   </div>
 </template>
 
@@ -11,14 +11,13 @@
 import QuickAccess from '../components/HomeComponents/QuickAccess.vue';
 import LastTransactions from '../components/HomeComponents/LastTransactions.vue';
 import ChartsSection from '../components/HomeComponents/ChartsSection.vue';
-import ExpireUser from '../components/HomeComponents/ExpireUser.vue';
 
 export default {
   components:{
     QuickAccess,
     LastTransactions,
     ChartsSection,
-    ExpireUser
+  
   }
 }
 </script>

@@ -45,7 +45,7 @@
           />
         </div>
         <div class="input_wrap">
-          <label for="housing_cardfront">صورة بطاقة السكن امامية</label>
+          <label for="housing_cardfront">صورة بطاقة الموحدة امامية</label>
           <input
             type="file"
             accept="image/png, image/jpeg"
@@ -56,7 +56,7 @@
           />
         </div>
         <div class="input_wrap">
-          <label for="housing_cardback">صورة بطاقة السكن خلفية</label>
+          <label for="housing_cardback">صورة بطاقة الموحدة خلفية</label>
           <input
             type="file"
             accept="image/png, image/jpeg"
