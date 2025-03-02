@@ -46,7 +46,7 @@
       <div style="margin-top: 10px; line-height: 0.5">
         <p v-if="!passwordsMatch" class="wrong_msg">كلمات المرور غير متطابقة</p>
         <p v-if="!passwordsLength" class="wrong_msg">
-          كلمات المرور يجب ان تكون اكثر من 5 حقول
+          كلمات المرور يجب ان تكون اكثر من 8 حقول
         </p>
       </div>
       <div class="m-auto">
@@ -116,7 +116,7 @@ export default {
       return this.NewPassword === this.ConfirmNewPassword;
     },
     passwordsLength() {
-      return this.NewPassword.length >= 5;
+      return this.NewPassword.length >= 8;
     },
   },
   methods: {
@@ -131,38 +131,41 @@ export default {
     },
 
     async EditPassword() {
-  this.loading = true; // Indicate loading state
-  this.ErrorMessage = ""; // Clear previous error messages
+      this.loading = true; // Indicate loading state
+      this.ErrorMessage = ""; // Clear previous error messages
 
-  try {
-    const response = await axiosInstance.post("/auth/edit-password", {
-      Password: this.CurrentPassword,
-      NewPassword: this.NewPassword,
-    }, {
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem("Token")}`,
-      },
-    });
+      try {
+        const response = await axiosInstance.post(
+          "/auth/edit-password",
+          {
+            Password: this.CurrentPassword,
+            NewPassword: this.NewPassword,
+          },
+          {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("Token")}`,
+            },
+          }
+        );
 
-    if (response.data === true) {
-      toast.success("تم تغيير كلمة المرور بنجاح");
-      setTimeout(() => {
+        if (response.data === true) {
+          toast.success("تم تغيير كلمة المرور بنجاح");
+          setTimeout(() => {
             this.loading = false;
-            this.$router.push('/');
+            this.$router.push("/");
           }, 2000);
-    }
-  } catch (error) {
-    if (error.response.data.Message === "Wrong password") {
-        toast.error("كلمة المرور الحالية غير صحيحة");
-        this.ErrorMessage = "Wrong password";
-      } else {
-        toast.error(error.response.data.Message || "حدث خطأ غير متوقع");
+        }
+      } catch (error) {
+        if (error.response.data.Message === "Wrong password") {
+          toast.error("كلمة المرور الحالية غير صحيحة");
+          this.ErrorMessage = "Wrong password";
+        } else {
+          toast.error(error.response.data.Message || "حدث خطأ غير متوقع");
+        }
+      } finally {
+        this.loading = false; // Reset loading state
       }
-  } finally {
-    this.loading = false; // Reset loading state
-  }
-}
-
+    },
   },
 };
 </script>
@@ -266,7 +269,7 @@ export default {
     display: none;
   }
 
-  .edit_password_container{
+  .edit_password_container {
     width: 100%;
   }
 }

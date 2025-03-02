@@ -29,7 +29,7 @@
                 كلمات المرور غير متطابقة
               </p>
               <p v-if="!passwordsLength" class="wrong_msg">
-                كلمات المرور يجب ان تكون اكثر من 5 حقول
+                كلمات المرور يجب ان تكون اكثر من 8 حقول
               </p>
             </div>
           </div>
@@ -56,15 +56,15 @@
     </div>
   </div>
   <transition name="fade">
-      <div v-if="loading" class="loading-overlay">
-        <div class="spinner"></div>
-      </div>
-    </transition>
+    <div v-if="loading" class="loading-overlay">
+      <div class="spinner"></div>
+    </div>
+  </transition>
 </template>
 
 <script>
-import {axiosInstance} from '../../axios';
-import { useRouter } from 'vue-router';
+import { axiosInstance } from "../../axios";
+import { useRouter } from "vue-router";
 import { toast } from "vue3-toastify";
 import "vue3-toastify/dist/index.css";
 
@@ -72,14 +72,14 @@ export default {
   props: {
     token: {
       type: String,
-      required: true
+      required: true,
     },
   },
   data() {
     return {
       newPassword: "",
       confirmPassword: "",
-      loading:"",
+      loading: "",
     };
   },
   computed: {
@@ -87,7 +87,7 @@ export default {
       return this.newPassword === this.confirmPassword;
     },
     passwordsLength() {
-      return this.newPassword.length>=5 && this.confirmPassword.length >=5;
+      return this.newPassword.length >= 8 && this.confirmPassword.length >= 8;
     },
   },
   setup() {
@@ -97,44 +97,43 @@ export default {
   methods: {
     async changePassword() {
       this.loading = true;
-      if(this.passwordsLength){
-      if (this.passwordsMatch) {
-        try {
-          const response = await axiosInstance.post(
-            "/auth/change-password",
-            { password: this.newPassword },
-            {
-              headers: {
-                Authorization: `Bearer ${this.token}`,
-              },
+      if (this.passwordsLength) {
+        if (this.passwordsMatch) {
+          try {
+            const response = await axiosInstance.post(
+              "/auth/change-password",
+              { password: this.newPassword },
+              {
+                headers: {
+                  Authorization: `Bearer ${this.token}`,
+                },
+              }
+            );
+            if (response.status === 200) {
+              toast.success("تم تحديث كلمة المرور بنجاح");
+              setTimeout(() => {
+                this.loading = false;
+                this.router.push("/login");
+              }, 5000);
+            } else {
+              toast.error("حدث حطأ, لم يتم تحديث كلمة المرور");
             }
-          );
-          if (response.status === 200) {
-            toast.success("تم تحديث كلمة المرور بنجاح")
-            setTimeout(() => {
-            this.loading = false;
-            this.router.push('/login');
-          }, 5000);
-
-          } else {
-            toast.error("حدث حطأ, لم يتم تحديث كلمة المرور")
+          } catch (error) {
+            console.error(error);
+            toast.warning("An error occurred while changing the password.");
           }
-        } catch (error) {
-          console.error(error);
-          toast.warning("An error occurred while changing the password.")
+        } else {
+          toast.info("كلمات المرور غير متطابقة");
         }
       } else {
-        toast.info("كلمات المرور غير متطابقة")
+        toast.info("كلمة المرور يجب أن تكون على الأقل 5 أحرف");
       }
-    } else {
-      toast.info("كلمة المرور يجب أن تكون على الأقل 5 أحرف")
-    }
     },
   },
 };
 </script>
 
-  <style scoped>
+<style scoped>
 .login-container {
   margin-top: 120px;
   border-radius: 40px !important;
@@ -271,10 +270,9 @@ export default {
   }
 }
 
-@media(max-width:500px){
+@media (max-width: 500px) {
   .login-img {
-  display: none;
-}
+    display: none;
+  }
 }
 </style>
-  
