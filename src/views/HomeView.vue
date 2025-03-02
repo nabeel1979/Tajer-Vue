@@ -14,10 +14,12 @@ import ChartsSection from "../components/HomeComponents/ChartsSection.vue";
 import { useHead } from "@vueuse/head";
 
 useHead({
-  title: "عنوان الصفحة",
+  title: "منصة التقديم الإلكتروني على شهادة المنشأ", // تحديث العنوان
   meta: [
-    { name: "description", content: "هذا وصف الصفحة" },
-    { property: "og:title", content: "عنوان Open Graph" },
+    {
+      name: "التاجر البغدادي",
+      content: "منصة التقديم الإلكتروني على شهادة المنشأ",
+    }, // إضافة الوصف
   ],
 });
 
