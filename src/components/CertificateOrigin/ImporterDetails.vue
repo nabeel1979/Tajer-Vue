@@ -16,18 +16,17 @@
       </div>
       <div class="input_wrap">
         <label for="origin_activity">
-          {{ language === "A" ? "البلد المستورد" : "Importing country" }}</label
-        >
-        <select name="Material Class" class="input" v-model="CountryID">
-          <option value="">{{ language === "A" ? "اختر" : "Choice" }}</option>
-          <option
-            v-for="country in CountriesList"
-            :key="country.id"
-            :value="country.id"
-          >
-            {{ language === "A" ? country.DscrpA : country.DscrpE }}
-          </option>
-        </select>
+          {{ language === "A" ? "البلد المستورد" : "Importing country" }}
+        </label>
+        <multiselect
+          v-model="CountryID"
+          :options="CountriesList"
+          :custom-label="countryLabel"
+          :placeholder="language === 'A' ? 'اختر' : 'Choice'"
+          track-by="id"
+          :searchable="true"
+          :allow-empty="true"
+        />
       </div>
       <div class="input_wrap">
         <label for="origin_activity">{{
@@ -80,8 +79,9 @@ export default {
       importerName: this.formData.TargetName || "",
       importerAddress: this.formData.TargetAddress || "",
       isLoading: false,
-      CountriesList: "",
-      CountryID: this.formData.CountryID || "",
+      CountriesList: [],
+      CountryID: this.formData.CountryID || null, // استخدام كائن الدولة بالكامل
+      selectedCountryName: "", // تخزين اسم الدولة المختارة
     };
   },
   created() {
@@ -89,8 +89,23 @@ export default {
     this.$emit("height", this.height);
   },
   computed: {
-    CountryName() {
-      return this.CountriesList.find((item) => item.id === this.CountryID);
+    countryLabel() {
+      return (country) => {
+        if (country && country.DscrpA && country.DscrpE) {
+          return this.language === "A" ? country.DscrpA : country.DscrpE;
+        }
+        return this.language === "A" ? "غير موجود" : "Not Available";
+      };
+    },
+  },
+  watch: {
+    CountryID(newCountry) {
+      if (newCountry) {
+        this.selectedCountryName =
+          this.language === "A" ? newCountry.DscrpA : newCountry.DscrpE;
+        console.log("تم تحديث اسم الدولة:", this.selectedCountryName);
+        this.$emit("country-name", this.selectedCountryName);
+      }
     },
   },
   methods: {
@@ -115,7 +130,9 @@ export default {
         TargetAddress: this.importerAddress,
         CountryID: this.CountryID.id, // تمرير ID الدولة فقط
       });
-      this.$emit("country-name", this.CountryName);
+
+      this.$emit("country-name", this.selectedCountryName);
+
       this.isLoading = false;
       this.$emit("next-step");
     },

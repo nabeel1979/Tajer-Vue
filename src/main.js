@@ -4,9 +4,10 @@ import router from "./router";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap";
 import { FontAwesomeIcon } from "./assets/FontAwesomeIcon/FontAwesome";
-import Toast from "vue3-toastify";
-import "vue3-toastify/dist/index.css";
-import { createHead } from "@vueuse/head";
+import Toast from 'vue3-toastify';
+import 'vue3-toastify/dist/index.css';
+import 'vue-multiselect/dist/vue-multiselect.min.css';
+
 
 const options = {
   autoClose: 5000,
@@ -17,5 +18,4 @@ createApp(App)
   .component("font-awesome-icon", FontAwesomeIcon)
   .use(router)
   .use(Toast, options)
-  .use(createHead())
   .mount("#app");

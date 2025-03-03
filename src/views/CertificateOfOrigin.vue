@@ -180,8 +180,11 @@ export default {
       this.ItemsClassName = itemClass;
     },
     setCountry(country) {
-      this.CountryName = country;
-    },
+  console.log("Received country in setCountry:", country); // هذا سيعرض إذا كانت القيمة صحيحة
+  this.CountryName = country;
+  console.log("CountryName after assignment:", this.CountryName); // هذا سيعرض القيمة بعد تعيينها
+}
+,
     setHeight(height) {
       this.PageHeight = height;
     },
