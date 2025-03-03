@@ -178,6 +178,7 @@ export default {
       this.ItemsClassName = itemClass;
     },
     setCountry(country) {
+      console.log(country);
       this.CountryName = country;
     },
     setHeight(height) {
@@ -202,7 +203,6 @@ export default {
       this.formData.ItemsClassID = subjectDetails.ItemsClassID;
     },
     setImporterDetails(importerDetails) {
-      console.log(this.formData);
       this.formData.TargetName = importerDetails.TargetName;
       this.formData.TargetAddress = importerDetails.TargetAddress;
       this.formData.CountryID = importerDetails.CountryID;

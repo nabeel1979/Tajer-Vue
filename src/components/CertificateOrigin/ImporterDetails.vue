@@ -16,18 +16,18 @@
       </div>
       <div class="input_wrap">
         <label for="origin_activity">
-          {{ language === "A" ? "البلد المستورد" : "Importing country" }}</label
-        >
-        <select name="Material Class" class="input" v-model="CountryID">
-          <option value="">{{ language === "A" ? "اختر" : "Choice" }}</option>
-          <option
-            v-for="country in CountriesList"
-            :key="country.id"
-            :value="country.id"
-          >
-            {{ language === "A" ? country.DscrpA : country.DscrpE }}
-          </option>
-        </select>
+          {{ language === "A" ? "البلد المستورد" : "Importing country" }}
+        </label>
+        <!-- استخدام v-select مع clearable="false" لضمان اختيار واحد فقط -->
+        <v-select
+          v-model="CountryID"
+          :options="CountriesList"
+          :get-option-label="getCountryLabel"
+          class="input"
+          :clearable="false"
+          menuClass="custom-menu"
+          dropdownClass="custom-dropdown"
+        />
       </div>
       <div class="input_wrap">
         <label for="origin_activity">{{
@@ -57,9 +57,13 @@
 import { axiosInstance } from "../../axios";
 import { toast } from "vue3-toastify";
 import "vue3-toastify/dist/index.css";
+import VSelect from "vue3-select"; // استيراد vue3-select
 
 export default {
   name: "ImporterDetails",
+  components: {
+    VSelect, // إضافة VSelect كمكون
+  },
   props: {
     Language: {
       type: String,
@@ -76,20 +80,18 @@ export default {
       importerName: this.formData.TargetName || "",
       importerAddress: this.formData.TargetAddress || "",
       isLoading: false,
-      CountriesList: "",
-      CountryID: this.formData.CountryID || "",
+      CountriesList: [],
+      CountryID: this.formData.CountryID || "", // سيتم تخزين البلد المختار هنا
     };
   },
   created() {
     this.GetParams();
     this.$emit("height", this.height);
   },
-  computed: {
-    CountryName() {
-      return this.CountriesList.find((item) => item.id === this.CountryID);
-    },
-  },
   methods: {
+    getCountryLabel(country) {
+      return this.language === "A" ? country.DscrpA : country.DscrpE;
+    },
     validateAndNext() {
       if (!this.importerName) {
         toast.error("اسم المستورد مطلوب");
@@ -107,7 +109,6 @@ export default {
         TargetAddress: this.importerAddress,
         CountryID: this.CountryID,
       });
-      this.$emit("country-name", this.CountryName);
       this.isLoading = false;
       this.$emit("next-step");
     },
@@ -166,7 +167,26 @@ input[type="number"] {
   display: inline-block;
   margin-right: 5px;
 }
+.custom-menu {
+  background-color: transparent !important;
+}
 
+.custom-dropdown {
+  border: none !important;
+}
+
+.custom-select .vs__dropdown-toggle::after {
+  display: none; /* إخفاء السهم */
+}
+.custom-select .vs__dropdown-toggle::after {
+  content: none; /* إزالة السهم الافتراضي */
+  /* أو يمكنك تخصيصه باستخدام أي رمز خاص أو صورة */
+}
+.custom-select .vs__dropdown-toggle {
+  background-color: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+}
 @keyframes spin {
   0% {
     transform: rotate(0deg);

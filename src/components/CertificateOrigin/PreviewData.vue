@@ -340,6 +340,7 @@ export default {
           }
         );
 
+        console.log(this.userData);
         this.userData = response.data;
       } catch (error) {
         console.log("Error fetching user data:", error);

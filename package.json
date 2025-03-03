@@ -35,6 +35,7 @@
     "vue": "^3.2.13",
     "vue-pdf": "^4.3.0",
     "vue-router": "^4.0.3",
+    "vue3-select": "^0.1.2",
     "vue3-toastify": "^0.2.2"
   },
   "devDependencies": {

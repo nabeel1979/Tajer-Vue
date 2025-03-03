@@ -212,7 +212,7 @@ export default {
   },
   computed: {
     ItemClass() {
-      return this.ItemsClassList.find(item => item.id === this.MaterialClass);
+      return this.ItemsClassList.find((item) => item.id === this.MaterialClass);
     },
   },
   methods: {
