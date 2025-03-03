@@ -54,12 +54,16 @@
 </template>
 
 <script>
+import Multiselect from "vue-multiselect";
 import { axiosInstance } from "../../axios";
 import { toast } from "vue3-toastify";
 import "vue3-toastify/dist/index.css";
 
 export default {
   name: "ImporterDetails",
+  components: {
+    Multiselect,
+  },
   props: {
     Language: {
       type: String,
@@ -99,13 +103,17 @@ export default {
         toast.error("عنوان المستورد مطلوب");
         return;
       }
+      if (!this.CountryID) {
+        toast.error("الرجاء اختيار البلد المستورد");
+        return;
+      }
 
       this.isLoading = true;
 
       this.$emit("importer-info", {
         TargetName: this.importerName,
         TargetAddress: this.importerAddress,
-        CountryID: this.CountryID,
+        CountryID: this.CountryID.id, // تمرير ID الدولة فقط
       });
       this.$emit("country-name", this.CountryName);
       this.isLoading = false;
@@ -123,8 +131,9 @@ export default {
           }
         );
         this.CountriesList = response.data.Countries;
+        console.log("تم تحميل قائمة الدول:", this.CountriesList);
       } catch (error) {
-        console.log(error);
+        console.error(error);
       }
     },
   },
@@ -134,52 +143,41 @@ export default {
 <style scoped>
 @import "../../assets/Css/OriginCertificate.css";
 
-.en_inputs {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 15px;
+/* ستايل المكونات */
+.vue-multiselect {
+  width: 100%;
+}
+.multiselect__tags{
+  border: 2px solid var(--secondary) !important;
+}
+.vue-multiselect .multiselect__input {
+  padding: 10px;
+  font-size: 14px;
+  border: 2px solid var(--secondary);
+  border-radius: 4px;
+  width: 100%;
+  box-sizing: border-box;
 }
 
-input::-webkit-outer-spin-button,
-input::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
+.vue-multiselect .multiselect__option {
+  font-size: 14px;
 }
 
-input[type="number"] {
-  -moz-appearance: textfield;
+.vue-multiselect .multiselect__single {
+  padding: 10px;
+  font-size: 14px;
+  border: 2px solid #ccc;
+  border-radius: 4px;
+  background-color: #fff;
 }
 
-.disabled {
-  background: #dedede;
+.vue-multiselect .multiselect__tag {
+  background-color: #e0e0e0;
+  padding: 2px 5px;
+  border-radius: 4px;
 }
 
-.loading-spinner {
-  border: 2px solid #f3f3f3;
-  border-radius: 50%;
-  border-top: 2px solid #3498db;
-  width: 12px;
-  height: 12px;
-  -webkit-animation: spin 2s linear infinite;
-  animation: spin 2s linear infinite;
-  display: inline-block;
-  margin-right: 5px;
-}
-
-@keyframes spin {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
-}
-
-@media (max-width: 500px) {
-  .en_inputs {
-    flex-direction: column;
-    gap: 0;
-  }
+.vue-multiselect .multiselect__clear {
+  color: #3498db;
 }
 </style>
