@@ -199,8 +199,8 @@
   </main>
   <footer></footer>
 </template>
-  
-  <script>
+
+<script>
 import { axiosInstance } from "../axios";
 import dayjs from "dayjs";
 import { toast } from "vue3-toastify";
@@ -279,8 +279,6 @@ export default {
           this.BookInfo.RegDate = response.data.RegDate;
           this.BookInfo.ReferenceNo = response.data.ReferenceNo;
           this.BookInfo.ReferenceDate = response.data.ReferenceDate;
-
-          console.log(this.BookInfo);
         } else {
           console.log("no data");
           toast.error("لقد حدث خطأ في جلب البيانات");
@@ -301,7 +299,7 @@ export default {
 };
 </script>
 
-  <style scoped>
+<style scoped>
 @import url("https://fonts.googleapis.com/css2?family=Changa:wght@200..800&family=Readex+Pro:wght@160..700&display=swap");
 * {
   padding: 0;
@@ -538,7 +536,7 @@ p span {
   color: #3c4fdd;
 }
 
-.info_data .descrp_details_span{
+.info_data .descrp_details_span {
   display: inline-block;
   width: 400px;
 }
@@ -547,7 +545,7 @@ p span {
   font-size: 24px;
 }
 
-h3{
+h3 {
   font-size: 26px;
 }
 
@@ -692,13 +690,13 @@ h3{
     font-size: 12px;
   }
 
-  .info_data .descrp_details_span{
-  display: inline-block;
-  width: 150px;
-}
+  .info_data .descrp_details_span {
+    display: inline-block;
+    width: 150px;
+  }
 
-.info_data span{
-  font-weight: 700;
-}
+  .info_data span {
+    font-weight: 700;
+  }
 }
 </style>

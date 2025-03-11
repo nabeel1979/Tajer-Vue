@@ -204,7 +204,10 @@ export default {
         );
 
         this.OrderData = response.data.Data[0];
-        this.QRValue = `${appSetting.QrUrl}/showorder/${OrderId}`;
+        this.QRValue = `${appSetting.QrUrl.replace(
+          /\/$/,
+          ""
+        )}/showorder/${OrderId}`;
       } catch (error) {
         console.log(error);
       }

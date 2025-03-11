@@ -86,12 +86,12 @@
         <!-- Form 5 -->
         <div v-if="currentStep === 5" class="form_4 data_info">
           <ImporterDetails
+            @country-name="setCountry"
             :formData="formData"
             @height="setHeight"
             @prev-step="goToStep(4)"
             @next-step="goToStep(6)"
             @importer-info="setImporterDetails"
-            @country-name="setCountry"
             :Language="formData.Lang"
           />
         </div>
@@ -120,6 +120,7 @@
             :Language="formData.Lang"
             :OrderNO="OrderNO"
             :Amount="Amount"
+            :CountryName="CountryName"
           />
         </div>
       </div>
@@ -139,6 +140,7 @@ import Payments from "../components/CertificateOrigin/Payments.vue";
 import { axiosInstance } from "../axios";
 import { toast } from "vue3-toastify";
 import "vue3-toastify/dist/index.css";
+
 export default {
   components: {
     CertificateLanguage,
@@ -178,8 +180,9 @@ export default {
       this.ItemsClassName = itemClass;
     },
     setCountry(country) {
-      console.log(country);
+      console.log("Received country in setCountry:", country); // هذا سيعرض إذا كانت القيمة صحيحة
       this.CountryName = country;
+      console.log("CountryName after assignment:", this.CountryName); // هذا سيعرض القيمة بعد تعيينها
     },
     setHeight(height) {
       this.PageHeight = height;
@@ -206,6 +209,7 @@ export default {
       this.formData.TargetName = importerDetails.TargetName;
       this.formData.TargetAddress = importerDetails.TargetAddress;
       this.formData.CountryID = importerDetails.CountryID;
+      this.formData.CountryName = this.CountryName; // Update formData with CountryName
     },
     async submitData() {
       this.loading = true;

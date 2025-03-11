@@ -1,25 +1,24 @@
 <template>
-  <NavBar v-if="!$route.meta.hideNavBar"/>
-  <router-view/>
+  <NavBar v-if="!$route.meta.hideNavBar" />
+  <router-view />
 </template>
 
 <script>
-import NavBar from './components/NavBar.vue';
+import NavBar from "./components/NavBar.vue";
 export default {
-  name: 'App',
+  name: "App",
   components: {
     NavBar,
   },
   data() {
-    return {
-    }
+    return {};
   },
   computed: {
     shouldShowNavBar() {
       return !this.$route.meta.hideNavBar;
-    }
-  }
-}
+    },
+  },
+};
 </script>
 
 <style>
@@ -41,7 +40,7 @@ nav a.router-link-exact-active {
   color: #42b983;
 }
 
-.toast-content{
+.toast-content {
   font-weight: 900;
 }
 </style>

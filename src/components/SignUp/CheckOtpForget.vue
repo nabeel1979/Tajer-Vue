@@ -1,12 +1,15 @@
 <template>
   <div class="modal" v-if="isVisible">
     <div class="modal-content">
-      <router-link to="/login"><span class="close" @click="closeAll">&times;</span></router-link>
+      <router-link to="/login">
+        <span class="close" @click="closeAll">&times;</span>
+      </router-link>
       <div class="logo_section">
-        <img src="../../assets/Image/logo.png" alt="" />
+        <img src="../../assets/Image/logo.png" alt="logo" />
       </div>
       <h2>أدخل رمز التحقق</h2>
       <p>تم إرسال رمز التحقق إلى {{ Whatsapp === null ? email : Whatsapp }}</p>
+
       <form @submit.prevent="submitOtp" class="form_information">
         <div class="otp_section">
           <label for="otp">رمز التحقق</label>
@@ -17,15 +20,17 @@
               v-model="otpValues[index]"
               @input="handleInput($event, index)"
               @keydown="moveToPrevious($event, index)"
+              @paste="handlePaste($event)"
               type="number"
               maxlength="1"
               ref="otpInput"
             />
           </div>
           <div class="resend_time" v-if="timeLeft">
-              {{ formattedTime }}
+            {{ formattedTime }}
           </div>
         </div>
+
         <div class="resend_section">
           <p>لم تقم باستلام الرمز؟</p>
           <a
@@ -43,29 +48,23 @@
 </template>
 
 <script>
-import {axiosInstance} from '../../axios';
+import { axiosInstance } from "../../axios";
 import { toast } from "vue3-toastify";
 import "vue3-toastify/dist/index.css";
 
 export default {
   props: {
-    isVisible: {
-      type: Boolean,
-    },
-    email: {
-      type: String,
-    },
-    AzbaraNum: {
-      type: String,
-    },
+    isVisible: Boolean,
+    email: String,
+    AzbaraNum: String,
     OtpLength: {
       type: Number,
       default: 6,
     },
-    Whatsapp:{
-      type:Boolean,
-      default: null
-    }
+    Whatsapp: {
+      type: Boolean,
+      default: null,
+    },
   },
   data() {
     return {
@@ -84,9 +83,11 @@ export default {
   },
   watch: {
     otpValues: {
-      handler() {
-        this.otpCombined = this.otpValues.join("");
-        this.$emit("update:otpCombined", this.otpCombined);
+      handler(newValues) {
+        this.otpCombined = newValues.join("");
+        if (this.otpCombined.length === this.OtpLength) {
+          this.submitOtp(); // تحقق تلقائي عند اكتمال الكود
+        }
       },
       deep: true,
     },
@@ -103,15 +104,24 @@ export default {
           Code: this.otpCombined,
           AzbaraNumber: this.AzbaraNum,
         });
+
         if (response.data) {
           this.$emit("token-received", response.data);
           this.$emit("close");
         }
       } catch (error) {
-        if (error.response.data.Message === 'User not found') {
-          toast.error('البريد الالكتروني الذي ادخلته غير مرتبط بحساب');
-        } else if (error.response.data.Message === 'Wrong Code') {
-          toast.error('الرمز الذي ادخلته غير صحيح');
+        if (error.response && error.response.data) {
+          const errorMessage = error.response.data.Message;
+
+          if (errorMessage === "User not found") {
+            toast.error("البريد الإلكتروني الذي أدخلته غير مرتبط بحساب");
+          } else if (errorMessage === "Wrong Code") {
+            toast.error("الرمز الذي أدخلته غير صحيح، يرجى المحاولة مرة أخرى");
+          } else {
+            toast.error("الرمز غير صحيح يرجئ المحاول مره اخرئ");
+          }
+        } else {
+          toast.error("تعذر الاتصال بالخادم، يرجى التحقق من الإنترنت");
         }
       }
     },
@@ -119,18 +129,20 @@ export default {
       this.$emit("close");
     },
     handleInput(event, index) {
-      const inputLength = event.target.value.length;
-      const maxLength = event.target.maxLength;
-      if (inputLength >= maxLength && index < this.OtpLength - 1) {
+      if (event.target.value.length >= 1 && index < this.OtpLength - 1) {
         this.$refs.otpInput[index + 1].focus();
-      }
-      if (inputLength === 0 && index > 0) {
-        this.$refs.otpInput[index - 1].focus();
       }
     },
     moveToPrevious(event, index) {
       if (event.key === "Backspace" && index > 0 && !event.target.value) {
         this.$refs.otpInput[index - 1].focus();
+      }
+    },
+    handlePaste(event) {
+      event.preventDefault();
+      const pasteData = event.clipboardData.getData("text").trim();
+      if (pasteData.length === this.OtpLength) {
+        this.otpValues = pasteData.split("");
       }
     },
     focusFirstInput() {
@@ -150,17 +162,19 @@ export default {
       }, 1000);
     },
     async resendCode() {
-      try{
-        const response = await axiosInstance.post('/auth/resend-code',{
-          azbaraNumber : this.email
-        })
-        if(response.data){
-          this.timeLeft = 60
-          this.startTimer()
-          toast.success('تم اعادة ارسال رمز الـOTP تحقق من البريد الالكتروني')
+      try {
+        const response = await axiosInstance.post("/auth/resend-code", {
+          azbaraNumber: this.email,
+        });
+        if (response.data) {
+          this.timeLeft = 60;
+          this.startTimer();
+          toast.success(
+            "تم إعادة إرسال رمز التحقق، يرجى التحقق من البريد الإلكتروني"
+          );
         }
-      } catch(error) {
-        console.log(error)
+      } catch (error) {
+        console.log(error);
       }
     },
   },
@@ -183,7 +197,6 @@ export default {
   top: 0;
   width: 100%;
   height: 100%;
-  overflow: auto;
   background-color: rgba(0, 0, 0, 0.4);
   text-align: center;
 }
@@ -195,11 +208,9 @@ export default {
   width: 80%;
   max-width: 550px;
   border-radius: 20px;
-  height: auto;
 }
 
 .logo_section {
-  width: 100%;
   text-align: center;
 }
 
@@ -208,45 +219,18 @@ export default {
   height: 95px;
 }
 
-.close {
-  color: #aaa;
-  float: right;
-  font-size: 28px;
-  font-weight: bold;
-  text-align: right;
-}
-
-.close:hover,
-.close:focus {
-  color: black;
-  text-decoration: none;
-  cursor: pointer;
-}
-
 .otp_section {
   margin: 20px 0;
-  direction: ltr;
-}
-
-.otp_section label {
-  display: block;
-  margin-bottom: 5px;
 }
 
 .otp_section input {
-  direction: ltr;
   padding: 8px;
-  box-sizing: border-box;
-  border: 1px solid #afafaf;
-  border-radius: 8px;
-}
-
-.otp_section input:focus {
-  border: 1px solid #c6c6c6;
-  outline: 1px solid #c6c6c6;
-}
-
-label {
+  text-align: center;
+  width: 60px;
+  height: 60px;
+  margin-right: 0.5em;
+  border: 2px solid #ccc;
+  border-radius: 5px;
   font-size: 18px;
   font-weight: 700;
 }
@@ -261,23 +245,12 @@ button[type="submit"] {
   border: none;
 }
 
-button[type="submit"]:hover {
-  background-color: #2e72cc;
-  transform: translateY(-2px);
-  box-shadow: 0 0 12px 1px #6d6d6d;
-  transition: box-shadow 1s ease-in;
+label {
+  margin-bottom: 15px;
 }
 
-.number_input {
-  position: relative;
-}
-
-.number_input input {
-  text-indent: 80px;
-}
-
-input::-webkit-outer-spin-button,
-input::-webkit-inner-spin-button {
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
@@ -286,58 +259,10 @@ input[type="number"] {
   -moz-appearance: textfield;
 }
 
-.number_input span {
-  direction: ltr;
-  position: absolute;
-  left: -1px;
-  padding: 9px 20px;
-  background-color: #c6c6c6;
-  border-radius: 9px 0 0 9px;
-}
-
-.form_information {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-}
-
-.input_wrapper {
-  display: flex;
-  justify-content: center;
-}
-
-input {
-  width: 60px;
-  height: 60px;
-  margin-right: 0.5em;
-  text-align: center;
-  border: 2px solid #ccc;
-  border-radius: 5px;
-  font-size: clamp(16px, 4vm, 20px);
-  font-weight: 700;
-}
-
-.resend_time {
-  margin: 25px 0;
-}
-
-.resend_section {
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  margin: 15px 0;
-}
-
-.disabled {
-  pointer-events: none;
-  color: grey;
-  text-decoration: none;
-}
-
-@media(max-width:500px){
+@media (max-width: 500px) {
   input {
-  width: 40px;
-  height: 40px;
-}
+    width: 40px;
+    height: 40px;
+  }
 }
 </style>

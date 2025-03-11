@@ -57,6 +57,7 @@
           :class="[
             'form-control',
             'login-btn',
+            // يحتاج توكفهن يله يطلع toast
             { disabled: !passwordsMatch || !passwordsLength },
           ]"
         >
@@ -65,11 +66,6 @@
       </div>
     </div>
   </div>
-  <transition name="fade">
-    <div v-if="loading" class="loading-overlay">
-      <div class="spinner"></div>
-    </div>
-  </transition>
 </template>
 
 <script>

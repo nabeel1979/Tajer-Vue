@@ -1,13 +1,13 @@
 <template>
   <div class="section_form" :dir="language === 'A' ? 'rtl' : 'ltr'">
-    <h2>{{ language === 'A' ? 'معلومات الشحنة' : 'Shipment Information' }}</h2>
+    <h2>{{ language === "A" ? "معلومات الشحنة" : "Shipment Information" }}</h2>
     <div class="form_container">
       <div class="input_wrap">
-        <label for="origin_activity"
-          > {{ language === 'A' ? 'رقم الفاتورة' : 'Invoice Number' }}</label
+        <label for="origin_activity">
+          {{ language === "A" ? "رقم الفاتورة" : "Invoice Number" }}</label
         >
         <input
-          type="number"
+          type="text"
           name="Pill Number"
           class="input"
           required
@@ -16,8 +16,8 @@
       </div>
       <div class="input_wrap">
         <label for="origin_activity"
-          >{{ language === 'A' ? 'تاريخ الفاتورة' : 'Invoice Date' }} </label
-        >
+          >{{ language === "A" ? "تاريخ الفاتورة" : "Invoice Date" }}
+        </label>
         <input
           type="date"
           name="Pill Date"
@@ -28,7 +28,7 @@
       </div>
       <div class="input_wrap">
         <label for="origin_activity">
-          {{ language === 'A' ? 'رقم الاجازة' : 'License Number' }}</label
+          {{ language === "A" ? "رقم الاجازة" : "License Number" }}</label
         >
         <input
           type="text"
@@ -40,7 +40,9 @@
       </div>
       <div class="input_wrap">
         <label for="origin_activity">
-          {{ language === 'A' ? 'تاريخ انشاء الاجازة' : 'License Create Date' }}</label
+          {{
+            language === "A" ? "تاريخ انشاء الاجازة" : "License Create Date"
+          }}</label
         >
         <input
           type="date"
@@ -52,7 +54,9 @@
       </div>
       <div class="input_wrap">
         <label for="origin_activity">
-          {{ language === 'A' ? 'تاريخ انتهاء الاجازة' : 'License Expire Date' }}</label
+          {{
+            language === "A" ? "تاريخ انتهاء الاجازة" : "License Expire Date"
+          }}</label
         >
         <input
           type="date"
@@ -65,8 +69,12 @@
     </div>
   </div>
   <div class="btn_wrapper">
-    <button class="next_btn" @click="validateAndNext">{{ language === 'A' ? 'التالي' : 'Next' }}</button>
-    <button class="back_btn" @click="$emit('prev-step')">{{ language === "A" ? "السابق" : "Previous" }}</button>
+    <button class="next_btn" @click="validateAndNext">
+      {{ language === "A" ? "التالي" : "Next" }}
+    </button>
+    <button class="back_btn" @click="$emit('prev-step')">
+      {{ language === "A" ? "السابق" : "Previous" }}
+    </button>
   </div>
 </template>
 
@@ -76,23 +84,23 @@ import "vue3-toastify/dist/index.css";
 
 export default {
   name: "PersonalInfo",
-  props:{
-    Language:{
-      type:String,
-      required:true
+  props: {
+    Language: {
+      type: String,
+      required: true,
     },
-    formData:{
-      type:Object
-    }
+    formData: {
+      type: Object,
+    },
   },
   data() {
     return {
-      language:this.Language,
-      InvoiceNumber:this.formData.CertificateNo || '',
-      InvoiceDate:this.formData.CertificateDate || '',
-      LicenseNumber:this.formData.RegNo || '',
-      LicenseDate:this.formData.RegDate || '',
-      LicenseExp:this.formData.ExpDate || ''
+      language: this.Language,
+      InvoiceNumber: this.formData.CertificateNo || "",
+      InvoiceDate: this.formData.CertificateDate || "",
+      LicenseNumber: this.formData.RegNo || "",
+      LicenseDate: this.formData.RegDate || "",
+      LicenseExp: this.formData.ExpDate || "",
     };
   },
   methods: {
@@ -118,23 +126,23 @@ export default {
         return;
       }
 
-      const LicenseExpDate = new Date(this.LicenseExp)
+      const LicenseExpDate = new Date(this.LicenseExp);
 
-      if(LicenseExpDate < Date.now()){
+      if (LicenseExpDate < Date.now()) {
         toast.error("!! تاريخ صلاحية الاجازة منتهي");
         return;
       }
-      this.$emit('shipment-info',{
-        CertificateNo:this.InvoiceNumber.toString(),
-        CertificateDate:this.InvoiceDate,
-        RegNo:this.LicenseNumber.toString(),
-        RegDate:this.LicenseDate,
-        ExpDate:this.LicenseExp
-      })
+      this.$emit("shipment-info", {
+        CertificateNo: this.InvoiceNumber.toString(),
+        CertificateDate: this.InvoiceDate,
+        RegNo: this.LicenseNumber.toString(),
+        RegDate: this.LicenseDate,
+        ExpDate: this.LicenseExp,
+      });
       this.$emit("next-step");
     },
-    },
-  };
+  },
+};
 </script>
 
 <style scoped>
@@ -146,14 +154,14 @@ input::-webkit-inner-spin-button {
   margin: 0;
 }
 
-input[type=number] {
-  -moz-appearance:textfield;
+input[type="number"] {
+  -moz-appearance: textfield;
 }
 
-@media(max-width:500px){
-  .en_inputs{
-  flex-direction: column;
-  gap: 0;
-}
+@media (max-width: 500px) {
+  .en_inputs {
+    flex-direction: column;
+    gap: 0;
+  }
 }
 </style>

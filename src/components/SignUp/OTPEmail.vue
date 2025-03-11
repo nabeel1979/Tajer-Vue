@@ -9,16 +9,18 @@
           v-model="otpValues[index]"
           @input="handleInput($event, index)"
           @keydown="moveToPrevious($event, index)"
+          @paste="handlePaste($event)"
           type="tel"
           maxlength="1"
           :id="index"
           ref="otpInput"
         />
-
-        <div class="resend_time" v-if="timeLeft">
-          {{ formattedTime }}
-        </div>
       </div>
+
+      <div class="resend_time" v-if="timeLeft">
+        {{ formattedTime }}
+      </div>
+
       <div class="resend_section">
         <p>لم تقم باستلام الرمز؟</p>
         <a
@@ -30,20 +32,22 @@
         </a>
       </div>
     </div>
+
     <div class="btn_wrapper">
       <button type="submit" class="next_btn">تأكيد</button>
     </div>
-    <transition name="fade">
+
+    <!-- <transition name="fade">
       <div v-if="loading" class="loading-overlay">
         <div class="spinner"></div>
       </div>
-    </transition>
+    </transition> -->
   </form>
 </template>
 
 <script>
-import {axiosInstance} from "../../axios";
-import { useRouter } from 'vue-router';
+import { axiosInstance } from "../../axios";
+import { useRouter } from "vue-router";
 import { toast } from "vue3-toastify";
 import "vue3-toastify/dist/index.css";
 
@@ -52,7 +56,7 @@ export default {
   props: {
     OtpLength: {
       type: Number,
-      default: 4,
+      default: 6, // عدد خانات رمز التحقق
     },
     registerData: {
       type: Object,
@@ -69,13 +73,11 @@ export default {
     };
   },
   computed: {
-    
     formattedTime() {
       const minutes = Math.floor(this.timeLeft / 60);
       const seconds = this.timeLeft % 60;
       return `${minutes}:${seconds.toString().padStart(2, "0")}`;
     },
-    
   },
   emits: ["update:otpCombined"],
   mounted() {
@@ -96,21 +98,43 @@ export default {
     return { router };
   },
   methods: {
+    // عند الإدخال، الانتقال للحقل التالي تلقائياً
     handleInput(event, index) {
-      const inputLength = event.target.value.length;
-      const maxLength = event.target.maxLength;
-      if (inputLength >= maxLength && index < this.OtpLength - 1) {
+      let value = event.target.value.replace(/\D/g, ""); // منع الأحرف غير الرقمية
+      this.otpValues[index] = value;
+
+      if (value && index < this.OtpLength - 1) {
         this.$refs.otpInput[index + 1].focus();
       }
-      if (inputLength === 0 && index > 0) {
-        this.$refs.otpInput[index - 1].focus();
-      }
     },
+
+    // التنقل للخلف عند الضغط على Backspace
     moveToPrevious(event, index) {
       if (event.key === "Backspace" && index > 0 && !event.target.value) {
         this.$refs.otpInput[index - 1].focus();
       }
     },
+
+    // دعم اللصق الكامل للكود
+    handlePaste(event) {
+      event.preventDefault();
+      const pasteData = event.clipboardData.getData("text").trim();
+
+      if (!/^\d+$/.test(pasteData)) {
+        return;
+      }
+
+      const chars = pasteData.slice(0, this.OtpLength).split("");
+      chars.forEach((char, index) => {
+        this.otpValues[index] = char;
+      });
+
+      if (chars.length < this.OtpLength) {
+        this.$refs.otpInput[chars.length]?.focus();
+      }
+    },
+
+    // بدء المؤقت الزمني
     startTimer() {
       this.timer = setInterval(() => {
         if (this.timeLeft > 0) {
@@ -120,6 +144,8 @@ export default {
         }
       }, 1000);
     },
+
+    // إعادة إرسال كود OTP
     resendCode() {
       this.otpValues = Array(this.OtpLength).fill("");
       this.timeLeft = 120;
@@ -127,6 +153,8 @@ export default {
       this.$refs.otpInput[0].focus();
       this.resendOTP();
     },
+
+    // إرسال رمز OTP إلى السيرفر للتحقق
     async sendOTP() {
       this.loading = true;
       try {
@@ -135,24 +163,25 @@ export default {
           Email: this.registerData.Email,
         });
         if (response.data) {
-          toast.success('تم تسجيل طلبك بنجاح');
+          toast.success("تم تسجيل طلبك بنجاح");
           setTimeout(() => {
             this.loading = false;
-            this.router.push('/login');
-          }, 5000); // Show success message for 5 seconds before redirecting
+            this.router.push("/login");
+          }, 5000);
         }
       } catch (error) {
         this.loading = false;
-        if (error.response.data.Message === 'Code Expired') {
-          toast.warning('لقد انتهت صلاحية هذا الرمز الرجاء ادخل الرمز الجديد');
-        } else if (error.response.data.Message === 'Wrong Code') {
-          toast.error('ان الرمز الذي ادخلته خاطئ');
+        if (error.response.data.Message === "Code Expired") {
+          toast.warning("لقد انتهت صلاحية هذا الرمز الرجاء ادخل الرمز الجديد");
+        } else if (error.response.data.Message === "Wrong Code") {
+          toast.error("ان الرمز الذي ادخلته خاطئ");
         } else {
           console.error("Error:", error.response.data.Message);
         }
-        console.error("Error:", error);
       }
     },
+
+    // إرسال رمز جديد
     async resendOTP() {
       try {
         const response = await axiosInstance.post("/auth/resend-code", {
@@ -175,15 +204,14 @@ export default {
 </script>
 
 <style scoped>
-@import "../../assets/Css/SignUp.css";
-
-.section_form{
+.section_form {
   text-align: center;
 }
 
 h3 {
   margin: 20px 0;
 }
+
 input {
   width: 60px;
   height: 60px;
@@ -234,10 +262,6 @@ input {
   animation: spin 1s linear infinite;
 }
 
-p{
-  margin-bottom: 0;
-}
-
 @keyframes spin {
   to {
     transform: rotate(360deg);
@@ -245,17 +269,13 @@ p{
 }
 
 @media (max-width: 500px) {
-  h3 {
-    font-size: 16px;
-    font-weight: 700;
-  }
   input {
     width: 50px;
     height: 50px;
   }
 }
 
-@media (max-width: 390px){
+@media (max-width: 390px) {
   input {
     width: 40px;
     height: 40px;

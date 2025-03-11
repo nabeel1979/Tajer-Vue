@@ -117,7 +117,7 @@
           <label for="origin_activity">{{
             language === "A" ? "نوع الكمية" : "Quantity Type"
           }}</label>
-          <select name="" id="" class="input" v-model="QuantityType">
+          <select name="" id="" class="input" v-model="QuantityType" required>
             <option value="">
               {{ language === "A" ? "اختر" : "Choice" }}
             </option>
@@ -130,6 +130,7 @@
             </option>
           </select>
         </div>
+
         <div style="width: 70%">
           <label for="origin_activity">{{
             language === "A" ? "الوزن القائم" : "Weight"
@@ -237,10 +238,15 @@ export default {
         toast.error("يرجى ملئ نوع التعبئة");
         return;
       }
+      if (!this.QuantityType) {
+        toast.error("يرجى ملئ نوع كميته");
+        return;
+      }
       if (!this.Weight && !this.QuantityType) {
         toast.error("يرجى ملئ الوزن ونوع كميته");
         return;
       }
+
       this.$emit("subject-details", {
         GenerationDscrp: this.ShippingDetails,
         ProductDscrp: this.ProductAddress,

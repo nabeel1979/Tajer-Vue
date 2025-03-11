@@ -72,19 +72,25 @@
             class="data"
             >عرض البيانات</router-link
           >
-          <a v-if="Status === 200" :href="`${appSetting.imagesUrl}${Pdf}`" target="_blank" class="files">{{
-            Language === "E" ? "View documents" : "عرض الوثائق"
-          }}</a>
-          <span v-else>  </span>
+          <a
+            v-if="Pdf && Pdf !== '/'"
+            :href="`${appSetting.imagesUrl}${Pdf}`"
+            target="_blank"
+            class="files"
+          >
+            {{ Language === "E" ? "View documents" : "عرض الوثائق" }}
+          </a>
+
+          <span v-else> </span>
         </div>
       </div>
     </div>
   </main>
   <footer></footer>
 </template>
-  
-  <script>
-  import appSetting from "../appSetting";
+
+<script>
+import appSetting from "../appSetting";
 import { axiosInstance } from "../axios";
 
 export default {
@@ -101,10 +107,10 @@ export default {
   created() {
     this.GetData();
   },
-  computed:{
+  computed: {
     appSetting() {
-      return appSetting
-    }
+      return appSetting;
+    },
   },
   methods: {
     async GetData() {
@@ -131,8 +137,8 @@ export default {
   },
 };
 </script>
-  
-  <style scoped>
+
+<style scoped>
 @import url("https://fonts.googleapis.com/css2?family=Changa:wght@200..800&family=Readex+Pro:wght@160..700&display=swap");
 * {
   padding: 0;

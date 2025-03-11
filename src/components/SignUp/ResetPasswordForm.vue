@@ -25,21 +25,10 @@
                 class="form-control"
                 v-model="confirmPassword"
               />
-              <p v-if="!passwordsMatch" class="wrong_msg">
-                كلمات المرور غير متطابقة
-              </p>
-              <p v-if="!passwordsLength" class="wrong_msg">
-                كلمات المرور يجب ان تكون اكثر من 8 حقول
-              </p>
             </div>
           </div>
           <div class="m-auto">
-            <button
-              class="form-control login-btn"
-              :disabled="!passwordsMatch || !newPassword || !confirmPassword"
-            >
-              تغيير كلمة المرور
-            </button>
+            <button class="form-control login-btn">تغيير كلمة المرور</button>
           </div>
         </form>
       </div>
@@ -55,11 +44,6 @@
       </div>
     </div>
   </div>
-  <transition name="fade">
-    <div v-if="loading" class="loading-overlay">
-      <div class="spinner"></div>
-    </div>
-  </transition>
 </template>
 
 <script>
@@ -114,7 +98,7 @@ export default {
               setTimeout(() => {
                 this.loading = false;
                 this.router.push("/login");
-              }, 5000);
+              }, 3000);
             } else {
               toast.error("حدث حطأ, لم يتم تحديث كلمة المرور");
             }
@@ -126,7 +110,7 @@ export default {
           toast.info("كلمات المرور غير متطابقة");
         }
       } else {
-        toast.info("كلمة المرور يجب أن تكون على الأقل 5 أحرف");
+        toast.info("كلمة المرور يجب أن تكون على الأقل 8 أحرف");
       }
     },
   },

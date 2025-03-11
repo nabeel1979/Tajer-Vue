@@ -1,42 +1,57 @@
 @import "./Root.css";
 
-body{
+body {
   min-height: 100vh;
 }
 
-*{
+* {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
   text-decoration: none;
   font-family: var(--primary-font);
 }
-.navbar_container{
+
+.navbar_container {
   background: var(--primary-color);
   width: 100%;
   z-index: 1000;
 }
-.navbar_container nav{
+.navbar_container nav {
   display: flex;
   max-width: 100%;
   height: 70px;
   align-items: center;
   justify-content: space-between;
 }
-nav .content{
+nav .content {
   width: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
-nav .items{
+nav .items {
   display: flex;
   width: 100%;
   align-items: center;
   justify-content: end;
+  gap: 30px;
 }
-nav .logout_btn a{
-  background-color: rgb(172, 61, 61);
+nav .items img {
+  width: 40px;
+  height: 40px;
+  object-fit: cover;
+  border-radius: 999px;
+}
+
+nav .logout_btn a {
+  background: rgb(2, 0, 36);
+  background: linear-gradient(
+    90deg,
+    rgba(2, 0, 36, 1) 17%,
+    rgba(0, 212, 255, 1) 100%,
+    rgba(9, 9, 121, 1) 46%
+  );
   padding: 5px 15px;
   border-radius: 10px;
   margin-left: 10px;
@@ -45,36 +60,36 @@ nav .logout_btn a{
   font-size: 14px;
 }
 
-nav .items a .profile_btn{
+nav .items a .profile_btn {
   padding: 0 15px;
 }
 
-nav .items a .profile_btn i{
+nav .items a .profile_btn i {
   color: var(--font-color);
 }
 
-nav .items a .profile_btn i:hover{
+nav .items a .profile_btn i:hover {
   color: var(--card-color);
 }
 
-nav .content .links{
+nav .content .links {
   display: flex;
   margin-bottom: 0;
 }
-.content .logo a{
+.content .logo a {
   color: #fff;
   font-size: 30px;
   font-weight: 600;
 }
 .content .links li,
-.items .links li{
+.items .links li {
   list-style: none;
   line-height: 70px;
 }
 .content .links li a,
 .items .links li a,
 .content .links li label,
-.items .links li label{
+.items .links li label {
   color: #fff;
   font-size: 16px;
   font-weight: 500;
@@ -84,16 +99,16 @@ nav .content .links{
   text-decoration: none;
 }
 .content .links li label,
-.items .links li label{
+.items .links li label {
   display: none;
 }
 .content .links li a:hover,
 .items .links li a:hover,
 .content .links li label:hover,
-.items .links li label:hover{
+.items .links li label:hover {
   background: #323c4e;
 }
-.navbar_container .menu-icon{
+.navbar_container .menu-icon {
   color: #fff;
   font-size: 18px;
   cursor: pointer;
@@ -101,16 +116,16 @@ nav .content .links{
   width: 70px;
   text-align: center;
 }
-.navbar_container .menu-icon{
+.navbar_container .menu-icon {
   display: none;
 }
-.navbar_container input[type="checkbox"]{
+.navbar_container input[type="checkbox"] {
   display: none;
 }
 
 /* Dropdown Menu code start */
 .content .links ul,
-.items .links ul{
+.items .links ul {
   position: absolute;
   background: var(--primary-color);
   top: 80px;
@@ -120,7 +135,7 @@ nav .content .links{
   padding-left: 0;
 }
 .content .links li:hover > ul,
-.items .links li:hover > ul{
+.items .links li:hover > ul {
   top: 70px;
   opacity: 1;
   width: 250px;
@@ -128,55 +143,55 @@ nav .content .links{
   transition: all 0.3s ease;
 }
 .content .links ul li a,
-.items .links ul li a{
+.items .links ul li a {
   display: block;
   width: 100%;
   line-height: 30px;
-  border-radius: 0px!important;
+  border-radius: 0px !important;
 }
-.content .links ul ul{
+.content .links ul ul {
   position: absolute;
   top: 0;
   width: 250px;
   left: calc(-100% + -2px);
 }
 .content .links ul li,
-.items .links ul li{
+.items .links ul li {
   position: relative;
 }
 .content .links ul li:hover ul,
-.items .links ul li:hover ul{
+.items .links ul li:hover ul {
   top: 5px;
 }
 
-.navbar_items{
+.navbar_items {
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
 /* Responsive code start */
-@media screen and (max-width: 1250px){
-  .navbar_container nav{
+@media screen and (max-width: 1250px) {
+  .navbar_container nav {
     max-width: 100%;
     padding: 0 20px;
   }
-  nav .content .links{
+  nav .content .links {
     margin-right: 0;
   }
-  .content .links li a{
+  .content .links li a {
     padding: 8px 13px;
   }
 }
 
-@media screen and (max-width: 900px){
-  .navbar_container .menu-icon{
+@media screen and (max-width: 900px) {
+  .navbar_container .menu-icon {
     display: block;
   }
-  .navbar_container #show-menu:checked ~ .menu-icon i::before{
+  .navbar_container #show-menu:checked ~ .menu-icon i::before {
     content: "\f00d";
   }
-  nav .content .links{
+  nav .content .links {
     display: block;
     position: fixed;
     background: var(--primary-color);
@@ -191,27 +206,27 @@ nav .content .links{
     transition: all 0.3s ease;
     z-index: 100;
   }
-  nav #show-menu:checked ~ .content .links{
+  nav #show-menu:checked ~ .content .links {
     right: 0%;
   }
-  .content .links li{
+  .content .links li {
     margin: 15px 20px;
   }
   .content .links li a,
-  .content .links li label{
+  .content .links li label {
     line-height: 40px;
     font-size: 20px;
     display: block;
     padding: 8px 18px;
     cursor: pointer;
   }
-  .content .links li a.desktop-link{
+  .content .links li a.desktop-link {
     display: none;
   }
 
   /* dropdown responsive code start */
   .content .links ul,
-  .content .links ul ul{
+  .content .links ul ul {
     position: static;
     width: 100% !important;
     opacity: 1;
@@ -224,29 +239,29 @@ nav .content .links{
   .content .links #show-origin:checked ~ ul,
   .content .links #show-lang:checked ~ ul,
   .content .links #show-trader:checked ~ ul,
-  .content .links #show-daily:checked ~ ul{
+  .content .links #show-daily:checked ~ ul {
     max-height: 100vh;
   }
-  .content .links ul li{
+  .content .links ul li {
     margin: 7px 20px;
   }
-  .content .links ul li a{
+  .content .links ul li a {
     font-size: 18px;
     line-height: 30px;
-    border-radius: 5px!important;
+    border-radius: 5px !important;
   }
 }
 
-@media screen and (max-width: 400px){
-  .navbar_container nav{
+@media screen and (max-width: 400px) {
+  .navbar_container nav {
     padding: 0 10px;
   }
-  .content .logo a{
+  .content .logo a {
     font-size: 27px;
   }
 }
 
-.dummy-text{
+.dummy-text {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -256,7 +271,7 @@ nav .content .links{
   text-align: center;
   transform: translate(-50%, -50%);
 }
-.dummy-text h2{
+.dummy-text h2 {
   font-size: 45px;
   margin: 5px 0;
 }

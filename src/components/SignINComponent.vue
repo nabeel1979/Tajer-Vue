@@ -4,7 +4,14 @@
       <img src="../assets/Image/logo.png" class="logo-img" alt="logo" />
       <h1>تسجيل الدخول</h1>
     </div>
-    <form @submit.prevent="login">
+
+    <!-- عرض اللودينج إذا كان جاري تسجيل الدخول -->
+    <div v-if="loading" class="loading-container">
+      <Vue3Spinner.ScaleLoader color="#42b883" />
+      <p>جاري تسجيل الدخول...</p>
+    </div>
+
+    <form v-else @submit.prevent="login">
       <div class="m-auto">
         <div class="form-group text-end">
           <label>رقم الصنف</label>
@@ -12,6 +19,7 @@
             type="text"
             class="form-control"
             v-model="azparaNum"
+            @input="validateAzparaNum"
             required
             :class="emailClass"
           />
@@ -20,6 +28,7 @@
           </p>
         </div>
       </div>
+
       <div class="m-auto">
         <div class="form-group text-end">
           <label>كلمة المرور</label>
@@ -40,20 +49,27 @@
           </p>
         </div>
       </div>
+
       <div class="m-auto">
         <div class="form-group text-end">
           <input type="checkbox" class="form-check-input ms-2" />
           <label>تذكر كلمة المرور</label>
         </div>
       </div>
+
       <div class="m-auto">
-        <button type="submit" class="form-control login-btn">
+        <button
+          type="submit"
+          class="form-control login-btn"
+          :disabled="loading"
+        >
           تسجيل الدخول
         </button>
       </div>
+
       <div class="m-auto">
         <div class="login-links">
-          <router-link to="/signup">أنشاء حساب</router-link>
+          <router-link to="/signup">إنشاء حساب</router-link>
           <router-link to="/resetpassword">نسيت كلمة المرور؟</router-link>
         </div>
       </div>
@@ -76,6 +92,7 @@ export default {
       showPassword: false,
       ErrorMessage: "",
       Token: "",
+      loading: false, // ✅ حالة اللودينج
     };
   },
   setup() {
@@ -100,12 +117,24 @@ export default {
     togglePasswordVisibility() {
       this.showPassword = !this.showPassword;
     },
+    validateAzparaNum() {
+      if (/[٠-٩]/.test(this.azparaNum)) {
+        toast.error(
+          "لا يُسمح بإدخال الأرقام العربية. الرجاء استخدام الأرقام الإنجليزية فقط."
+        );
+      }
+      this.azparaNum = this.azparaNum.replace(/[^ء-ي0-9\s]/g, "");
+    },
     async login() {
+      this.loading = true; // ✅ بدء اللودينج
+      this.ErrorMessage = "";
+
       try {
         const response = await axiosInstance.post("/auth/login", {
           AzbaraNum: this.azparaNum,
           Password: this.password,
         });
+
         console.log(response.data);
         const token = response.data.Token;
         this.Token = token;
@@ -122,8 +151,10 @@ export default {
           }
         } else {
           this.ErrorMessage = "An error occurred";
-          toast.error("حدث خطأ قم بمراجعة المصدر او السيرفر");
+          toast.error("حدث خطأ قم بمراجعة المصدر أو السيرفر");
         }
+      } finally {
+        this.loading = false; // ✅ إيقاف اللودينج بعد الانتهاء
       }
     },
   },
@@ -131,6 +162,18 @@ export default {
 </script>
 
 <style scoped>
+/* ✅ تصميم عنصر التحميل */
+.loading-container {
+  text-align: center;
+  margin: 20px 0;
+}
+
+/* ✅ منع المستخدم من النقر أثناء التحميل */
+.login-btn:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
 .logo_section {
   text-align: center;
 }

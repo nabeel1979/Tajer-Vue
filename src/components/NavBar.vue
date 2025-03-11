@@ -56,10 +56,10 @@
                   </ul>
                 </li>
                 <li>
-                      <router-link to="/transactions" @click="closeMenu"
-                        >معاملاتي</router-link
-                      >
-                    </li>
+                  <router-link to="/transactions" @click="closeMenu"
+                    >معاملاتي</router-link
+                  >
+                </li>
               </ul>
             </li>
             <li>
@@ -79,13 +79,19 @@
                 <li>
                   <a href="">الملف الشخصي</a>
                 </li>
-                <li><router-link to="/edit-password">تغيير كلمة المرور</router-link></li>
+                <li>
+                  <router-link to="/edit-password"
+                    >تغيير كلمة المرور</router-link
+                  >
+                </li>
               </ul>
             </li>
           </ul>
         </div>
       </div>
       <div class="items">
+        <img src="../assets/Image/testimg.jpg" alt="img" />
+
         <span class="logout_btn">
           <router-link @click="signOut" to="/login"
             >تسجيل الخروج <font-awesome-icon :icon="['fas', 'power-off']"

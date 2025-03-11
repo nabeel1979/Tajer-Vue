@@ -37,6 +37,7 @@
         </div>
       </div>
     </fieldset>
+
     <fieldset>
       <legend>
         {{ language === "A" ? "معلومات الشحنة" : "Shipment Information" }}
@@ -90,6 +91,7 @@
         </div>
       </div>
     </fieldset>
+
     <fieldset>
       <legend>
         {{ language === "A" ? "تفاصيل المادة" : "Subject Details" }}
@@ -131,18 +133,14 @@
         </div>
         <div class="data_row">
           <div class="data_col">
-            <p>{{ language === "A" ? "وصف السلع" : "Product Description" }}</p>
-            <p>
-              <span>{{ formData.DetailsDscrp }}</span>
-            </p>
-          </div>
-          <div class="data_col">
             <p>
               {{ language === "A" ? "صنف المادة" : "Material Classification" }}
             </p>
             <p>
               <span>{{
-                language === "A" ? ClassNameData.DscrpA : ClassNameData.DscrpE
+                language === "A" && ClassNameData?.DscrpA
+                  ? ClassNameData.DscrpA
+                  : ClassNameData?.DscrpE || "غير موجود"
               }}</span>
             </p>
           </div>
@@ -171,6 +169,7 @@
         </div>
       </div>
     </fieldset>
+
     <fieldset>
       <legend>
         {{ language === "A" ? "تفاصيل المستورد" : "Importer Details" }}
@@ -187,13 +186,12 @@
             <p>
               {{ language === "A" ? "البلد المستورد" : "Importing country" }}
             </p>
-            <p>
-              <span>{{
-                language === "A"
-                  ? CountryNameData.DscrpA
-                  : CountryNameData.DscrpE
-              }}</span>
-            </p>
+            <div v-if="country && country.DscrpA">
+              <p>{{ country.DscrpA }}</p>
+            </div>
+            <div v-else>
+              <p>{{ language === "A" ? "غير موجود" : "Not Available" }}</p>
+            </div>
           </div>
         </div>
         <div class="data_row">
@@ -206,6 +204,7 @@
         </div>
       </div>
     </fieldset>
+
     <fieldset>
       <legend>{{ language === "A" ? "الفاتورة" : "The Invoice" }}</legend>
       <div class="data_container">
@@ -234,37 +233,39 @@
         </div>
       </div>
     </fieldset>
-  </div>
-  <transition name="fade">
-    <div v-if="showModal" class="modal-overlay">
-      <div class="modal-content">
-        <h3>{{ language === "A" ? "هل أنت متأكد؟" : "Are you sure?" }}</h3>
-        <p>
-          {{
-            language === "A"
-              ? "عند ضغطك على كلمة (تأكيد) سوف يتم ارسال بياناتك لغرفة تجارة بغداد, سيتم المباشرة في معاملتك بعد تسديد الأجور"
-              : "When you click on the word (Confirm), you will be transferred to the payment interface and you cannot return to cancel the process."
-          }}
-        </p>
-        <div class="modal-buttons">
-          <button @click="confirmYes">
-            {{ language === "A" ? "تأكيد" : "Confirm" }}
-          </button>
-          <button @click="confirmNo" class="cancel_btn">
-            {{ language === "A" ? "ألغاء" : "Cancel" }}
-          </button>
+
+    <transition name="fade">
+      <div v-if="showModal" class="modal-overlay">
+        <div class="modal-content">
+          <h3>{{ language === "A" ? "هل أنت متأكد؟" : "Are you sure?" }}</h3>
+          <p>
+            {{
+              language === "A"
+                ? "عند ضغطك على كلمة (تأكيد) سوف يتم ارسال بياناتك لغرفة تجارة بغداد, سيتم المباشرة في معاملتك بعد تسديد الأجور"
+                : "When you click on the word (Confirm), you will be transferred to the payment interface and you cannot return to cancel the process."
+            }}
+          </p>
+          <div class="modal-buttons">
+            <button @click="confirmYes">
+              {{ language === "A" ? "تأكيد" : "Confirm" }}
+            </button>
+            <button @click="confirmNo" class="cancel_btn">
+              {{ language === "A" ? "ألغاء" : "Cancel" }}
+            </button>
+          </div>
         </div>
       </div>
+    </transition>
+
+    <div class="btn_wrapper">
+      <button class="next_btn" @click="showConfirmationModal">
+        <span v-if="loading" class="loading-spinner" :disabled="loading"></span>
+        <span v-else>{{ language === "A" ? "تأكيد" : "Confirm" }}</span>
+      </button>
+      <button class="back_btn" @click="$emit('prev-step')">
+        {{ language === "A" ? "السابق" : "Previous" }}
+      </button>
     </div>
-  </transition>
-  <div class="btn_wrapper">
-    <button class="next_btn" @click="showConfirmationModal">
-      <span v-if="loading" class="loading-spinner" :disabled="loading"></span>
-      <span v-else>{{ language === "A" ? "تأكيد" : "Confirm" }}</span>
-    </button>
-    <button class="back_btn" @click="$emit('prev-step')">
-      {{ language === "A" ? "السابق" : "Previous" }}
-    </button>
   </div>
 </template>
 
@@ -307,14 +308,38 @@ export default {
       prices: [],
       CountryNameData: this.CountryName,
       ClassNameData: this.itemClassName,
+      country: {}, // ✅ تعريف المتغير هنا
     };
   },
   created() {
     this.TradeInfo();
     this.InvoicePrices();
+
+    if (!this.ClassNameData) {
+      console.error("ClassNameData is missing!");
+    }
+
     this.$emit("height", this.height);
+
+    // ✅ تحديث قيمة country عند التحميل الأولي
+    this.updateCountry();
+  },
+  watch: {
+    CountryName() {
+      // ✅ إزالة المتغير غير المستخدم
+      this.updateCountry();
+    },
   },
   methods: {
+    updateCountry() {
+      if (this.CountryName) {
+        this.country = { DscrpA: this.CountryName }; // ✅ تحديث البيانات بشكل صحيح
+      } else {
+        this.country = {
+          DscrpA: this.language === "A" ? "غير موجود" : "Not Available",
+        };
+      }
+    },
     showConfirmationModal() {
       this.showModal = true;
     },
@@ -340,7 +365,6 @@ export default {
           }
         );
 
-        console.log(this.userData);
         this.userData = response.data;
       } catch (error) {
         console.log("Error fetching user data:", error);
@@ -354,12 +378,11 @@ export default {
           "/Certifecate/get-Certifecate-prices",
           {
             headers: {
-              Authorization: `Bearer ${token}`, // ✅ إرسال التوكين
+              Authorization: `Bearer ${token}`,
             },
           }
         );
 
-        console.log("Response Data:", response);
         this.PriceData = response.data;
         this.prices = this.PriceData.Prices;
       } catch (error) {
