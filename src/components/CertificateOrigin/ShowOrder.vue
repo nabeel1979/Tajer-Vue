@@ -1,150 +1,155 @@
 <template>
   <div class="show_container">
-    <div class="head_part">
-      <div class="right">
-        <p>غرفة تجارة بغداد</p>
-        <p>نظام التصدير الالكتروني</p>
-        <p class="important">شهادة منشأ</p>
+    <div v-if="isLoading" class="loading">
+      <h1>جاري التحميل...</h1>
+    </div>
+    <template v-else>
+      <div class="head_part">
+        <div class="right">
+          <p>غرفة تجارة بغداد</p>
+          <p>نظام التصدير الالكتروني</p>
+          <p class="important">شهادة منشأ</p>
+        </div>
+        <div class="image_part">
+          <img src="../../assets/Image/logo.png" alt="logo" />
+          <QrecodeVue
+            v-if="QRValue"
+            :value="QRValue"
+            level="Q"
+            size="75"
+            class="qr_desktop"
+          />
+        </div>
+        <div class="left">
+          <p class="important">{{ OrderData.OrderNo }}</p>
+          <p>{{ OrderData.OperationName }}</p>
+        </div>
       </div>
-      <div class="image_part">
-        <img src="../../assets/Image/logo.png" alt="logo" />
+      <div style="width: 100%; text-align: center">
         <QrecodeVue
           v-if="QRValue"
           :value="QRValue"
           level="Q"
           size="75"
-          class="qr_desktop"
+          class="qr_mobile"
         />
       </div>
-      <div class="left">
-        <p class="important">{{ OrderData.OrderNo }}</p>
-        <p>{{ OrderData.OperationName }}</p>
+      <hr style="width: 90%; margin: 0 auto; border: 2px solid #000" />
+      <div class="details_part">
+        <fieldset>
+          <legend>معلومات المصدر</legend>
+          <div class="field_container">
+            <div class="info_row">
+              <div class="info">
+                <p class="title">رقم الاضبارة</p>
+                <p class="dscrp">{{ TagerData.AzbaraNumber }}</p>
+              </div>
+              <div class="info">
+                <p class="title">المدير المفوض</p>
+                <p class="dscrp">{{ TagerData.ManagerName }}</p>
+              </div>
+            </div>
+            <div class="info_row">
+              <div class="info">
+                <p class="title">الاسم التجاري</p>
+                <p class="dscrp">{{ TagerData.CompanyName }}</p>
+              </div>
+              <div class="info">
+                <p class="title">عنوان العمل</p>
+                <p class="dscrp">{{ TagerData.CompanyAddress }}</p>
+              </div>
+            </div>
+          </div>
+        </fieldset>
+        <fieldset>
+          <legend>معلومات الشحنة</legend>
+          <div class="field_container">
+            <div class="info_row">
+              <div class="info">
+                <p class="title">رقم الفاتورة</p>
+                <p class="dscrp">{{ OrderData.CertificateNo }}</p>
+              </div>
+              <div class="info">
+                <p class="title">تاريخ الفاتورة</p>
+                <p class="dscrp">{{ formatDate(OrderData.CertificateDate) }}</p>
+              </div>
+            </div>
+            <div class="info_row">
+              <div class="info">
+                <p class="title">رقم الاجازة</p>
+                <p class="dscrp">{{ OrderData.RegNo }}</p>
+              </div>
+              <div class="info">
+                <p class="title">تاريخ انشاء الاجازة</p>
+                <p class="dscrp">{{ formatDate(OrderData.RegDate) }}</p>
+              </div>
+            </div>
+            <div class="info_row">
+              <div class="info">
+                <p class="title">تاريخ انتهاء الاجازة</p>
+                <p class="dscrp">{{ formatDate(OrderData.ExpDate) }}</p>
+              </div>
+            </div>
+          </div>
+        </fieldset>
+        <fieldset>
+          <legend>تفاصيل المادة</legend>
+          <div class="field_container">
+            <div class="info_row">
+              <div class="info">
+                <p class="title">تفاصيل الشحن</p>
+                <p class="dscrp">{{ OrderData.GenerationDscrp }}</p>
+              </div>
+              <div class="info">
+                <p class="title">المنتج وعنوانة كاملاً</p>
+                <p class="dscrp">{{ OrderData.ProductDscrp }}</p>
+              </div>
+            </div>
+            <div class="info_row">
+              <div class="info">
+                <p class="title">البلد المنشأ</p>
+                <p class="dscrp">{{ OrderData.SourceCountry }}</p>
+              </div>
+              <div class="info">
+                <p class="title">وصف السلع</p>
+                <p class="dscrp">{{ OrderData.DetailsDscrp }}</p>
+              </div>
+            </div>
+            <div class="info_row">
+              <div class="info">
+                <p class="title">نوع التعبئة</p>
+                <p class="dscrp">{{ OrderData.DetailsTypeDscrp }}</p>
+              </div>
+              <div class="info">
+                <p class="title">الكمية</p>
+                <p class="dscrp">{{ OrderData.Wigth + OrderData.WigthNum }}</p>
+              </div>
+            </div>
+            <div class="info_row">
+              <div class="info" style="width: 100%">
+                <p class="title">الملاحظات</p>
+                <p class="dscrp">{{ OrderData.Notes }}</p>
+              </div>
+            </div>
+          </div>
+        </fieldset>
+        <fieldset>
+          <legend>تفاصيل المستورد</legend>
+          <div class="field_container">
+            <div class="info_row">
+              <div class="info">
+                <p class="title">اسم المستورد</p>
+                <p class="dscrp">{{ OrderData.TargetName }}</p>
+              </div>
+              <div class="info">
+                <p class="title">عنوان المستورد</p>
+                <p class="dscrp">{{ OrderData.TargetAddress }}</p>
+              </div>
+            </div>
+          </div>
+        </fieldset>
       </div>
-    </div>
-    <div style="width: 100%; text-align: center">
-      <QrecodeVue
-        v-if="QRValue"
-        :value="QRValue"
-        level="Q"
-        size="75"
-        class="qr_mobile"
-      />
-    </div>
-    <hr style="width: 90%; margin: 0 auto; border: 2px solid #000" />
-    <div class="details_part">
-      <fieldset>
-        <legend>معلومات المصدر</legend>
-        <div class="field_container">
-          <div class="info_row">
-            <div class="info">
-              <p class="title">رقم الاضبارة</p>
-              <p class="dscrp">{{ TagerData.AzbaraNumber }}</p>
-            </div>
-            <div class="info">
-              <p class="title">المدير المفوض</p>
-              <p class="dscrp">{{ TagerData.ManagerName }}</p>
-            </div>
-          </div>
-          <div class="info_row">
-            <div class="info">
-              <p class="title">الاسم التجاري</p>
-              <p class="dscrp">{{ TagerData.CompanyName }}</p>
-            </div>
-            <div class="info">
-              <p class="title">عنوان العمل</p>
-              <p class="dscrp">{{ TagerData.CompanyAddress }}</p>
-            </div>
-          </div>
-        </div>
-      </fieldset>
-      <fieldset>
-        <legend>معلومات الشحنة</legend>
-        <div class="field_container">
-          <div class="info_row">
-            <div class="info">
-              <p class="title">رقم الفاتورة</p>
-              <p class="dscrp">{{ OrderData.CertificateNo }}</p>
-            </div>
-            <div class="info">
-              <p class="title">تاريخ الفاتورة</p>
-              <p class="dscrp">{{ formatDate(OrderData.CertificateDate) }}</p>
-            </div>
-          </div>
-          <div class="info_row">
-            <div class="info">
-              <p class="title">رقم الاجازة</p>
-              <p class="dscrp">{{ OrderData.RegNo }}</p>
-            </div>
-            <div class="info">
-              <p class="title">تاريخ انشاء الاجازة</p>
-              <p class="dscrp">{{ formatDate(OrderData.RegDate) }}</p>
-            </div>
-          </div>
-          <div class="info_row">
-            <div class="info">
-              <p class="title">تاريخ انتهاء الاجازة</p>
-              <p class="dscrp">{{ formatDate(OrderData.ExpDate) }}</p>
-            </div>
-          </div>
-        </div>
-      </fieldset>
-      <fieldset>
-        <legend>تفاصيل المادة</legend>
-        <div class="field_container">
-          <div class="info_row">
-            <div class="info">
-              <p class="title">تفاصيل الشحن</p>
-              <p class="dscrp">{{ OrderData.GenerationDscrp }}</p>
-            </div>
-            <div class="info">
-              <p class="title">المنتج وعنوانة كاملاً</p>
-              <p class="dscrp">{{ OrderData.ProductDscrp }}</p>
-            </div>
-          </div>
-          <div class="info_row">
-            <div class="info">
-              <p class="title">البلد المنشأ</p>
-              <p class="dscrp">{{ OrderData.SourceCountry }}</p>
-            </div>
-            <div class="info">
-              <p class="title">وصف السلع</p>
-              <p class="dscrp">{{ OrderData.DetailsDscrp }}</p>
-            </div>
-          </div>
-          <div class="info_row">
-            <div class="info">
-              <p class="title">نوع التعبئة</p>
-              <p class="dscrp">{{ OrderData.DetailsTypeDscrp }}</p>
-            </div>
-            <div class="info">
-              <p class="title">الكمية</p>
-              <p class="dscrp">{{ OrderData.Wigth + OrderData.WigthNum }}</p>
-            </div>
-          </div>
-          <div class="info_row">
-            <div class="info" style="width: 100%">
-              <p class="title">الملاحظات</p>
-              <p class="dscrp">{{ OrderData.Notes }}</p>
-            </div>
-          </div>
-        </div>
-      </fieldset>
-      <fieldset>
-        <legend>تفاصيل المستورد</legend>
-        <div class="field_container">
-          <div class="info_row">
-            <div class="info">
-              <p class="title">اسم المستورد</p>
-              <p class="dscrp">{{ OrderData.TargetName }}</p>
-            </div>
-            <div class="info">
-              <p class="title">عنوان المستورد</p>
-              <p class="dscrp">{{ OrderData.TargetAddress }}</p>
-            </div>
-          </div>
-        </div>
-      </fieldset>
-    </div>
+    </template>
   </div>
 </template>
 
@@ -160,13 +165,14 @@ export default {
       QRValue: "",
       TagerData: {},
       OrderData: [],
+      isLoading: true,
     };
   },
   components: {
     QrecodeVue,
   },
   created() {
-    this.getTagerData();
+    // this.getTagerData();
     this.getOrderData();
   },
   methods: {
@@ -174,18 +180,19 @@ export default {
       if (!date) return ""; // Handle null or undefined dates
       return format(new Date(date), "dd/MM/yyyy");
     },
-    async getTagerData() {
+    async getTagerData(lang) {
       try {
         const response = await axiosInstance.get(
           "/Certifecate/get-Tajer-Data",
           {
             headers: {
               Authorization: `Bearer ${localStorage.getItem("Token")}`,
-              "Accept-Language": "A",
+              "Accept-Language": lang,
             },
           }
         );
         this.TagerData = response.data;
+        this.isLoading = false;
       } catch (error) {
         console.log(error);
       }
@@ -203,6 +210,10 @@ export default {
           }
         );
 
+        const lang = response.data.Data[0].Lang || "A";
+        this.AcceptLanguage = lang;
+        await this.getTagerData(lang);
+
         this.OrderData = response.data.Data[0];
         this.QRValue = `${appSetting.QrUrl.replace(
           /\/$/,
@@ -210,6 +221,8 @@ export default {
         )}/showorder/${OrderId}`;
       } catch (error) {
         console.log(error);
+      } finally {
+        this.isLoading = false;
       }
     },
   },
@@ -221,12 +234,31 @@ export default {
   padding: 0;
   margin: 0;
   box-sizing: border-box;
-  font-family: "Times New Roman", Times, serif;
+  /* font-family: "Times New Roman", Times, serif; */
 }
 
 .show_container {
   width: 100%;
   padding: 35px;
+}
+
+.loading {
+  font-size: 120px;
+  font-weight: bold;
+  color: red;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: calc(100vh - 300px);
+}
+
+.show_container .head_part {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 35px;
 }
 
 .show_container .head_part {
@@ -327,7 +359,19 @@ fieldset .field_container {
 .qr_desktop {
   display: block;
 }
+.loading {
+  text-align: center;
+  font-size: 20px;
+  font-weight: bold;
+  color: red;
+}
 
+.show_container .head_part {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 35px;
+}
 @media (max-width: 768px) {
   .qr_mobile {
     display: block;

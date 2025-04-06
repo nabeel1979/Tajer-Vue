@@ -90,7 +90,7 @@
         </div>
       </div>
       <div class="items">
-        <img src="../assets/Image/testimg.jpg" alt="img" />
+        <!-- <img src="../assets/Image/testimg.jpg" alt="img" />wwww -->
 
         <span class="logout_btn">
           <router-link @click="signOut" to="/login"

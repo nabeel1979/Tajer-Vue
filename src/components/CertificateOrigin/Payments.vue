@@ -52,6 +52,7 @@ export default {
       required: true,
     },
   },
+
   data() {
     return {
       height: 700,
@@ -74,9 +75,8 @@ export default {
       );
 
       setTimeout(() => {
-        window.open(this.iframeSrc, '_blank')
-      }
-      , 4000)
+        window.open(this.iframeSrc, "_blank");
+      }, 4000);
 
       setTimeout(() => {
         this.$router.push("/");
@@ -145,7 +145,7 @@ fieldset .data_container {
   animation: spin 1s linear infinite;
 }
 
-.form_container h3{
+.form_container h3 {
   font-size: 24px;
   text-align: center;
 }
@@ -156,7 +156,7 @@ fieldset .data_container {
   }
 }
 
-.form_container .btn_wrapper{
+.form_container .btn_wrapper {
   text-align: center;
 }
 </style>

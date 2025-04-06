@@ -24,6 +24,7 @@
               type="number"
               maxlength="1"
               ref="otpInput"
+              dir="ltr"
             />
           </div>
           <div class="resend_time" v-if="timeLeft">
@@ -86,7 +87,7 @@ export default {
       handler(newValues) {
         this.otpCombined = newValues.join("");
         if (this.otpCombined.length === this.OtpLength) {
-          this.submitOtp(); // تحقق تلقائي عند اكتمال الكود
+          this.submitOtp();
         }
       },
       deep: true,
@@ -110,19 +111,7 @@ export default {
           this.$emit("close");
         }
       } catch (error) {
-        if (error.response && error.response.data) {
-          const errorMessage = error.response.data.Message;
-
-          if (errorMessage === "User not found") {
-            toast.error("البريد الإلكتروني الذي أدخلته غير مرتبط بحساب");
-          } else if (errorMessage === "Wrong Code") {
-            toast.error("الرمز الذي أدخلته غير صحيح، يرجى المحاولة مرة أخرى");
-          } else {
-            toast.error("الرمز غير صحيح يرجئ المحاول مره اخرئ");
-          }
-        } else {
-          toast.error("تعذر الاتصال بالخادم، يرجى التحقق من الإنترنت");
-        }
+        toast.error("الرمز غير صحيح يرجئ المحاولة مرة أخرى");
       }
     },
     closeAll() {
@@ -163,16 +152,12 @@ export default {
     },
     async resendCode() {
       try {
-        const response = await axiosInstance.post("/auth/resend-code", {
+        await axiosInstance.post("/auth/resend-code", {
           azbaraNumber: this.email,
         });
-        if (response.data) {
-          this.timeLeft = 60;
-          this.startTimer();
-          toast.success(
-            "تم إعادة إرسال رمز التحقق، يرجى التحقق من البريد الإلكتروني"
-          );
-        }
+        this.timeLeft = 60;
+        this.startTimer();
+        toast.success("تم إعادة إرسال رمز التحقق");
       } catch (error) {
         console.log(error);
       }
@@ -185,7 +170,6 @@ export default {
   },
 };
 </script>
-
 <style scoped>
 .modal {
   display: flex;
@@ -199,6 +183,17 @@ export default {
   height: 100%;
   background-color: rgba(0, 0, 0, 0.4);
   text-align: center;
+}
+
+.otp_section .input_wrapper {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: center;
+  gap: 0.5em;
+}
+.otp_section input {
+  text-align: center;
+  direction: ltr;
 }
 
 .modal-content {

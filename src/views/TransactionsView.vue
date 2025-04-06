@@ -2,7 +2,9 @@
   <div class="container_origin">
     <h1>طلبات المعاملات</h1>
     <div class="table_container">
-      <h5 v-if="TransactionsData.length === 0" style="text-align: center;">لا توجد معاملات مسجلة حالياً</h5>
+      <h5 v-if="TransactionsData.length === 0" style="text-align: center">
+        لا توجد معاملات مسجلة حالياً
+      </h5>
       <table v-else>
         <thead>
           <th>NO.</th>
@@ -60,10 +62,9 @@
   </div>
 </template>
 
-
 <script>
 import OriginCertificateCard from "../components/Transactions/OriginCertificateCard.vue";
-import {axiosInstance} from "../axios";
+import { axiosInstance } from "../axios";
 
 export default {
   components: {
@@ -84,11 +85,14 @@ export default {
   methods: {
     async GetTransactions(page = 1) {
       try {
-        const response = await axiosInstance.get(`/Certifecate/get-Certifecate-List?PageNumber=${page}&PageSize=${this.PageSize}`, {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("Token")}`,
-          },
-        });
+        const response = await axiosInstance.get(
+          `/Certifecate/get-Certifecate-List?PageNumber=${page}&PageSize=${this.PageSize}`,
+          {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("Token")}`,
+            },
+          }
+        );
 
         this.TransactionsData = response.data.Data;
         this.CurrentPage = response.data.CurrentPage;
@@ -103,7 +107,7 @@ export default {
       }
     },
     calculateIndex(index) {
-      return (this.CurrentPage -1) * this.PageSize + (index);
+      return (this.CurrentPage - 1) * this.PageSize + index;
     },
   },
   computed: {
@@ -113,9 +117,6 @@ export default {
   },
 };
 </script>
-
-
-
 
 <style scoped>
 .container_origin {
@@ -130,7 +131,6 @@ export default {
 
 .container_origin .table_container {
   width: 100%;
-  height: 795px;
   overflow-x: auto;
 }
 

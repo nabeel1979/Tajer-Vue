@@ -1,8 +1,8 @@
 <template>
   <div ref="gaugeChart" class="chart_wrapper"></div>
 </template>
-  
-  <script>
+
+<script>
 import * as echarts from "echarts";
 
 export default {
@@ -24,6 +24,7 @@ export default {
   mounted() {
     this.initChart();
   },
+
   methods: {
     getColorByStatus() {
       switch (this.status) {
@@ -100,12 +101,12 @@ export default {
 </script>
 
 <style scoped>
-  .chart_wrapper{
-    width: 100%;
-    height: 200px;
-  }
+.chart_wrapper {
+  width: 100%;
+  height: 200px;
+}
 
-  .chart_wrapper div{
-    margin: auto;
-  }
+.chart_wrapper div {
+  margin: auto;
+}
 </style>

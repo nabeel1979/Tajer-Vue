@@ -22,10 +22,24 @@
           v-model="CountryID"
           :options="CountriesList"
           :custom-label="countryLabel"
-          :placeholder="language === 'A' ? 'اختر' : 'Choice'"
           track-by="id"
           :searchable="true"
           :allow-empty="true"
+          aria-required="true"
+        />
+      </div>
+      <div class="input_wrap">
+        <label for="origin_activity">
+          {{ language === "A" ? "محطة الوقوف" : "Stop station" }}
+        </label>
+        <multiselect
+          v-model="CountryID"
+          :options="CountriesList"
+          :custom-label="countryLabel"
+          track-by="id"
+          :searchable="true"
+          :allow-empty="true"
+          aria-required="true"
         />
       </div>
       <div class="input_wrap">
@@ -81,7 +95,7 @@ export default {
       isLoading: false,
       CountriesList: [],
       CountryID: this.formData.CountryID || null, // استخدام كائن الدولة بالكامل
-      selectedCountryName: "", // تخزين اسم الدولة المختارة
+      selectedCountryName: "", //تخزين اسم الدولة المختارة
     };
   },
   created() {
@@ -123,8 +137,12 @@ export default {
       }
       if (!this.CountryID) {
         toast.error("الرجاء اختيار البلد المستورد");
+        toast.error(this.countryID === undefined);
+        toast.error(this.countryID === "");
+        console.log(this.countryID);
         return;
       }
+      console.log(this.selectedCountryName);
 
       this.isLoading = true;
 

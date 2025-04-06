@@ -93,12 +93,31 @@ export default {
       ErrorMessage: "",
       Token: "",
       loading: false, // ✅ حالة اللودينج
+      emailClass: "", // ✅ تخزين الكلاس هنا بدلاً من computed
+      PassClass: "", // ✅ تخزين كلاس كلمة المرور
     };
   },
   setup() {
     const router = useRouter();
     return { router };
   },
+
+  watch: {
+    ErrorMessage(newValue) {
+      if (newValue === "User not found") {
+        this.emailClass = "wrong";
+        toast.error("رقم الصنف غير موجود، يرجى التحقق وإعادة المحاولة.");
+      } else {
+        this.emailClass = "";
+      }
+
+      if (newValue === "Wrong password") {
+        this.PassClass = "wrong";
+        toast.error("كلمة المرور غير صحيحة، حاول مرة أخرى.");
+      }
+    },
+  },
+
   computed: {
     passwordFieldType() {
       return this.showPassword ? "text" : "password";
@@ -106,17 +125,12 @@ export default {
     passwordFieldIcon() {
       return this.showPassword ? "eye" : "eye-slash";
     },
-    emailClass() {
-      return this.ErrorMessage === "User not found" ? "wrong" : "";
-    },
-    PassClass() {
-      return this.ErrorMessage === "Wrong password" ? "wrong" : "";
-    },
   },
   methods: {
     togglePasswordVisibility() {
       this.showPassword = !this.showPassword;
     },
+
     validateAzparaNum() {
       if (/[٠-٩]/.test(this.azparaNum)) {
         toast.error(
@@ -125,9 +139,20 @@ export default {
       }
       this.azparaNum = this.azparaNum.replace(/[^ء-ي0-9\s]/g, "");
     },
+
     async login() {
-      this.loading = true; // ✅ بدء اللودينج
+      this.loading = true;
       this.ErrorMessage = "";
+
+      // ✅ **التحقق من طول كلمة المرور فقط عند الضغط على زر تسجيل الدخول**
+      if (this.password.length < 8) {
+        this.PassClass = "wrong";
+        toast.error("كلمة المرور يجب أن تكون 8 أحرف على الأقل.");
+        this.loading = false;
+        return; // ❌ لا تتابع تنفيذ الطلب إذا كانت كلمة المرور قصيرة
+      } else {
+        this.PassClass = ""; // ✅ إزالة الإطار الأحمر إذا كان صحيحًا
+      }
 
       try {
         const response = await axiosInstance.post("/auth/login", {
@@ -154,7 +179,7 @@ export default {
           toast.error("حدث خطأ قم بمراجعة المصدر أو السيرفر");
         }
       } finally {
-        this.loading = false; // ✅ إيقاف اللودينج بعد الانتهاء
+        this.loading = false;
       }
     },
   },

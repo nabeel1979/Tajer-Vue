@@ -199,7 +199,7 @@ export default {
     async getData() {
       const OrderNO = this.$route.params.orderNumber;
       this.OrderNo = OrderNO;
-      this.QRValue = `${appSetting.QrUrl}/orderinvoice/${OrderNO} `;
+      this.QRValue = `${appSetting.QrUrl}orderinvoice/${OrderNO} `;
       try {
         const response = await axiosInstance.get(
           `/Certifecate/get-Certifecate-Details?orderNumber=${OrderNO}`

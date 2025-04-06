@@ -225,7 +225,7 @@
         <hr />
         <div class="data_row">
           <p class="data_col">
-            {{ language === "A" ? "المجموع ::" : "Total ::" }}
+            {{ language === "A" ? "المجموع :" : "Total :" }}
           </p>
           <p class="data_col">
             <span>{{ PriceData.TotalAmount }}</span>

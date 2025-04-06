@@ -130,12 +130,12 @@
               <p>6. Marks and numbers of packages</p>
             </div>
             <div class="cell_6">
-              <div style="height: 50%;">
+              <div style="height: 50%">
                 <p>7. Number and kind of packages : description of goods.</p>
                 <p class="info_data">{{ DetailsDscrp }}</p>
               </div>
-              <div style="border-top: 1px solid #000;">
-                <p> Notes :</p>
+              <div style="border-top: 1px solid #000">
+                <p>Notes :</p>
                 <p class="info_data">{{ Notes }}</p>
               </div>
             </div>
@@ -146,6 +146,9 @@
             <div class="cell_1">
               <p>9. Gross weight or other quantity</p>
               <p class="info_data">{{ DetailsTypeDscrp }}</p>
+
+              <p>Wigth Details</p>
+              <p class="info_data"></p>
             </div>
             <div class="cell_1_last">
               <p>10. Number and date of invoices</p>
@@ -196,8 +199,8 @@
   </main>
   <footer></footer>
 </template>
-    
-    <script>
+
+<script>
 import { axiosInstance } from "../axios";
 import dayjs from "dayjs";
 
@@ -224,7 +227,7 @@ export default {
       DetailsTypeDscrp: "",
       CertificateNo: "",
       CertificateDate: "",
-      Notes:""
+      Notes: "",
     };
   },
   created() {

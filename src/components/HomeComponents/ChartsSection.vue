@@ -35,14 +35,14 @@
         <p>معلقة</p>
       </div>
     </div>
-    <div class="books_sending">
+    <div class="books_sending" v-if="BooksCounter !== 0">
       <p>عدد الكتب المصدرة</p>
       <h2>{{ BooksCounter }}</h2>
     </div>
   </div>
 </template>
-  
-  <script>
+
+<script>
 import { axiosInstance } from "../../axios";
 import GaugeChart from "./GaugeChart.vue";
 
@@ -78,7 +78,8 @@ export default {
         this.PendingCounter = path.PendingCount;
         this.SuspendedCounter = path.SuspendedCount;
         this.CertificatesCounter = path.CertificatesCount;
-        this.BooksCounter = response.data.BooksCount === 0 ? 0 : response.data.BooksCount;
+        this.BooksCounter =
+          response.data.BooksCount === 0 ? 0 : response.data.BooksCount;
       } catch (error) {
         console.log(error);
       }

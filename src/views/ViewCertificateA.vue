@@ -156,6 +156,9 @@
                 الخ.....)
               </p>
               <p class="info_data">{{ BookInfo.Wigth }}</p>
+
+              <p><span></span> تفاصيل الوزن ,</p>
+              <p class="info_data"></p>
             </div>
             <div class="left_cell_2">
               <div>

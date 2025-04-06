@@ -139,10 +139,23 @@
             type="number"
             name="Weight number"
             class="input"
-            required
             v-model="Weight"
+            required
           />
         </div>
+      </div>
+      <div class="input_wrap">
+        <label for="origin_activity">{{
+          language === "A" ? "تفاصيل الوزن" : "Weight Details"
+        }}</label>
+        <input
+          type="text"
+          name="Notes"
+          class="input"
+          required
+          multiple
+          v-model="Notes"
+        />
       </div>
       <div class="input_wrap">
         <label for="origin_activity">{{
@@ -187,7 +200,7 @@ export default {
   },
   data() {
     return {
-      height: 900,
+      height: 950,
       language: this.Language,
       ShippingDetails: this.formData.GenerationDscrp || "",
       ShippingDetailsList: "",
@@ -242,8 +255,8 @@ export default {
         toast.error("يرجى ملئ نوع كميته");
         return;
       }
-      if (!this.Weight && !this.QuantityType) {
-        toast.error("يرجى ملئ الوزن ونوع كميته");
+      if (!this.Weight) {
+        toast.error("يرجى ملئ الوزن القائم");
         return;
       }
 
@@ -281,6 +294,7 @@ export default {
             },
           }
         );
+        console.log(response.data);
         this.ShippingDetailsList = response.data.GenerationTypes;
         this.ProductAddressList = response.data.ProductTypes;
         this.QuantityTypeList = response.data.StockUnits;
