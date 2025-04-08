@@ -14,34 +14,47 @@
           v-model="importerName"
         />
       </div>
+
       <div class="input_wrap">
         <label for="origin_activity">
           {{ language === "A" ? "البلد المستورد" : "Importing country" }}
         </label>
-        <multiselect
-          v-model="CountryID"
-          :options="CountriesList"
-          :custom-label="countryLabel"
-          track-by="id"
-          :searchable="true"
-          :allow-empty="true"
+        <input
+          list="countries"
+          v-model="CountryName"
           aria-required="true"
+          class="input"
+          required
+          @input="updateCountryID"
         />
+        <datalist id="countries">
+          <option
+            v-for="country in CountriesList"
+            :key="country.id"
+            :value="language === 'A' ? country.DscrpA : country.DscrpE"
+          />
+        </datalist>
       </div>
-      <div class="input_wrap">
+
+      <!-- <div class="input_wrap">
         <label for="origin_activity">
           {{ language === "A" ? "محطة الوقوف" : "Stop station" }}
         </label>
-        <multiselect
-          v-model="CountryID"
-          :options="CountriesList"
-          :custom-label="countryLabel"
-          track-by="id"
-          :searchable="true"
-          :allow-empty="true"
+        <input
+          list="stations"
+          v-model="StopStation"
+          class="input"
           aria-required="true"
         />
-      </div>
+        <datalist id="stations">
+          <option
+            v-for="station in CountriesList"
+            :key="station.id"
+            :value="language === 'A' ? station.DscrpA : station.DscrpE"
+          />
+        </datalist>
+      </div> -->
+
       <div class="input_wrap">
         <label for="origin_activity">{{
           language === "A" ? "عنوان المستورد" : "Importer Address"
@@ -67,16 +80,12 @@
 </template>
 
 <script>
-import Multiselect from "vue-multiselect";
 import { axiosInstance } from "../../axios";
 import { toast } from "vue3-toastify";
 import "vue3-toastify/dist/index.css";
 
 export default {
   name: "ImporterDetails",
-  components: {
-    Multiselect,
-  },
   props: {
     Language: {
       type: String,
@@ -94,38 +103,29 @@ export default {
       importerAddress: this.formData.TargetAddress || "",
       isLoading: false,
       CountriesList: [],
-      CountryID: this.formData.CountryID || null, // استخدام كائن الدولة بالكامل
-      selectedCountryName: "", //تخزين اسم الدولة المختارة
+      CountryID: this.formData.CountryID || "",
+      CountryName: this.formData.CountryName || "",
+      // StopStation: this.formData.StopStation || "", // تغيير إلى قيمة نصية
     };
   },
+
   created() {
     this.GetParams();
     this.$emit("height", this.height);
   },
-  computed: {
-    countryLabel() {
-      return (country) => {
-        if (country && country.DscrpA && country.DscrpE) {
-          return this.language === "A" ? country.DscrpA : country.DscrpE;
-        }
-        return this.language === "A" ? "غير موجود" : "Not Available";
-      };
-    },
-  },
-  watch: {
-    CountryID(newCountry) {
-      if (newCountry) {
-        this.selectedCountryName =
-          this.language === "A" ? newCountry.DscrpA : newCountry.DscrpE;
-        console.log("تم تحديث اسم الدولة:", this.selectedCountryName);
-        this.$emit("country-name", this.selectedCountryName);
+
+  methods: {
+    updateCountryID() {
+      const selectedCountry = this.CountriesList.find(
+        (country) =>
+          (this.language === "A" ? country.DscrpA : country.DscrpE) ===
+          this.CountryName
+      );
+      if (selectedCountry) {
+        this.CountryID = selectedCountry.id;
       }
     },
-  },
-  methods: {
-    getCountryLabel(country) {
-      return this.language === "A" ? country.DscrpA : country.DscrpE;
-    },
+
     validateAndNext() {
       if (!this.importerName) {
         toast.error("اسم المستورد مطلوب");
@@ -137,26 +137,25 @@ export default {
       }
       if (!this.CountryID) {
         toast.error("الرجاء اختيار البلد المستورد");
-        toast.error(this.countryID === undefined);
-        toast.error(this.countryID === "");
-        console.log(this.countryID);
         return;
       }
-      console.log(this.selectedCountryName);
 
       this.isLoading = true;
-
       this.$emit("importer-info", {
         TargetName: this.importerName,
         TargetAddress: this.importerAddress,
-        CountryID: this.CountryID.id, // تمرير ID الدولة فقط
+        CountryID: this.CountryID,
+        CountryName: this.CountryName,
       });
 
-      this.$emit("country-name", this.selectedCountryName);
+      console.log("name", this.CountryName);
+      console.log("id", this.CountryID);
 
+      this.$emit("country-name", this.CountryName);
       this.isLoading = false;
       this.$emit("next-step");
     },
+
     async GetParams() {
       try {
         const response = await axiosInstance.get(
@@ -169,7 +168,6 @@ export default {
           }
         );
         this.CountriesList = response.data.Countries;
-        console.log("تم تحميل قائمة الدول:", this.CountriesList);
       } catch (error) {
         console.error(error);
       }
@@ -217,5 +215,31 @@ export default {
 
 .vue-multiselect .multiselect__clear {
   color: #3498db;
+}
+
+input[type="text"] {
+  width: 100%;
+  padding: 10px;
+  font-size: 14px;
+  border: 2px solid var(--secondary);
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+input[list] {
+  width: 100%;
+  padding: 10px;
+  font-size: 14px;
+  border: 2px solid var(--secondary);
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+datalist {
+  width: 100%;
+}
+
+.datalist-option {
+  font-size: 14px;
 }
 </style>

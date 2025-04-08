@@ -1,7 +1,7 @@
 <template>
   <div class="show_container">
     <div v-if="isLoading" class="loading">
-      <h1>جاري التحميل...</h1>
+      <h1>جاري التحميل.</h1>
     </div>
     <template v-else>
       <div class="head_part">
@@ -12,13 +12,13 @@
         </div>
         <div class="image_part">
           <img src="../../assets/Image/logo.png" alt="logo" />
-          <QrecodeVue
+          <!-- <QrecodeVue
             v-if="QRValue"
             :value="QRValue"
             level="Q"
             size="75"
             class="qr_desktop"
-          />
+          /> -->
         </div>
         <div class="left">
           <p class="important">{{ OrderData.OrderNo }}</p>

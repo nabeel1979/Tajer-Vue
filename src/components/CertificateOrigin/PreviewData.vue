@@ -289,7 +289,7 @@ export default {
       type: Boolean,
     },
     itemClassName: {
-      type: String,
+      type: [String, Object],
       required: true,
     },
     CountryName: {

@@ -86,13 +86,13 @@
         <!-- Form 5 -->
         <div v-if="currentStep === 5" class="form_4 data_info">
           <ImporterDetails
-            @country-name="setCountry"
             :formData="formData"
+            :Language="formData.Lang"
+            @country-name="setCountry"
+            @importer-info="setImporterDetails"
             @height="setHeight"
             @prev-step="goToStep(4)"
             @next-step="goToStep(6)"
-            @importer-info="setImporterDetails"
-            :Language="formData.Lang"
           />
         </div>
 
@@ -179,14 +179,18 @@ export default {
     setItemClass(itemClass) {
       this.ItemsClassName = itemClass;
     },
+
     setCountry(country) {
       console.log("Received country in setCountry:", country); // هذا سيعرض إذا كانت القيمة صحيحة
       this.CountryName = country;
+      this.formData.CountryName = country;
       console.log("CountryName after assignment:", this.CountryName); // هذا سيعرض القيمة بعد تعيينها
     },
+
     setHeight(height) {
       this.PageHeight = height;
     },
+
     setShipmentInfo(shipmentInfo) {
       this.formData.CertificateNo = shipmentInfo.CertificateNo;
       this.formData.CertificateDate = shipmentInfo.CertificateDate;
@@ -194,6 +198,7 @@ export default {
       this.formData.RegDate = shipmentInfo.RegDate;
       this.formData.ExpDate = shipmentInfo.ExpDate;
     },
+
     setSubjectDetails(subjectDetails) {
       this.formData.GenerationDscrp = subjectDetails.GenerationDscrp;
       this.formData.ProductDscrp = subjectDetails.ProductDscrp;
@@ -205,12 +210,17 @@ export default {
       this.formData.ServiceId = subjectDetails.ServiceId;
       this.formData.ItemsClassID = subjectDetails.ItemsClassID;
     },
+
     setImporterDetails(importerDetails) {
       this.formData.TargetName = importerDetails.TargetName;
       this.formData.TargetAddress = importerDetails.TargetAddress;
       this.formData.CountryID = importerDetails.CountryID;
-      this.formData.CountryName = this.CountryName; // Update formData with CountryName
+      console.log(this.formData.CountryID);
+      console.log(importerDetails.CountryID);
+      this.formData.CountryName = this.CountryName;
+      console.log(this.formData.CountryName);
     },
+
     async submitData() {
       this.loading = true;
       try {
